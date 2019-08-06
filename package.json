@@ -1,0 +1,33 @@
+{
+  "name": "legaci",
+  "version": "1.0.0",
+  "description": "Legacy Games Commandline installer",
+  "main": "lib/index.js",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/richardregeer/legaci.git"
+  },
+  "author": "Richard Regeer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/richardregeer/legaci/issues"
+  },
+  "homepage": "https://github.com/richardregeer/legaci#readme",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "commander": "^2.20.0",
+    "shelljs": "^0.8.3"
+  },
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.2"
+  }
+}
