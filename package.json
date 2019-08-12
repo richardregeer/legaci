@@ -2,11 +2,11 @@
   "name": "legaci",
   "version": "1.0.0",
   "description": "Legacy Games Commandline installer",
-  "main": "lib/index.js",
   "directories": {
     "doc": "docs",
     "lib": "lib"
   },
+  "bin": "./bin/legaci.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
