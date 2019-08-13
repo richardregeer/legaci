@@ -1,5 +1,5 @@
 # First MVP Goals
--   [ ] Able to install Tyrian 2000 GOG.com windows version on Linux
+-   [x] Able to install Tyrian 2000 GOG.com windows version on Linux
     -   [x] Create a working config file.
     -   [x] Install the game by using wine.
     -   [x] Able to run to game in native Dosbox.
@@ -14,14 +14,16 @@
     -   [X] Validate source / destinatiion path
     -   [X] Show howto start to dosbox game
     -   [X] Stop installation if not a Dosbox game
-    -   [ ] Able to install Tyrian 2000 GOG.com windows version on MaCOS 
+    -   [X] Able to install Tyrian 2000 GOG.com windows version on MaCOS 
 
-# Fase 1.2: Make the MVP something solid
+# Fase 1.1: Make the MVP something solid
 -   [ ] Dev and CI environments
     -   [ ] Add linter
     -   [ ] Add environment setup
     -   [ ] Add tests
     -   [ ] Documentation
+    -   [ ] Add docker image
+    -   [ ] Able to run Wine headless
 -   [ ] Refactor code structure to someting more solid
 -   [ ] Make sure temp directory is always removed.
 -   [ ] Error handling when shelljs or exec commands fails
@@ -29,6 +31,7 @@
 -   [ ] Support custom startup menu / add a legaci default menu
 -   [ ] Add out of the box general midi support
 -   [ ] Cleanup messages and colors
+-   [ ] Start installed game
 
 # Fase 2 Goals
 -   [ ] Replace path in _single file with "." instead full absolute path (Make this an option) 
@@ -46,3 +49,6 @@
 -   [ ] Able to install ScummVM games from GOG.Com
 -   [ ] Show howto start to Scummvm game
 -   [ ] Able to install Linux Dosbox games from GOG.com
+-   [ ] List games installed
+-   [ ] Remove installed games
+-   [ ] Start installed games
