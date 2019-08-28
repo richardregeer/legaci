@@ -22,8 +22,7 @@ test('WriteFile should write to file on the given path', (t) => {
   const { fileHandler } = t.context;
 
   fileHandler.writeFileSync(
-    'write-file.txt',
-    shell.pwd() + '/.test',
+    shell.pwd() + '/.test/write-file.txt',
     'some test data'
   );
 
@@ -37,8 +36,7 @@ test('WriteFile create the destination directory when it does not exists', (t) =
   const { fileHandler } = t.context;
 
   fileHandler.writeFileSync(
-    'write-file.txt',
-    shell.pwd() + '/.test/write-destination',
+    shell.pwd() + '/.test/write-destination/write-file.txt',
     'some test data'
   );
 
@@ -52,9 +50,8 @@ test('CopyFile should copy a file from source to the given destination', (t) => 
   const { fileHandler } = t.context;
 
   fileHandler.copyFileSync(
-    'source-file.txt',
-    shell.pwd() + '/.test',
-    shell.pwd() + '/test/new-destination'
+    shell.pwd() + '/.test/source-file.txt',
+    shell.pwd() + '/.test/new-destination/unknowfile.txt'
   );
 
   const result = shell.find('./test/new-destination/source-file.txt');
@@ -67,9 +64,8 @@ test('CopyFile should raise an error when the source file does not exists', (t) 
 
   t.throws(() => {
     fileHandler.copyFileSync(
-      'unknowfile.txt',
-      shell.pwd() + '/.test',
-      shell.pwd() + '/test/new-destination'
+      shell.pwd() + '/.test/unknowfile.txt',
+      shell.pwd() + '/.test/new-destination/unknowfile.txt'
     );
   }, Error);
 });
@@ -78,9 +74,8 @@ test('CopyFile should create the destination directory when it does not exists',
   const { fileHandler } = t.context;
 
   fileHandler.copyFileSync(
-    'source-file.txt',
-    shell.pwd() + '/.test',
-    shell.pwd() + '/test/other/destination'
+    shell.pwd() + '/.test/source-file.txt',
+    shell.pwd() + '/.test/other/destination/unknowfile.txt'
   );
 
   const result = shell.find('./test/other/destination/source-file.txt');
@@ -92,8 +87,7 @@ test('Readfile should return the content of the file', (t) => {
   const { fileHandler } = t.context;
 
   const result = fileHandler.readFileSync(
-    'read-file.txt',
-    shell.pwd() + '/.test'
+    shell.pwd() + '/.test/read-file.txt'
   );
 
   t.is(result, 'Some test data\n');
@@ -104,8 +98,7 @@ test('ReadFile should raise an error when the file does not exists', (t) => {
 
   t.throws(() => {
     fileHandler.readFileSync(
-      'unknowfile.txt',
-      shell.pwd() + '/.test'
+      shell.pwd() + '/.test/unknowfile.txt'
     );
   }, Error);
 });

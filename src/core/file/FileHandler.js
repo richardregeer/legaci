@@ -1,45 +1,43 @@
 'use strict';
 
 const fs = require('fs');
+const path = require('path');
 
 class FileHandler {
-  writeFileSync(fileName, path, contents) {
-    const fullPath = this._getFullPath(fileName, path);
+  writeFileSync(fullFileName, contents) {
+    const dirName = path.dirname(fullFileName);
 
-    if (!fs.existsSync(path)) {
-      fs.mkdirSync(path, { recursive: true });
+    if (!fs.existsSync(dirName)) {
+      fs.mkdirSync(dirName, { recursive: true });
     }
 
-    fs.writeFileSync(fullPath, contents);
+    fs.writeFileSync(fullFileName, contents);
   }
 
-  copyFileSync(fileName, source, destination) {
-    const fullSourcePath = this._getFullPath(fileName, source);
-    const fullDestinationPath = this._getFullPath(fileName, destination);
+  copyFileSync(fullSource, fullDestination) {
+    const sourceDirName = path.dirname(fullSource);
+    const destinationDirName = path.dirname(fullDestination);
+    const fileName = path.basename(fullSource);
 
-    if (!fs.existsSync(fullSourcePath)) {
-      throw new Error(`Unable to copy file ${fileName} from ${source}, it does not exists`);
+    if (!fs.existsSync(fullSource)) {
+      throw new Error(`Unable to copy file ${fileName} from ${sourceDirName}, it does not exists`);
     }
 
-    if (!fs.existsSync(destination)) {
-      fs.mkdirSync(destination, { recursive: true });
+    if (!fs.existsSync(destinationDirName)) {
+      fs.mkdirSync(destinationDirName, { recursive: true });
     }
 
-    fs.copyFileSync(fullSourcePath, fullDestinationPath);
+    fs.copyFileSync(fullSource, fullDestination);
   }
 
-  readFileSync(fileName, path) {
-    const fullPath = this._getFullPath(fileName, path);
+  readFileSync(fullFileName) {
+    const fileName = path.basename(fullFileName);
 
-    if (!fs.existsSync(fullPath)) {
+    if (!fs.existsSync(fullFileName)) {
       throw new Error(`File ${fileName} does not exsists`);
     }
 
-    return fs.readFileSync(this._getFullPath(fileName, path)).toString();
-  }
-
-  _getFullPath(fileName, path) {
-    return `${path.trim('/')}/${fileName}`;
+    return fs.readFileSync(fullFileName).toString();
   }
 }
 
