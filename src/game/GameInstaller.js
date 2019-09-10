@@ -1,6 +1,5 @@
 'use strict';
 
-const shell = require('shelljs');
 const extractorTypes = require('../extractor/extractorTypes');
 const configurationTypes = require('../configuration/configurationTypes');
 
@@ -18,11 +17,17 @@ class GameInstaller {
     const extractor = this._extractorFactory.createExtractor(extractorTypes.WINE);
     extractor.extract(fullFileName, fullDestination);
 
-    let configuration = this.configurationFactory.createConfiguration(configurationTypes.DOSBOX_CONFIGURATION);
+    // Validate game package type
+
+    // If not GOG then installer is not supported now and exit
+
+    let configuration = this._configurationFactory.createConfiguration(configurationTypes.DOSBOX_CONFIGURATION);
+    configuration.saveConfiguration(fullDestination, './etc/dosbox/dosbox.template.conf');
+
+    configuration = this._configurationFactory.createConfiguration(configurationTypes.DOSBOX_RUN_CONFIGURATION);
     configuration.saveConfiguration(fullDestination);
 
-    configuration = this.configurationFactory.createConfiguration(configurationTypes.DOSBOX_RUN_CONFIGURATION);
-    configuration.saveConfiguration(fullDestination);
+    // TODO cleanup after install
   }
 }
 

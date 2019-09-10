@@ -16,7 +16,7 @@
     -   [X] Stop installation if not a Dosbox game
     -   [X] Able to install Tyrian 2000 GOG.com windows version on MaCOS 
 
-# Fase 1.1: Make the MVP something solid
+# Fase 1: Make MVP solid
 -   [ ] Dev and CI environments
     -   [ ] Add linter
     -   [ ] Add environment setup
@@ -25,30 +25,22 @@
     -   [ ] Add docker image
     -   [ ] Able to run Wine headless
 -   [ ] Refactor code structure to someting more solid
--   [ ] Make sure temp directory is always removed.
--   [ ] Error handling when shelljs or exec commands fails
--   [ ] Support custom config file per game
--   [ ] Support custom startup menu / add a legaci default menu
--   [ ] Add out of the box general midi support
--   [ ] Cleanup messages and colors
--   [ ] Start installed game
-
-# Fase 2 Goals
--   [ ] Replace path in _single file with "." instead full absolute path (Make this an option) 
--   [ ] Able to install other windows Dosbox games from GOG.com
--   [ ] Make fullscreen dosbox setting optional
--   [ ] Able to add a Desktop shortcut
--   [ ] Able to add a Menu shortcut
--   [ ] Able to start to game from Lutris
--   [ ] Able to create a steam startup desktop file.
--   [ ] Check if dependencies are installed 
--   [ ] Install midi depencies if needed
--   [ ] Helper script to install dependencies.
-
-# Fase 3 Goals
--   [ ] Able to install ScummVM games from GOG.Com
--   [ ] Show howto start to Scummvm game
--   [ ] Able to install Linux Dosbox games from GOG.com
--   [ ] List games installed
--   [ ] Remove installed games
--   [ ] Start installed games
+    -   [x] Create configuration class
+    -   [x] Create Installer class
+    -   [x] Create Wine extractor class
+    -   [x] Create filehandler class
+    -   [ ] Create validate requirements class
+    -   [ ] Create packageType class
+    -   [ ] Add logger class
+    -   [ ] Add logging
+    -   [ ] Add tests for DosBoxConfiguration
+    -   [ ] Add tests for GOGDosBoxRunConfiguration
+    -   [ ] Add tests for GameInstaller
+    -   [ ] Add tests for PackageTypes
+-   [ ] documentation   
+    -   [ ] Add install setup
+    -   [ ] Add description
+    -   [ ] Add requirements
+-   [ ] Add innoextract support
+-   [ ] Use new script in binary
+-   [ ] Able to start installed game

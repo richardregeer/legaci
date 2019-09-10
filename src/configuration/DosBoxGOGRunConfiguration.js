@@ -8,10 +8,10 @@ const Configuration = require('./Configuration');
 const configType = require('./configurationTypes').DOSBOX_RUN_CONFIGURATION;
 
 class DosBoxRunConfiguration extends Configuration {
-  saveConfiguration(fullFileName) {
+  saveConfiguration(configurationPath) {
     // Try to find the GOG startup configuration
-    const result = shell.find(`${fullFileName}/*_single.conf`);
-    const destination = path.dirname(fullFileName);
+    const result = shell.find(`${configurationPath}/*_single.conf`);
+    const destination = path.dirname(configurationPath);
 
     if (result.length === 0) {
       throw new Error('No GOG Dosbox run configuration found');
@@ -25,10 +25,16 @@ class DosBoxRunConfiguration extends Configuration {
       startupConfig.forEach((line) => {
         let newLine = null;
 
-        newLine = this._replaceMountPath(line, destination);
-        newLine = this._replaceImageMountPath(line, destination);
-        newLine = this._replaceApplicationMenu(line);
-        newLine = this._replaceCloudSaves(line);
+        // First try to replace lines if needed
+        newLine = this._replaceMountPath(line, configurationPath)
+          || this._replaceImageMountPath(line, configurationPath)
+          || line;
+
+        // Check if the line needs to be added to the configuration
+        if (this._removeApplicationMenu(line)
+        || this._removeCloudSaves(line)) {
+          newLine = null;
+        }
 
         if (newLine !== null) {
           // Push only ASCII characters to new config.
@@ -41,7 +47,7 @@ class DosBoxRunConfiguration extends Configuration {
     }
 
     // TODO Add some logging
-    this.fileHandler.writeFileSync(`${destination}/legaci-start.conf`, newStartupConfig.join('\n'));
+    this._fileHandler.writeFileSync(`${configurationPath}/legaci-start.conf`, newStartupConfig.join('\n'));
   }
 
   _replaceMountPath(line, destination) {
@@ -49,15 +55,15 @@ class DosBoxRunConfiguration extends Configuration {
       return line.replace('".."', destination);
     }
 
-    return line;
+    return null;
   }
 
-  _replaceCloudSaves(line) {
+  _removeCloudSaves(line) {
     if (line.toLowerCase().indexOf('cloud_saves') > -1) {
-      return null;
+      return true;
     }
 
-    return line;
+    return false;
   }
 
   _replaceImageMountPath(line, destination) {
@@ -66,16 +72,16 @@ class DosBoxRunConfiguration extends Configuration {
       return newLine.replace('..\\', `${destination}/`);
     }
 
-    return line;
+    return null;
   }
 
-  _replaceApplicationMenu(line) {
+  _removeApplicationMenu(line) {
     if ((line.toLowerCase().indexOf('[1;') > -1)
         || (line.toLowerCase().indexOf('[0m') > -1)) {
-      return null;
+      return true;
     }
 
-    return line;
+    return false;
   }
 
   _correctFilenameCase(line, destination) {
