@@ -29,14 +29,15 @@
     -   [x] Create Installer class
     -   [x] Create Wine extractor class
     -   [x] Create filehandler class
-    -   [ ] Create validate requirements class
-    -   [ ] Create packageType class
+    -   [x] Create validate requirements class
+    -   [x] Create packageTypeResolver class
     -   [ ] Add logger class
     -   [ ] Add logging
     -   [ ] Add tests for DosBoxConfiguration
     -   [ ] Add tests for GOGDosBoxRunConfiguration
     -   [ ] Add tests for GameInstaller
-    -   [ ] Add tests for PackageTypes
+    -   [ ] Add integration test for PackageTypesResolver
+    -   [ ] Add integration test for SoftwareDepency check
 -   [ ] documentation   
     -   [ ] Add install setup
     -   [ ] Add description
