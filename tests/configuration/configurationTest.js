@@ -1,33 +1,35 @@
+/* eslint-disable no-param-reassign */
+
 'use strict';
 
 const test = require('ava');
 
-const ConfigurationFile = require('../../src/configuration/ConfigurationFile');
+const Configuration = require('../../src/configuration/Configuration');
 
 test.beforeEach((t) => {
   t.context.configurationFile = new Configuration('/tmp/testName', null);
 });
 
 test('Save configuration should throw an Error', (t) => {
-  const { configurationFile } = t.context;
+  const { configuration } = t.context;
 
   t.throws(() => {
-    configurationFile.saveConfiguration();
+    configuration.saveConfiguration();
   }, Error);
 });
 
 test('Load configuration should throw an Error', (t) => {
-  const { configurationFile } = t.context;
+  const { configuration } = t.context;
 
   t.throws(() => {
-    configurationFile.loadConfiguration();
+    configuration.loadConfiguration();
   }, Error);
 });
 
 test('Load configuration from template should throw an Error', (t) => {
-  const { configurationFile } = t.context;
+  const { configuration } = t.context;
 
   t.throws(() => {
-    configurationFile.loadConfigurationFromTemplate();
+    configuration.loadConfigurationFromTemplate();
   }, Error);
 });

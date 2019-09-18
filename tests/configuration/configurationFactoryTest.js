@@ -1,10 +1,12 @@
+/* eslint-disable no-param-reassign */
+
 'use strict';
 
 const test = require('ava');
 const sinon = require('sinon');
 
 const configurationTypes = require('../../src/configuration/configurationTypes');
-const logger = require('../../src/logging/logger');
+const logger = require('../../src/logging/Logger');
 const DosBoxConfiguration = require('../../src/configuration/DosBoxConfiguration');
 const DosBoxGOGRunConfiguration = require('../../src/configuration/DosBoxGOGRunConfiguration');
 

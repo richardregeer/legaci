@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 'use strict';
 
 const test = require('ava');
@@ -5,14 +7,12 @@ const sinon = require('sinon');
 const shell = require('shelljs');
 const fs = require('fs');
 
-const logger = require('../../src/logging/logger');
+const logger = require('../../src/logging/Logger');
 const WineExtractor = require('../../src/extractor/WineExtractor');
 
 test.beforeEach((t) => {
   sinon.reset();
   t.context.logger = sinon.createStubInstance(logger);
-  // t.context.cli = sinon.stub(shell, 'mv').callsFake(() => {});
-  // t.context.cli = sinon.stub(shell, 'exec').callsFake(() => {});
   t.context.cli = sinon.stub({
     mv() {},
     rm() {},

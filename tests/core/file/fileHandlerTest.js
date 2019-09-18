@@ -1,7 +1,8 @@
+/* eslint-disable no-param-reassign */
+
 'use strict';
 
 const test = require('ava');
-const fs = require('fs');
 const shell = require('shelljs');
 
 const FileHandler = require('../../../src/core/file/FileHandler');

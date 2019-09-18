@@ -9,7 +9,7 @@ class Extractor {
     this._cli = cli;
   }
 
-  extract(fullFileName, fullDestination) {
+  extract() {
     throw new Error('Please extend extract');
   }
 

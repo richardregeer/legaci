@@ -18,7 +18,7 @@
 
 # Fase 1: Make MVP solid
 -   [ ] Dev and CI environments
-    -   [ ] Add linter
+    -   [x] Add linter
     -   [ ] Add environment setup
     -   [ ] Add tests
     -   [ ] Documentation
@@ -31,8 +31,8 @@
     -   [x] Create filehandler class
     -   [x] Create validate requirements class
     -   [x] Create packageTypeResolver class
-    -   [ ] Add logger class
-    -   [ ] Add logging
+    -   [x] Add logger class
+    -   [x] Add logging
     -   [ ] Add tests for DosBoxConfiguration
     -   [ ] Add tests for GOGDosBoxRunConfiguration
     -   [ ] Add tests for GameInstaller

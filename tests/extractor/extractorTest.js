@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 'use strict';
 
 const test = require('ava');
@@ -5,7 +7,7 @@ const sinon = require('sinon');
 const shell = require('shelljs');
 const fs = require('fs');
 
-const logger = require('../../src/logging/logger');
+const logger = require('../../src/logging/Logger');
 const Extractor = require('../../src/extractor/Extractor');
 
 test.beforeEach((t) => {
