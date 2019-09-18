@@ -4,16 +4,16 @@ const test = require('ava');
 const sinon = require('sinon');
 
 const configurationTypes = require('../../src/configuration/configurationTypes');
-const LoggingEvents = require('../../src/logging/LoggingEvents');
+const logger = require('../../src/logging/logger');
 const DosBoxConfiguration = require('../../src/configuration/DosBoxConfiguration');
 const DosBoxGOGRunConfiguration = require('../../src/configuration/DosBoxGOGRunConfiguration');
 
 const ConfigurationFactory = require('../../src/configuration//ConfigurationFactory');
 
 test.beforeEach((t) => {
-  t.context.loggingEvents = sinon.createStubInstance(LoggingEvents);
+  t.context.logger = sinon.createStubInstance(logger);
 
-  t.context.factory = new ConfigurationFactory('/tmp/testName', t.context.loggingEvents);
+  t.context.factory = new ConfigurationFactory('/tmp/testName', t.context.logger);
 });
 
 test('Create a DosBox configuration should return a new DosBox configuration instance', (t) => {

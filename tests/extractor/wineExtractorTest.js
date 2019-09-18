@@ -5,12 +5,12 @@ const sinon = require('sinon');
 const shell = require('shelljs');
 const fs = require('fs');
 
-const LoggingEvents = require('../../src/logging/LoggingEvents');
+const logger = require('../../src/logging/logger');
 const WineExtractor = require('../../src/extractor/WineExtractor');
 
 test.beforeEach((t) => {
   sinon.reset();
-  t.context.loggingEvents = sinon.createStubInstance(LoggingEvents);
+  t.context.logger = sinon.createStubInstance(logger);
   // t.context.cli = sinon.stub(shell, 'mv').callsFake(() => {});
   // t.context.cli = sinon.stub(shell, 'exec').callsFake(() => {});
   t.context.cli = sinon.stub({
@@ -19,7 +19,7 @@ test.beforeEach((t) => {
     exec() {}
   });
 
-  t.context.extractor = new WineExtractor(t.context.loggingEvents, '.test/tmp', t.context.cli);
+  t.context.extractor = new WineExtractor(t.context.logger, '.test/tmp', t.context.cli);
 });
 
 test.before(() => {

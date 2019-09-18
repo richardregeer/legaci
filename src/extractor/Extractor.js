@@ -3,8 +3,8 @@
 const fs = require('fs');
 
 class Extractor {
-  constructor(loggingEvents, tempFolderPath, cli) {
-    this._loggingEvents = loggingEvents;
+  constructor(logger, tempFolderPath, cli) {
+    this._logger = logger;
     this._tempFolderPath = tempFolderPath;
     this._cli = cli;
   }

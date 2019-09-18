@@ -7,7 +7,7 @@ const GameInstaller = require('./game/GameInstaller');
 const ExtractorFactory = require('./extractor/ExtractorFactory');
 const ConfigurationFactory = require('./configuration/ConfigurationFactory');
 const FileHandler = require('./core/file/FileHandler');
-const LoggingEvents = require('./logging/LoggingEvents');
+const LoggerFactory = require('./logging/LoggerFactory');
 const SoftwareDependency = require('./core/system/SoftwareDependency');
 const PackageTypeResolver = require('./game/package/PackageTypeResolver');
 
@@ -18,12 +18,12 @@ console.log(chalk.green(shell.cat(shell.pwd() + '/assets/ascii-name.txt').toStri
 
 // Check required system depencies
 if (!SoftwareDependency.isDosBoxAvailable()) {
-  console.log(chalk.red('Dosbox is not installed on your system and is required.'));
+  console.log(chalk.red('Dosbox is not installed on your system and is required'));
   shell.exit(1);
 }
 
 if (!SoftwareDependency.isWineAvailable()) {
-  console.log(chalk.red('Wine is not installed on your system and is required.'));
+  console.log(chalk.red('Wine is not installed on your system and is required'));
   shell.exit(1);
 }
 
@@ -35,15 +35,15 @@ program
 
 function install(fileName, destination) {
   const fileHandler = new FileHandler();
-  const loggingEvents = new LoggingEvents();
-  const extractorFactory = new ExtractorFactory(loggingEvents, '~/tmp', shell);
-  const configurationFactory = new ConfigurationFactory(fileHandler, loggingEvents);
-  const packageTypeResolver = new PackageTypeResolver(loggingEvents);
+  const logger = new LoggerFactory().createLogger();
+  const extractorFactory = new ExtractorFactory(logger, '~/tmp', shell);
+  const configurationFactory = new ConfigurationFactory(fileHandler, logger);
+  const packageTypeResolver = new PackageTypeResolver();
   const installer = new GameInstaller(
     extractorFactory,
     configurationFactory,
     fileHandler,
-    loggingEvents,
+    logger,
     packageTypeResolver
   );
 

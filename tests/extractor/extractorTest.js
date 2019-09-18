@@ -5,13 +5,13 @@ const sinon = require('sinon');
 const shell = require('shelljs');
 const fs = require('fs');
 
-const LoggingEvents = require('../../src/logging/LoggingEvents');
+const logger = require('../../src/logging/logger');
 const Extractor = require('../../src/extractor/Extractor');
 
 test.beforeEach((t) => {
-  t.context.loggingEvents = sinon.createStubInstance(LoggingEvents);
+  t.context.logger = sinon.createStubInstance(logger);
 
-  t.context.extractor = new Extractor(t.context.loggingEvents, '.test/extractor', shell);
+  t.context.extractor = new Extractor(t.context.logger, '.test/extractor', shell);
 });
 
 test.after(() => {
@@ -35,7 +35,7 @@ test('GetTempFolder should return a writable directory', (t) => {
 });
 
 test('GetTempFolder should create the parent directories if it not exist', (t) => {
-  const extractor = new Extractor(t.context.loggingEvents, '.test/extractor/parent/tmp', shell);
+  const extractor = new Extractor(t.context.logger, '.test/extractor/parent/tmp', shell);
 
   const result = extractor.getTempFolder();
 

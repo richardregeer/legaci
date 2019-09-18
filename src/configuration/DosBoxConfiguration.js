@@ -1,20 +1,16 @@
 'use strict';
 
-const path = require('path');
-
 const Configuration = require('./Configuration');
-const configType = require('./configurationTypes').DOSBOX_CONFIGURATION;
 
 class DosBoxConfiguration extends Configuration {
   saveConfiguration(configurationPath, templatePath) {
     try {
-      const destination = path.dirname(configurationPath);
       const configuration = this._fileHandler.readFileSync(templatePath);
       this._fileHandler.writeFileSync(`${configurationPath}/legaci.conf`, configuration);
-
-      // this._loggingEvents.saveConfiguratonSuccesful(configType, fullFileName);
+      this._logger.info('DosBox configuration file saved succesfully');
     } catch (error) {
-      // this._loggingEvents.saveConfiguratonFailes(configType, fullFileName, error);
+      this._logger.error('Unable to save DosBox configuration file');
+
       throw error;
     }
   }

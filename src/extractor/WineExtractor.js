@@ -10,7 +10,7 @@ class WineExtractor extends Extractor {
     const fileName = path.basename(fullFileName);
 
     if (!fs.existsSync(fullFileName)) {
-      throw new Error(`File ${fileName} does not exsist`);
+      throw new Error(`Unable to extract file ${fileName}, it does not exsist`);
     }
 
     if (!fs.existsSync(fullDestination)) {
@@ -25,17 +25,18 @@ class WineExtractor extends Extractor {
             wine "${fullFileName}" \
             /NOGUI /SUPPRESSMSGBOXES /SILENT /DIR=C:\\game > /dev/null 2>&1`;
 
-      // TODO Add some logging
+      this._logger.info('Extracting game file using Wine');
       this._cli.exec(command);
 
       this._cli.mv(`${tempDestination}/drive_c/game/*`, fullDestination);
-      // / TODO add some logging
+      this._logger.info(`Finished extracting game file to path ${fullDestination}`);
     } catch (error) {
-      // / TODO add some logging
+      this._logger.error(`Unable to extract game file ${fullFileName}`);
+
       throw error;
     } finally {
-      // / TODO add some logging
       this._cli.rm('-rf', tempDestination);
+      this._logger.info('Finished cleaning up Wine bottle');
     }
   }
 }

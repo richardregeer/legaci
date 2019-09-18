@@ -5,15 +5,15 @@ const sinon = require('sinon');
 const shell = require('shelljs');
 
 const extractorTypes = require('../../src/extractor/extractorTypes');
-const LoggingEvents = require('../../src/logging/LoggingEvents');
+const logger = require('../../src/logging/logger');
 const WineExtractor = require('../../src/extractor/WineExtractor');
 
 const ExtractorFactory = require('../../src/extractor/ExtractorFactory');
 
 test.beforeEach((t) => {
-  t.context.loggingEvents = sinon.createStubInstance(LoggingEvents);
+  t.context.logger = sinon.createStubInstance(logger);
 
-  t.context.factory = new ExtractorFactory(t.context.loggingEvents, '/tmp/testName', shell);
+  t.context.factory = new ExtractorFactory(t.context.logger, '/tmp/testName', shell);
 });
 
 test('Create a Wine extractor should return a new Wine extractor instance', (t) => {

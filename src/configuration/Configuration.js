@@ -1,22 +1,21 @@
 'use strict';
 
 class Configuration {
-  constructor(fileHandler, loggingEvents) {
+  constructor(fileHandler, logger) {
     this._fileHandler = fileHandler;
-    this._loggingEvents = loggingEvents;
+    this._logger = logger;
   }
 
   loadConfiguration(fullFileName) {
     const config = this._fileHandler.readFileSync(fullFileName);
-
-    // TODO Add Logging
+    this._logger.info(`Configuration file loaded from path ${fullFileName}`);
 
     return config;
   }
 
   saveConfiguration(fullFileName, configuration) {
-    // TODO Add Logging
     this.fileHandler.writeFileSync(fullFileName, configuration);
+    this._logger.info(`Configuration file saved to path ${fullFileName}`);
   }
 }
 

@@ -2,16 +2,13 @@
 
 const shell = require('shelljs');
 const fs = require('fs');
-const path = require('path');
 
 const Configuration = require('./Configuration');
-const configType = require('./configurationTypes').DOSBOX_RUN_CONFIGURATION;
 
 class DosBoxRunConfiguration extends Configuration {
   saveConfiguration(configurationPath) {
     // Try to find the GOG startup configuration
     const result = shell.find(`${configurationPath}/*_single.conf`);
-    const destination = path.dirname(configurationPath);
 
     if (result.length === 0) {
       throw new Error('No GOG Dosbox run configuration found');
@@ -42,12 +39,13 @@ class DosBoxRunConfiguration extends Configuration {
         }
       });
     } catch (error) {
-      // TODO Add some logging
+      this._logger.error('Unable to save DosBox run configuration file');
+
       throw error;
     }
 
-    // TODO Add some logging
     this._fileHandler.writeFileSync(`${configurationPath}/legaci-start.conf`, newStartupConfig.join('\n'));
+    this._logger.info('DosBox run configuration file saved succesfully');
   }
 
   _replaceMountPath(line, destination) {
