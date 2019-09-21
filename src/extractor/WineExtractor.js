@@ -1,7 +1,6 @@
 'use strict';
 
 const path = require('path');
-const fs = require('fs');
 
 const Extractor = require('./Extractor');
 
@@ -9,12 +8,12 @@ class WineExtractor extends Extractor {
   extract(fullFileName, fullDestination) {
     const fileName = path.basename(fullFileName);
 
-    if (!fs.existsSync(fullFileName)) {
+    if (!this._cli.test('-e', fullFileName)) {
       throw new Error(`Unable to extract file ${fileName}, it does not exsist`);
     }
 
-    if (!fs.existsSync(fullDestination)) {
-      fs.mkdirSync(fullDestination, { recursive: true });
+    if (!this._cli.test('-e', fullDestination)) {
+      this._cli.mkdir('-p', fullDestination);
     }
 
     const tempDestination = this.getTempFolder();

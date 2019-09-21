@@ -14,7 +14,7 @@ class Configuration {
   }
 
   saveConfiguration(fullFileName, configuration) {
-    this.fileHandler.writeFileSync(fullFileName, configuration);
+    this._fileHandler.writeFileSync(fullFileName, configuration);
     this._logger.info(`Configuration file saved to path ${fullFileName}`);
   }
 }

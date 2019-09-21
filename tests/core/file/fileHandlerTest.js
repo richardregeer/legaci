@@ -16,7 +16,7 @@ test.before((t) => {
 });
 
 test.after(() => {
-  shell.rm('-rf', '.test');
+  shell.rm('-rf', shell.pwd() + '/.test');
 });
 
 test('WriteFile should write to file on the given path', (t) => {
@@ -52,10 +52,10 @@ test('CopyFile should copy a file from source to the given destination', (t) => 
 
   fileHandler.copyFileSync(
     shell.pwd() + '/.test/source-file.txt',
-    shell.pwd() + '/.test/new-destination/unknowfile.txt'
+    shell.pwd() + '/.test/new-destination/source-file.txt'
   );
 
-  const result = shell.find('./test/new-destination/source-file.txt');
+  const result = shell.find('.test/new-destination/source-file.txt');
 
   t.is(result.length, 1);
 });
@@ -76,10 +76,10 @@ test('CopyFile should create the destination directory when it does not exists',
 
   fileHandler.copyFileSync(
     shell.pwd() + '/.test/source-file.txt',
-    shell.pwd() + '/.test/other/destination/unknowfile.txt'
+    shell.pwd() + '/.test/other/destination/source-file.txt'
   );
 
-  const result = shell.find('./test/other/destination/source-file.txt');
+  const result = shell.find('.test/other/destination/source-file.txt');
 
   t.is(result.length, 1);
 });

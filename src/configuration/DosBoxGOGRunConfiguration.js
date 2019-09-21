@@ -1,14 +1,16 @@
 'use strict';
 
-const shell = require('shelljs');
-const fs = require('fs');
-
 const Configuration = require('./Configuration');
 
 class DosBoxRunConfiguration extends Configuration {
+  constructor(fileHandler, logger, cli) {
+    super(fileHandler, logger);
+    this._cli = cli;
+  }
+
   saveConfiguration(configurationPath) {
     // Try to find the GOG startup configuration
-    const result = shell.find(`${configurationPath}/*_single.conf`);
+    const result = this._cli.find(`${configurationPath}/*_single.conf`);
 
     if (result.length === 0) {
       throw new Error('No GOG Dosbox run configuration found');
@@ -21,7 +23,6 @@ class DosBoxRunConfiguration extends Configuration {
     try {
       startupConfig.forEach((line) => {
         let newLine = null;
-
         // First try to replace lines if needed
         newLine = this._replaceMountPath(line, configurationPath)
           || this._replaceImageMountPath(line, configurationPath)
@@ -87,17 +88,17 @@ class DosBoxRunConfiguration extends Configuration {
     const end = line.indexOf('"', start);
     const fileName = line.substring(start + 1, end);
 
-    if (fs.existsSync(destination + `/${fileName}`)) {
+    if (this._cli.test('-e', destination + `/${fileName}`)) {
       return line;
     }
 
     let correctedFileName = fileName.toLowerCase();
-    if (fs.existsSync(destination + `/${correctedFileName}`)) {
+    if (this._cli.test('-e', destination + `/${correctedFileName}`)) {
       return line.replace(fileName, correctedFileName);
     }
 
     correctedFileName = fileName.toUpperCase();
-    if (fs.existsSync(destination + `/${correctedFileName}`)) {
+    if (this._cli.test('-e', destination + `/${correctedFileName}`)) {
       return line.replace(fileName, correctedFileName);
     }
 

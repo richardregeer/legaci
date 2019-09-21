@@ -20,7 +20,7 @@
 -   [ ] Dev and CI environments
     -   [x] Add linter
     -   [ ] Add environment setup
-    -   [ ] Add tests
+    -   [x] Add tests
     -   [ ] Documentation
     -   [ ] Add docker image
     -   [ ] Able to run Wine headless
@@ -33,10 +33,13 @@
     -   [x] Create packageTypeResolver class
     -   [x] Add logger class
     -   [x] Add logging
-    -   [ ] Add tests for DosBoxConfiguration
-    -   [ ] Add tests for GOGDosBoxRunConfiguration
+    -   [x] Add tests for DosBoxConfiguration
+    -   [x] Add tests for GOGDosBoxRunConfiguration
     -   [ ] Add tests for GameInstaller
+    -   [ ] Use cli dependency in packageTypes (GOG, DOSBox GOG)
     -   [ ] Add integration test for PackageTypesResolver
+    -   [ ] Add integration test Configurations
+    -   [ ] Add integration test for Extractor
     -   [ ] Add integration test for SoftwareDepency check
 -   [ ] documentation   
     -   [ ] Add install setup
@@ -45,3 +48,5 @@
 -   [ ] Add innoextract support
 -   [ ] Use new script in binary
 -   [ ] Able to start installed game
+-   [ ] Add configuration file
+-   [ ] Add optional option as CLI parameters

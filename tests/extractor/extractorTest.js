@@ -4,20 +4,18 @@
 
 const test = require('ava');
 const sinon = require('sinon');
-const shell = require('shelljs');
-const fs = require('fs');
 
 const logger = require('../../src/logging/Logger');
 const Extractor = require('../../src/extractor/Extractor');
 
 test.beforeEach((t) => {
   t.context.logger = sinon.createStubInstance(logger);
+  t.context.cli = sinon.stub({
+    test() {},
+    mkdir() {}
+  });
 
-  t.context.extractor = new Extractor(t.context.logger, '.test/extractor', shell);
-});
-
-test.after(() => {
-  shell.rm('-rf', '.test/extractor');
+  t.context.extractor = new Extractor(t.context.logger, '/test', t.context.cli);
 });
 
 test('Extract should throw an Error', (t) => {
@@ -29,17 +27,12 @@ test('Extract should throw an Error', (t) => {
 });
 
 test('GetTempFolder should return a writable directory', (t) => {
-  const { extractor } = t.context;
+  const { extractor, cli } = t.context;
+
+  cli.test.returns(false);
 
   const result = extractor.getTempFolder();
 
-  t.true(fs.existsSync(result));
-});
-
-test('GetTempFolder should create the parent directories if it not exist', (t) => {
-  const extractor = new Extractor(t.context.logger, '.test/extractor/parent/tmp', shell);
-
-  const result = extractor.getTempFolder();
-
-  t.true(fs.existsSync(result));
+  t.is(cli.mkdir.firstCall.lastArg, result);
+  t.not(result, undefined);
 });

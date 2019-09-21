@@ -28,6 +28,7 @@
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.18.2",
+    "mock-fs": "^4.10.1",
     "sinon": "^7.4.1"
   }
 }
