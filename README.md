@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/richardregeer/legaci.svg?branch=master)](https://travis-ci.org/richardregeer/legaci)
 # Legaci
 **Le**gacy **Ga**me **C**ommandline **I**nstaller
 

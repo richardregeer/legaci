@@ -22,11 +22,12 @@
     -   [ ] Add environment setup
     -   [x] Add tests
     -   [ ] Documentation
-    -   [ ] Add Travis pipeline
+    -   [x] Add Travis pipeline
     -   [ ] Add docker image
     -   [ ] Able to run Wine headless
     -   [ ] Add badges in Readme
     -   [ ] Add coverage
+    -   [ ] Test LTS and test node versions
 -   [ ] Refactor code structure to someting more solid
     -   [x] Create configuration class
     -   [x] Create Installer class
