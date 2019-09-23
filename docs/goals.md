@@ -25,8 +25,8 @@
     -   [x] Add Travis pipeline
     -   [ ] Add docker image
     -   [ ] Able to run Wine headless
-    -   [ ] Add badges in Readme
-    -   [ ] Add coverage
+    -   [x] Add badge in Readme
+    -   [ ] Add coverage (codecov ?) and Shield from shield.io   
     -   [ ] Test LTS and test node versions
 -   [ ] Refactor code structure to someting more solid
     -   [x] Create configuration class
@@ -39,7 +39,7 @@
     -   [x] Add logging
     -   [x] Add tests for DosBoxConfiguration
     -   [x] Add tests for GOGDosBoxRunConfiguration
-    -   [ ] Add tests for GameInstaller
+    -   [x] Add tests for GameInstaller
     -   [ ] Use cli dependency in packageTypes (GOG, DOSBox GOG)
     -   [ ] Add integration test for PackageTypesResolver
     -   [ ] Add integration test Configurations
