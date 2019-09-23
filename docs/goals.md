@@ -28,6 +28,7 @@
     -   [x] Add badge in Readme
     -   [ ] Add coverage (codecov ?) and Shield from shield.io   
     -   [x] Test LTS and test node versions
+    -   [x] Editor settings
 -   [ ] Refactor code structure to someting more solid
     -   [x] Create configuration class
     -   [x] Create Installer class
