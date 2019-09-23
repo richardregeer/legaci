@@ -6,6 +6,9 @@
     "doc": "docs",
     "lib": "lib"
   },
+  "engines": {
+    "node": ">=10" 
+  },
   "bin": "./bin/legaci.js",
   "repository": {
     "type": "git",

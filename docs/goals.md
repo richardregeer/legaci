@@ -27,7 +27,7 @@
     -   [ ] Able to run Wine headless
     -   [x] Add badge in Readme
     -   [ ] Add coverage (codecov ?) and Shield from shield.io   
-    -   [ ] Test LTS and test node versions
+    -   [x] Test LTS and test node versions
 -   [ ] Refactor code structure to someting more solid
     -   [x] Create configuration class
     -   [x] Create Installer class
@@ -40,11 +40,12 @@
     -   [x] Add tests for DosBoxConfiguration
     -   [x] Add tests for GOGDosBoxRunConfiguration
     -   [x] Add tests for GameInstaller
-    -   [ ] Use cli dependency in packageTypes (GOG, DOSBox GOG)
+    -   [x] Use cli dependency in packageTypes (GOG, DOSBox GOG)
     -   [ ] Add integration test for PackageTypesResolver
     -   [ ] Add integration test Configurations
     -   [ ] Add integration test for Extractor
     -   [ ] Add integration test for SoftwareDepency check
+    -   [ ] Add integration test for installer
 -   [ ] documentation   
     -   [ ] Add install setup
     -   [ ] Add description

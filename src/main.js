@@ -38,7 +38,7 @@ function install(fileName, destination) {
   const logger = new LoggerFactory().createLogger();
   const extractorFactory = new ExtractorFactory(logger, '~/tmp', shell);
   const configurationFactory = new ConfigurationFactory(fileHandler, logger, shell);
-  const packageTypeResolver = new PackageTypeResolver();
+  const packageTypeResolver = new PackageTypeResolver(shell);
   const installer = new GameInstaller(
     extractorFactory,
     configurationFactory,

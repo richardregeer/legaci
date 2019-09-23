@@ -1,29 +1,34 @@
+/* eslint-disable no-param-reassign */
+
 'use strict';
 
 const test = require('ava');
-const shell = require('shelljs');
+const sinon = require('sinon');
 
 const GOGGamePackage = require('../../../src/game/package/GOGGamePackage');
 
-test.before(() => {
-  shell.mkdir('-p', '.test/gog-installation');
-  shell.mkdir('-p', '.test/not-gog-installation');
-  shell.touch('.test/gog-installation/goggame-43465483.info');
-});
-
-test.after(() => {
-  shell.rm('-rf', '.test/gog-installation');
-  shell.rm('-rf', '.test/not-gog-installation');
+test.beforeEach((t) => {
+  t.context.cli = sinon.stub({
+    find() {}
+  });
 });
 
 test('IsValid should return false when given file is not a GOG installation file', (t) => {
-  const result = GOGGamePackage.isValid('.test/not-gog-installation');
+  const { cli } = t.context;
+
+  cli.find.returns([]);
+
+  const result = GOGGamePackage.isValid('.test/not-gog-installation', cli);
 
   t.false(result);
 });
 
 test('IsValid should return true when given file is a GOG installation file', (t) => {
-  const result = GOGGamePackage.isValid('.test/gog-installation');
+  const { cli } = t.context;
+
+  cli.find.returns(['DosBoxFile']);
+
+  const result = GOGGamePackage.isValid('.test/gog-installation', cli);
 
   t.true(result);
 });
