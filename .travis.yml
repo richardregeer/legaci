@@ -8,4 +8,4 @@ before_script:
 
 script:
   - make lint
-  - make build
+  - make test
