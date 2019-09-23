@@ -3,14 +3,9 @@ language: node_js
 node_js:
   "10"
 
-services: docker
-
 before_script:
-  - make install
+  - npm install
 
 script:
   - make lint
   - make build
-
-after_script:
-  - docker images

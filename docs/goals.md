@@ -16,7 +16,7 @@
     -   [X] Stop installation if not a Dosbox game
     -   [X] Able to install Tyrian 2000 GOG.com windows version on MaCOS 
 
-# Fase 1: Make MVP solid
+# Fase 1: Make MVP solid for GOG Windows DosBox games
 -   [ ] Dev and CI environments
     -   [x] Add linter
     -   [ ] Add environment setup
@@ -46,7 +46,33 @@
     -   [ ] Add description
     -   [ ] Add requirements
 -   [ ] Add innoextract support
--   [ ] Use new script in binary
+-   [x] Use new script in binary
 -   [ ] Able to start installed game
 -   [ ] Add configuration file
 -   [ ] Add optional option as CLI parameters
+-   [ ] Add list of GOG Windows DosBox games that are able to install and work out of the box
+
+# Fase 2: Add new fetures
+-   [ ] Midi music
+    -   [ ] Configuration should setup midi out of the box
+    -   [ ] Support for software midi
+    -   [ ] Update documentation and installation
+-   [ ] ScummVM Support
+    -   [ ] GOG ScummVM Configuration
+    -   [ ] Update configuration options
+    -   [ ] Update CLI Options 
+    -   [ ] Update Documentation   
+-   [ ] Add installer support
+    -   [ ] OSX DMG files
+    -   [ ] Zip files
+    -   [ ] Shell install files
+    -   [ ] ScummVM Support
+    -   [ ] DosBox Support
+    -   [ ] Update CLI Options
+    -   [ ] Update Documentation
+-   [ ] Steam support
+    -   [ ] Install games from steam using SteamCMD
+    -   [ ] Able to install Windows / OSX / Linux version
+    -   [ ] ScummVM game support
+    -   [ ] DosBox Support
+    -   [ ] Update Documentation
