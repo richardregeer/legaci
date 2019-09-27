@@ -19,13 +19,13 @@ class WineExtractor extends Extractor {
     const tempDestination = this.getTempFolder();
 
     try {
-      const command = `
-            WINEPREFIX=${tempDestination} WINEDLLOVERRIDES=winemenubuilder.exe=d \
+      const command = `sudo WINEPREFIX=${tempDestination} WINEDLLOVERRIDES=winemenubuilder.exe=d \
             wine "${fullFileName}" \
-            /NOGUI /SUPPRESSMSGBOXES /SILENT /DIR=C:\\game > /dev/null 2>&1`;
+            /NOGUI /SUPPRESSMSGBOXES /SILENT /DIR=C:\\game`;
 
       this._logger.info('Extracting game file using Wine');
-      this._cli.exec(command);
+      this._cli.config.silent = false;
+      this._cli.exec(command, { shell: '/bin/bash' });
 
       this._cli.mv(`${tempDestination}/drive_c/game/*`, fullDestination);
       this._logger.info(`Finished extracting game file to path ${fullDestination}`);

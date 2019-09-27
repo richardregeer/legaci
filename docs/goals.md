@@ -21,12 +21,10 @@
     -   [x] Add linter
     -   [ ] Add environment setup
     -   [x] Add tests
-    -   [ ] Documentation
     -   [x] Add Travis pipeline
     -   [ ] Add docker image
     -   [ ] Able to run Wine headless
     -   [x] Add badge in Readme
-    -   [ ] Add coverage (codecov ?) and Shield from shield.io   
     -   [x] Test LTS and test node versions
     -   [x] Editor settings
 -   [ ] Refactor code structure to someting more solid
@@ -51,7 +49,6 @@
     -   [ ] Add install setup
     -   [ ] Add description
     -   [ ] Add requirements
--   [ ] Add innoextract support
 -   [x] Use new script in binary
 -   [ ] Able to start installed game
 -   [ ] Add configuration file
@@ -59,6 +56,8 @@
 -   [ ] Add list of GOG Windows DosBox games that are able to install and work out of the box
 
 # Fase 2: Add new fetures
+-   [ ] Add innoextract support
+-   [ ] Add coverage (codecov ?) and Shield from shield.io   
 -   [ ] Midi music
     -   [ ] Configuration should setup midi out of the box
     -   [ ] Support for software midi

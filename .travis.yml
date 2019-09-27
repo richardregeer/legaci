@@ -5,8 +5,8 @@ node_js:
   - "12"
 
 before_script:
-  - npm install
+  - make install ENV=ci
 
 script:
-  - make lint
-  - make test
+  - make lint DOCKER=false
+  - make test DOCKER=false
