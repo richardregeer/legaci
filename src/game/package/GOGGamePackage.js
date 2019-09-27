@@ -4,11 +4,11 @@ class GOGGamePackage {
   static isValid(path, cli) {
     const result = cli.find(path + '/goggame-*.info');
 
-    if (result.length !== 1) {
-      return false;
+    if (result.length > 0) {
+      return true;
     }
 
-    return true;
+    return false;
   }
 }
 

@@ -40,7 +40,7 @@
     -   [x] Add tests for GOGDosBoxRunConfiguration
     -   [x] Add tests for GameInstaller
     -   [x] Use cli dependency in packageTypes (GOG, DOSBox GOG)
-    -   [ ] Add integration test for PackageTypesResolver
+    -   [x] Add integration test for PackageTypesResolver
     -   [ ] Add integration test Configurations
     -   [ ] Add integration test for Extractor
     -   [ ] Add integration test for SoftwareDepency check

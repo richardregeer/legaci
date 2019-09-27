@@ -3,32 +3,18 @@
 'use strict';
 
 const test = require('ava');
-const sinon = require('sinon');
+const shell = require('shelljs');
 
 const GOGDosBoxGamePackage = require('../../../../src/game/package/GOGDosBoxGamePackage');
 
-test.beforeEach((t) => {
-  t.context.cli = sinon.stub({
-    find() {}
-  });
-});
-
 test('IsValid should return false when given file is not a GOG DosBox installation file', (t) => {
-  const { cli } = t.context;
-
-  cli.find.returns([]);
-
-  const result = GOGDosBoxGamePackage.isValid('.test/not-gog-installation', cli);
+  const result = GOGDosBoxGamePackage.isValid('tests/unknown', shell);
 
   t.false(result);
 });
 
 test('IsValid should return true when given file is a GOG DosBox installation file', (t) => {
-  const { cli } = t.context;
-
-  cli.find.returns(['Found']);
-
-  const result = GOGDosBoxGamePackage.isValid('.test/gog-dosbox-installation', cli);
+  const result = GOGDosBoxGamePackage.isValid('tests/fixtures/games/Tyrian', shell);
 
   t.true(result);
 });
