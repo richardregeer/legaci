@@ -6,9 +6,9 @@ const test = require('ava');
 const sinon = require('sinon');
 const shell = require('shelljs');
 
-const logger = require('../../src/logging/Logger');
-const FileHandler = require('../../src/core/file/FileHandler');
-const DosBoxGOGRunConfiguration = require('../../src/configuration/DosBoxGOGRunConfiguration');
+const logger = require('../../../src/logging/Logger');
+const FileHandler = require('../../../src/core/file/FileHandler');
+const DosBoxGOGRunConfiguration = require('../../../src/configuration/DosBoxGOGRunConfiguration');
 
 const runConfigFixture = shell.cat(shell.pwd() + '/tests/fixtures/configuration/GOGRunConfiguration.conf').toString();
 

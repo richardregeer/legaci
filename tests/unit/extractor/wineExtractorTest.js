@@ -5,8 +5,8 @@
 const test = require('ava');
 const sinon = require('sinon');
 
-const logger = require('../../src/logging/Logger');
-const WineExtractor = require('../../src/extractor/WineExtractor');
+const logger = require('../../../src/logging/Logger');
+const WineExtractor = require('../../../src/extractor/WineExtractor');
 
 test.beforeEach((t) => {
   sinon.reset();

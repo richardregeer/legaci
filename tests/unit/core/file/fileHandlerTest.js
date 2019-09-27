@@ -5,7 +5,7 @@
 const test = require('ava');
 const shell = require('shelljs');
 
-const FileHandler = require('../../../src/core/file/FileHandler');
+const FileHandler = require('../../../../src/core/file/FileHandler');
 
 test.before((t) => {
   t.context.fileHandler = new FileHandler();

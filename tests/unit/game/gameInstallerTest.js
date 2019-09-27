@@ -5,17 +5,17 @@
 const test = require('ava');
 const sinon = require('sinon');
 
-const Logger = require('../../src/logging/Logger');
-const FileHandler = require('../../src/core/file/FileHandler');
-const configurationTypes = require('../../src/configuration/configurationTypes');
-const ConfigurationFactory = require('../../src/configuration/ConfigurationFactory');
-const DosBoxConfiguration = require('../../src/configuration/DosBoxConfiguration');
-const DosBoxGOGRunConfiguration = require('../../src/configuration/DosBoxGOGRunConfiguration');
-const ExtractorFactory = require('../../src/extractor/ExtractorFactory');
-const Extractor = require('../../src/extractor/WineExtractor');
-const PackageTypeResolver = require('../../src/game/package/PackageTypeResolver');
-const gamePackageTypes = require('../../src/game/package/gamePackageTypes');
-const GameInstaller = require('../../src/game/GameInstaller');
+const Logger = require('../../../src/logging/Logger');
+const FileHandler = require('../../../src/core/file/FileHandler');
+const configurationTypes = require('../../../src/configuration/configurationTypes');
+const ConfigurationFactory = require('../../../src/configuration/ConfigurationFactory');
+const DosBoxConfiguration = require('../../../src/configuration/DosBoxConfiguration');
+const DosBoxGOGRunConfiguration = require('../../../src/configuration/DosBoxGOGRunConfiguration');
+const ExtractorFactory = require('../../../src/extractor/ExtractorFactory');
+const Extractor = require('../../../src/extractor/WineExtractor');
+const PackageTypeResolver = require('../../../src/game/package/PackageTypeResolver');
+const gamePackageTypes = require('../../../src/game/package/gamePackageTypes');
+const GameInstaller = require('../../../src/game/GameInstaller');
 
 test.beforeEach((t) => {
   t.context.logger = sinon.createStubInstance(Logger);

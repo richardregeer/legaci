@@ -6,11 +6,11 @@ const test = require('ava');
 const sinon = require('sinon');
 const shell = require('shelljs');
 
-const extractorTypes = require('../../src/extractor/extractorTypes');
-const logger = require('../../src/logging/Logger');
-const WineExtractor = require('../../src/extractor/WineExtractor');
+const extractorTypes = require('../../../src/extractor/extractorTypes');
+const logger = require('../../../src/logging/Logger');
+const WineExtractor = require('../../../src/extractor/WineExtractor');
 
-const ExtractorFactory = require('../../src/extractor/ExtractorFactory');
+const ExtractorFactory = require('../../../src/extractor/ExtractorFactory');
 
 test.beforeEach((t) => {
   t.context.logger = sinon.createStubInstance(logger);

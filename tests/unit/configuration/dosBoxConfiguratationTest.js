@@ -5,9 +5,9 @@
 const test = require('ava');
 const sinon = require('sinon');
 
-const logger = require('../../src/logging/Logger');
-const FileHandler = require('../../src/core/file/FileHandler');
-const DosBoxConfiguration = require('../../src/configuration/DosBoxConfiguration');
+const logger = require('../../../src/logging/Logger');
+const FileHandler = require('../../../src/core/file/FileHandler');
+const DosBoxConfiguration = require('../../../src/configuration/DosBoxConfiguration');
 
 test.beforeEach((t) => {
   t.context.logger = sinon.createStubInstance(logger);

@@ -6,7 +6,7 @@ const test = require('ava');
 const sinon = require('sinon');
 const chalk = require('chalk');
 
-const Logger = require('../../src/logging/Logger');
+const Logger = require('../../../src/logging/Logger');
 
 test.beforeEach((t) => {
   t.context.logger = sinon.stub({

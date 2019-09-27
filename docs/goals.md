@@ -17,13 +17,13 @@
     -   [X] Able to install Tyrian 2000 GOG.com windows version on MaCOS 
 
 # Fase 1: Make MVP solid for GOG Windows DosBox games
--   [ ] Dev and CI environments
+-   [x] Dev and CI environments
     -   [x] Add linter
-    -   [ ] Add environment setup
+    -   [x] Add environment setup
     -   [x] Add tests
     -   [x] Add Travis pipeline
-    -   [ ] Add docker image
-    -   [ ] Able to run Wine headless
+    -   [x] Add docker image
+    -   [x] Able to run Wine headless
     -   [x] Add badge in Readme
     -   [x] Test LTS and test node versions
     -   [x] Editor settings
@@ -56,6 +56,8 @@
 -   [ ] Add list of GOG Windows DosBox games that are able to install and work out of the box
 
 # Fase 2: Add new fetures
+-   [ ] Add production docker container 
+    -   [ ] Add to dockerhub
 -   [ ] Add innoextract support
 -   [ ] Add coverage (codecov ?) and Shield from shield.io   
 -   [ ] Midi music

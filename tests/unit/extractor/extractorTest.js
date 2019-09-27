@@ -5,8 +5,8 @@
 const test = require('ava');
 const sinon = require('sinon');
 
-const logger = require('../../src/logging/Logger');
-const Extractor = require('../../src/extractor/Extractor');
+const logger = require('../../../src/logging/Logger');
+const Extractor = require('../../../src/extractor/Extractor');
 
 test.beforeEach((t) => {
   t.context.logger = sinon.createStubInstance(logger);

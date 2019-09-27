@@ -5,7 +5,7 @@
 const test = require('ava');
 const sinon = require('sinon');
 
-const GOGDosBoxGamePackage = require('../../../src/game/package/GOGDosBoxGamePackage');
+const GOGDosBoxGamePackage = require('../../../../src/game/package/GOGDosBoxGamePackage');
 
 test.beforeEach((t) => {
   t.context.cli = sinon.stub({

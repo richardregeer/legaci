@@ -6,12 +6,12 @@ const test = require('ava');
 const sinon = require('sinon');
 const shell = require('shelljs');
 
-const configurationTypes = require('../../src/configuration/configurationTypes');
-const logger = require('../../src/logging/Logger');
-const DosBoxConfiguration = require('../../src/configuration/DosBoxConfiguration');
-const DosBoxGOGRunConfiguration = require('../../src/configuration/DosBoxGOGRunConfiguration');
+const configurationTypes = require('../../../src/configuration//configurationTypes');
+const logger = require('../../../src/logging/Logger');
+const DosBoxConfiguration = require('../../../src/configuration/DosBoxConfiguration');
+const DosBoxGOGRunConfiguration = require('../../../src/configuration/DosBoxGOGRunConfiguration');
 
-const ConfigurationFactory = require('../../src/configuration/ConfigurationFactory');
+const ConfigurationFactory = require('../../../src/configuration/ConfigurationFactory');
 
 test.beforeEach((t) => {
   t.context.logger = sinon.createStubInstance(logger);
