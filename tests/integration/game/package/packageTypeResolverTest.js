@@ -5,6 +5,8 @@
 const test = require('ava');
 const shell = require('shelljs');
 
+shell.silent = true;
+
 const PackageTypeResolver = require('../../../../src/game/package/PackageTypeResolver');
 const gamePackageTypes = require('../../../../src/game/package/gamePackageTypes');
 

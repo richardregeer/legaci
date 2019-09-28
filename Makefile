@@ -57,7 +57,7 @@ test: test_unit test_integration## Run all the tests of the complete project.
 
 .PHONY: test_unit
 test_unit: ## Run all the unit tests of the complete project.
-	${START_COMMAND} ${NODE_MODULES}/ava --verbose tests/unit/**/*.js tests/unit/**/**/*.js 
+	${START_COMMAND} ${NODE_MODULES}/ava --verbose **/unit/**/*.js
 
 .PHONY: test_integration
 test_integration: ## Run all the integration tests of the complete project.

@@ -5,6 +5,8 @@
 const test = require('ava');
 const shell = require('shelljs');
 
+shell.silent = true;
+
 const FileHandler = require('../../../../src/core/file/FileHandler');
 
 test.before((t) => {

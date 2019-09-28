@@ -5,10 +5,12 @@
 const test = require('ava');
 const shell = require('shelljs');
 
+shell.silent = true;
+
 const GOGGamePackage = require('../../../../src/game/package/GOGGamePackage');
 
 test('IsValid should return false when given file is not a GOG installation file', (t) => {
-  const result = GOGGamePackage.isValid('tests/unknown', shell);
+  const result = GOGGamePackage.isValid('tests/games/notValidGOGDosBox', shell);
 
   t.false(result);
 });

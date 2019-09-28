@@ -5,10 +5,12 @@
 const test = require('ava');
 const shell = require('shelljs');
 
+shell.silent = true;
+
 const GOGDosBoxGamePackage = require('../../../../src/game/package/GOGDosBoxGamePackage');
 
 test('IsValid should return false when given file is not a GOG DosBox installation file', (t) => {
-  const result = GOGDosBoxGamePackage.isValid('tests/unknown', shell);
+  const result = GOGDosBoxGamePackage.isValid('tests/games/notValidGOGDosBox', shell);
 
   t.false(result);
 });
