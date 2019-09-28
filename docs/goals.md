@@ -51,11 +51,11 @@
     -   [ ] Add requirements
 -   [x] Use new script in binary
 -   [ ] Able to start installed game
+-   [ ] Add configuration file
+-   [ ] Add optional option as CLI parameters
 -   [ ] Run acceptance tests in Docker container
     -   [ ] Run tests in CI
     -   [ ] Able to run locally with configuration
--   [ ] Add configuration file
--   [ ] Add optional option as CLI parameters
 -   [ ] Add list of GOG Windows DosBox games that are able to install and work out of the box
 
 # Fase 2: Add new fetures

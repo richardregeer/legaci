@@ -17,6 +17,6 @@ test('Install GOG DOSBox windows installer with success using Wine', (t) => {
   shell.exec(command);
 
   t.true(shell.test('-e', INSTALL_PATH), `Game is not extracted to expected path ${INSTALL_PATH}`);
-  shell.test('-e', `${INSTALL_PATH}/legaci.conf`, 'Legaci.conf not found in extracted game');
-  shell.test('-e', `${INSTALL_PATH}/legaci-start.conf`, 'Legaci-start.conf not found in extracted game');
+  t.true(shell.test('-e', `${INSTALL_PATH}/legaci.conf`), 'Legaci.conf not found in extracted game');
+  t.true(shell.test('-e', `${INSTALL_PATH}/legaci-start.conf`), 'Legaci-start.conf not found in extracted game');
 });
