@@ -27,7 +27,7 @@
     -   [x] Add badge in Readme
     -   [x] Test LTS and test node versions
     -   [x] Editor settings
--   [ ] Refactor code structure to someting more solid
+-   [x] Refactor code structure to someting more solid
     -   [x] Create configuration class
     -   [x] Create Installer class
     -   [x] Create Wine extractor class
@@ -44,13 +44,16 @@
     -   [x] Add integration test Configurations
     -   [~] Add integration test for Extractor
     -   [~] Add integration test for SoftwareDepency check
-    -   [ ] Add main acceptance integration test for installer
+    -   [x] Add main acceptance integration test for installer
 -   [ ] documentation   
     -   [ ] Add install setup
     -   [ ] Add description
     -   [ ] Add requirements
 -   [x] Use new script in binary
 -   [ ] Able to start installed game
+-   [ ] Run acceptance tests in Docker container
+    -   [ ] Run tests in CI
+    -   [ ] Able to run locally with configuration
 -   [ ] Add configuration file
 -   [ ] Add optional option as CLI parameters
 -   [ ] Add list of GOG Windows DosBox games that are able to install and work out of the box
