@@ -61,7 +61,7 @@ test_unit: ## Run all the unit tests of the complete project.
 
 .PHONY: test_integration
 test_integration: ## Run all the integration tests of the complete project.
-	${START_COMMAND} ${NODE_MODULES}/ava --verbose **/integration/**/**/*.js
+	${START_COMMAND} ${NODE_MODULES}/ava --verbose **/integration/**/*.js **/integration/**/**/*.js
 
 .PHONY: test_watch
 test_watch: ## Continuously run all the tests of the complete project.

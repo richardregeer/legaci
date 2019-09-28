@@ -41,10 +41,10 @@
     -   [x] Add tests for GameInstaller
     -   [x] Use cli dependency in packageTypes (GOG, DOSBox GOG)
     -   [x] Add integration test for PackageTypesResolver
-    -   [ ] Add integration test Configurations
-    -   [ ] Add integration test for Extractor
-    -   [ ] Add integration test for SoftwareDepency check
-    -   [ ] Add integration test for installer
+    -   [x] Add integration test Configurations
+    -   [~] Add integration test for Extractor
+    -   [~] Add integration test for SoftwareDepency check
+    -   [ ] Add main acceptance integration test for installer
 -   [ ] documentation   
     -   [ ] Add install setup
     -   [ ] Add description
