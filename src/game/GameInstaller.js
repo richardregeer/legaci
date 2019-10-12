@@ -1,12 +1,11 @@
 'use strict';
 
-const extractorTypes = require('../extractor/extractorTypes');
 const configurationTypes = require('../configuration/configurationTypes');
 const gamePackageTypes = require('./package/gamePackageTypes');
 
 class GameInstaller {
   constructor(
-    extractorFactory,
+    extractor,
     configurationFactory,
     fileHandler,
     logger,
@@ -14,15 +13,14 @@ class GameInstaller {
   ) {
     this._fileHandler = fileHandler;
     this._logger = logger;
-    this._extractorFactory = extractorFactory;
+    this._extractor = extractor;
     this._configurationFactory = configurationFactory;
     this._packageTypeResolver = packageTypeResolver;
   }
 
   install(fullFileName, fullDestination) {
-    const extractor = this._extractorFactory.createExtractor(extractorTypes.WINE);
     this._logger.info(`Start installing game ${fullFileName}`);
-    extractor.extract(fullFileName, fullDestination);
+    this._extractor.extract(fullFileName, fullDestination);
 
     const packageType = this._packageTypeResolver.getPackageType(fullDestination);
 

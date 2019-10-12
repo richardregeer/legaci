@@ -11,7 +11,6 @@ const configurationTypes = require('../../../src/configuration/configurationType
 const ConfigurationFactory = require('../../../src/configuration/ConfigurationFactory');
 const DosBoxConfiguration = require('../../../src/configuration/DosBoxConfiguration');
 const DosBoxGOGRunConfiguration = require('../../../src/configuration/DosBoxGOGRunConfiguration');
-const ExtractorFactory = require('../../../src/extractor/ExtractorFactory');
 const Extractor = require('../../../src/extractor/WineExtractor');
 const PackageTypeResolver = require('../../../src/game/package/PackageTypeResolver');
 const gamePackageTypes = require('../../../src/game/package/gamePackageTypes');
@@ -26,9 +25,7 @@ test.beforeEach((t) => {
   t.context.packageTypeResolver = sinon.createStubInstance(PackageTypeResolver);
   t.context.packageTypeResolver.getPackageType.returns(gamePackageTypes.GOG_DOSBOX);
 
-  t.context.extractorFactory = sinon.createStubInstance(ExtractorFactory);
   t.context.extractor = sinon.createStubInstance(Extractor);
-  t.context.extractorFactory.createExtractor.returns(t.context.extractor);
 
   t.context.configurationFactory = sinon.createStubInstance(ConfigurationFactory);
   t.context.configurationFactory.createConfiguration
@@ -40,7 +37,7 @@ test.beforeEach((t) => {
     .returns(t.context.dosBoxGOGRunConfiguration);
 
   t.context.gameInstaller = new GameInstaller(
-    t.context.extractorFactory,
+    t.context.extractor,
     t.context.configurationFactory,
     t.context.fileHandler,
     t.context.logger,

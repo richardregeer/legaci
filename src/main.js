@@ -4,12 +4,12 @@ const shell = require('shelljs');
 const program = require('commander');
 const chalk = require('chalk');
 const GameInstaller = require('./game/GameInstaller');
-const ExtractorFactory = require('./extractor/ExtractorFactory');
 const ConfigurationFactory = require('./configuration/ConfigurationFactory');
 const FileHandler = require('./core/file/FileHandler');
 const LoggerFactory = require('./logging/LoggerFactory');
 const SoftwareDependency = require('./core/system/SoftwareDependency');
 const PackageTypeResolver = require('./game/package/PackageTypeResolver');
+const WineExtractor = require('./extractor/WineExtractor');
 
 const { version } = require('../package.json');
 
@@ -36,11 +36,11 @@ program
 function install(fileName, destination) {
   const fileHandler = new FileHandler();
   const logger = new LoggerFactory().createLogger();
-  const extractorFactory = new ExtractorFactory(logger, '~/tmp', shell);
+  const extractor = new WineExtractor(logger, '~/tmp', shell);
   const configurationFactory = new ConfigurationFactory(fileHandler, logger, shell);
   const packageTypeResolver = new PackageTypeResolver(shell);
   const installer = new GameInstaller(
-    extractorFactory,
+    extractor,
     configurationFactory,
     fileHandler,
     logger,
