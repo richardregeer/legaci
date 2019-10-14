@@ -45,7 +45,7 @@ class GameInstaller {
     configuration.saveConfiguration(fullDestination);
 
     // Create game bin file
-    const binTemplate = this._templateFactory.createTemplate('./etc/bin/dosbox.bin.template.conf');
+    const binTemplate = this._templateFactory.createTemplate('./etc/bin/dosbox.bin.template.sh');
     this._gameRunner.createBinFile(fullDestination, binTemplate);
 
     this._logger.info(`Finished installing game ${fullFileName} to ${fullDestination}`);

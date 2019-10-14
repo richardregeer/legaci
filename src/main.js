@@ -10,6 +10,8 @@ const LoggerFactory = require('./logging/LoggerFactory');
 const SoftwareDependency = require('./core/system/SoftwareDependency');
 const PackageTypeResolver = require('./game/package/PackageTypeResolver');
 const WineExtractor = require('./extractor/WineExtractor');
+const TemplateFactory = require('./core/file/TemplateFactory');
+const DosBoxGameRunner = require('./runner/DosBoxGameRunner');
 
 const { version } = require('../package.json');
 
@@ -39,12 +41,16 @@ function install(fileName, destination) {
   const extractor = new WineExtractor(logger, '~/tmp', shell);
   const configurationFactory = new ConfigurationFactory(fileHandler, logger, shell);
   const packageTypeResolver = new PackageTypeResolver(shell);
+  const templateFactory = new TemplateFactory(fileHandler, logger);
+  const gameRunner = new DosBoxGameRunner(fileHandler, logger, shell);
   const installer = new GameInstaller(
     extractor,
     configurationFactory,
     fileHandler,
     logger,
-    packageTypeResolver
+    packageTypeResolver,
+    templateFactory,
+    gameRunner
   );
 
   installer.install(fileName, destination);
