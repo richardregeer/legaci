@@ -1,5 +1,6 @@
 'use strict';
 
+const chalk = require('chalk');
 const configurationTypes = require('../configuration/configurationTypes');
 const gamePackageTypes = require('./package/gamePackageTypes');
 
@@ -48,7 +49,8 @@ class GameInstaller {
     const binTemplate = this._templateFactory.createTemplate('./etc/bin/dosbox.bin.template.sh');
     this._gameRunner.createBinFile(fullDestination, binTemplate);
 
-    this._logger.info(`Finished installing game ${fullFileName} to ${fullDestination}`);
+    this._logger.info(chalk.green('Finished installing game') + ` ${fullFileName} to ` + chalk.yellow(fullDestination));
+    this._logger.info(chalk.yellow(`Run ${fullDestination}/legaci-run.sh`) + ' to start to game in DosBox');
   }
 }
 

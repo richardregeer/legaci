@@ -45,20 +45,22 @@
     -   [~] Add integration test for Extractor
     -   [~] Add integration test for SoftwareDepency check
     -   [x] Add main acceptance integration test for installer
+    -   [ ] Refactor Factories to use methods to create required object instead of passing a type
+    -   [ ] Use Template class everywhere where a template is used (...configuration classes)
 -   [ ] documentation   
     -   [ ] Add install setup
     -   [ ] Add description
     -   [ ] Add requirements
 -   [x] Use new script in binary
--   [ ] Able to start installed game
--   [ ] Add configuration file
--   [ ] Add optional option as CLI parameters
+-   [x] Able to start installed game
 -   [ ] Run acceptance tests in Docker container
     -   [ ] Run tests in CI
     -   [ ] Able to run locally with configuration
 -   [ ] Add list of GOG Windows DosBox games that are able to install and work out of the box
 
 # Fase 2: Add new fetures
+-   [ ] Add configuration file
+-   [ ] Add optional option as CLI parameters
 -   [ ] Add production docker container 
     -   [ ] Add to dockerhub
 -   [ ] Add innoextract support
