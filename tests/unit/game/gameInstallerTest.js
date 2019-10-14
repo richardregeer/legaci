@@ -15,6 +15,9 @@ const Extractor = require('../../../src/extractor/WineExtractor');
 const PackageTypeResolver = require('../../../src/game/package/PackageTypeResolver');
 const gamePackageTypes = require('../../../src/game/package/gamePackageTypes');
 const GameInstaller = require('../../../src/game/GameInstaller');
+const TemplateFactory = require('../../../src/core/file/TemplateFactory');
+const Template = require('../../../src/core/file/Template');
+const DosBoxGameRunner = require('../../../src/runner/DosBoxGameRunner');
 
 test.beforeEach((t) => {
   t.context.logger = sinon.createStubInstance(Logger);
@@ -36,12 +39,20 @@ test.beforeEach((t) => {
     .withArgs(configurationTypes.DOSBOX_RUN_CONFIGURATION)
     .returns(t.context.dosBoxGOGRunConfiguration);
 
+  t.context.templateFactory = sinon.createStubInstance(TemplateFactory);
+  t.context.template = sinon.createStubInstance(Template);
+  t.context.templateFactory.createTemplate.returns(t.context.template);
+
+  t.context.gameRunner = sinon.createStubInstance(DosBoxGameRunner);
+
   t.context.gameInstaller = new GameInstaller(
     t.context.extractor,
     t.context.configurationFactory,
     t.context.fileHandler,
     t.context.logger,
-    t.context.packageTypeResolver
+    t.context.packageTypeResolver,
+    t.context.templateFactory,
+    t.context.gameRunner
   );
 });
 
@@ -60,7 +71,8 @@ test('GOG DosBox Windows installer should extract create DosBox configuration fi
     dosBoxGOGRunConfiguration,
     dosBoxConfiguration,
     gameInstaller,
-    extractor
+    extractor,
+    gameRunner
   } = t.context;
 
   gameInstaller.install('/tmp/test-game.exe', '/tmp/test-game');
@@ -68,4 +80,5 @@ test('GOG DosBox Windows installer should extract create DosBox configuration fi
   t.true(extractor.extract.calledOnce);
   t.true(dosBoxConfiguration.saveConfiguration.calledOnce);
   t.true(dosBoxGOGRunConfiguration.saveConfiguration.calledOnce);
+  t.true(gameRunner.createBinFile.calledOnce);
 });

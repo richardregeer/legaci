@@ -9,13 +9,17 @@ class GameInstaller {
     configurationFactory,
     fileHandler,
     logger,
-    packageTypeResolver
+    packageTypeResolver,
+    templateFactory,
+    gameRunner
   ) {
     this._fileHandler = fileHandler;
     this._logger = logger;
     this._extractor = extractor;
     this._configurationFactory = configurationFactory;
     this._packageTypeResolver = packageTypeResolver;
+    this._templateFactory = templateFactory;
+    this._gameRunner = gameRunner;
   }
 
   install(fullFileName, fullDestination) {
@@ -39,6 +43,10 @@ class GameInstaller {
       configurationTypes.DOSBOX_RUN_CONFIGURATION
     );
     configuration.saveConfiguration(fullDestination);
+
+    // Create game bin file
+    const binTemplate = this._templateFactory.createTemplate('./etc/bin/dosbox.bin.template.conf');
+    this._gameRunner.createBinFile(fullDestination, binTemplate);
 
     this._logger.info(`Finished installing game ${fullFileName} to ${fullDestination}`);
   }

@@ -16,7 +16,7 @@ test.beforeEach((t) => {
   t.context.runner = new GameRunner(t.context.fileHandler, t.context.logger);
 });
 
-test('Create runner should throw an Error', (t) => {
+test('Create bin file should throw an Error', (t) => {
   const { runner } = t.context;
 
   t.throws(() => {
