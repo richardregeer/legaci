@@ -7,7 +7,6 @@ const sinon = require('sinon');
 
 const Logger = require('../../../src/logging/Logger');
 const FileHandler = require('../../../src/core/file/FileHandler');
-const configurationTypes = require('../../../src/configuration/configurationTypes');
 const ConfigurationFactory = require('../../../src/configuration/ConfigurationFactory');
 const DosBoxConfiguration = require('../../../src/configuration/DosBoxConfiguration');
 const DosBoxGOGRunConfiguration = require('../../../src/configuration/DosBoxGOGRunConfiguration');
@@ -31,12 +30,10 @@ test.beforeEach((t) => {
   t.context.extractor = sinon.createStubInstance(Extractor);
 
   t.context.configurationFactory = sinon.createStubInstance(ConfigurationFactory);
-  t.context.configurationFactory.createConfiguration
-    .withArgs(configurationTypes.DOSBOX_CONFIGURATION)
+  t.context.configurationFactory.createDosBoxConfiguration
     .returns(t.context.dosBoxConfiguration);
 
-  t.context.configurationFactory.createConfiguration
-    .withArgs(configurationTypes.DOSBOX_RUN_CONFIGURATION)
+  t.context.configurationFactory.createGOGDosBoxRunConfiguration
     .returns(t.context.dosBoxGOGRunConfiguration);
 
   t.context.templateFactory = sinon.createStubInstance(TemplateFactory);

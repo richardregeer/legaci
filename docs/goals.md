@@ -45,7 +45,7 @@
     -   [~] Add integration test for Extractor
     -   [~] Add integration test for SoftwareDepency check
     -   [x] Add main acceptance integration test for installer
-    -   [ ] Refactor Factories to use methods to create required object instead of passing a type
+    -   [x] Refactor Factories to use methods to create required object instead of passing a type
     -   [ ] Use Template class everywhere where a template is used (...configuration classes)
 -   [ ] documentation   
     -   [ ] Add install setup
