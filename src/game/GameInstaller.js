@@ -1,7 +1,6 @@
 'use strict';
 
 const chalk = require('chalk');
-const configurationTypes = require('../configuration/configurationTypes');
 const gamePackageTypes = require('./package/gamePackageTypes');
 
 class GameInstaller {
@@ -35,15 +34,11 @@ class GameInstaller {
     }
 
     // Create or change the required configurations
-    let configuration = this._configurationFactory.createConfiguration(
-      configurationTypes.DOSBOX_CONFIGURATION
-    );
-    configuration.saveConfiguration(fullDestination, './etc/dosbox/dosbox.template.conf');
+    const dosBoxconfiguration = this._configurationFactory.createDosBoxConfiguration();
+    dosBoxconfiguration.saveConfiguration(fullDestination, './etc/dosbox/dosbox.template.conf');
 
-    configuration = this._configurationFactory.createConfiguration(
-      configurationTypes.DOSBOX_RUN_CONFIGURATION
-    );
-    configuration.saveConfiguration(fullDestination);
+    const dosBoxRunConfiguration = this._configurationFactory.createGOGDosBoxRunConfiguration();
+    dosBoxRunConfiguration.saveConfiguration(fullDestination);
 
     // Create game bin file
     const binTemplate = this._templateFactory.createTemplate('./etc/bin/dosbox.bin.template.sh');
