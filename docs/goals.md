@@ -47,16 +47,16 @@
     -   [x] Add main acceptance integration test for installer
     -   [x] Refactor Factories to use methods to create required object instead of passing a type
     -   [ ] Use Template class everywhere where a template is used (...configuration classes)
--   [ ] documentation   
-    -   [ ] Add install setup
-    -   [ ] Add description
-    -   [ ] Add requirements
+-   [x] documentation   
+    -   [x] Add install setup
+    -   [x] Add description
+    -   [x] Add requirements
 -   [x] Use new script in binary
 -   [x] Able to start installed game
 -   [ ] Run acceptance tests in Docker container
     -   [ ] Run tests in CI
     -   [ ] Able to run locally with configuration
--   [ ] Add list of GOG Windows DosBox games that are able to install and work out of the box
+-   [x] Add list of GOG Windows DosBox games that are able to install and work out of the box
 
 # Fase 2: Add new fetures
 -   [ ] Add configuration file
