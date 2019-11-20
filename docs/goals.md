@@ -53,29 +53,32 @@
     -   [x] Add requirements
 -   [x] Use new script in binary
 -   [x] Able to start installed game
--   [ ] Run acceptance tests in Docker container
-    -   [ ] Run tests in CI
-    -   [ ] Able to run locally with configuration
 -   [x] Add list of GOG Windows DosBox games that are able to install and work out of the box
 
 # Fase 2: Add new fetures
+-   [x] Add innoextract support
+        - [ ] Fix sometime extracted data is in app folder. Not always the case
+        - [ ] Move File validation to base class
+-   [ ] ScummVM Support
+    -   [ ] GOG ScummVM Configuration
+    -   [ ] Update configuration options
+    -   [ ] Update CLI Options 
+    -   [ ] Able to select ScumVM or Dosbox
+    -   [ ] Update Documentation   
+-   [ ] Run acceptance tests in Docker container
+    -   [ ] Run tests in CI
+    -   [ ] Able to run locally with configuration
 -   [ ] Able to suppress error stacktraces
 -   [ ] Show or log errors from executed commands  
 -   [ ] Add configuration file
 -   [ ] Add optional option as CLI parameters
 -   [ ] Add production docker container 
     -   [ ] Add to dockerhub
--   [x] Add innoextract support
 -   [ ] Add coverage (codecov ?) and Shield from shield.io   
 -   [ ] Midi music
     -   [ ] Configuration should setup midi out of the box
     -   [ ] Support for software midi
     -   [ ] Update documentation and installation
--   [ ] ScummVM Support
-    -   [ ] GOG ScummVM Configuration
-    -   [ ] Update configuration options
-    -   [ ] Update CLI Options 
-    -   [ ] Update Documentation   
 -   [ ] Add installer support
     -   [ ] OSX DMG files
     -   [ ] Zip files
