@@ -59,11 +59,13 @@
 -   [x] Add list of GOG Windows DosBox games that are able to install and work out of the box
 
 # Fase 2: Add new fetures
+-   [ ] Able to suppress error stacktraces
+-   [ ] Show or log errors from executed commands  
 -   [ ] Add configuration file
 -   [ ] Add optional option as CLI parameters
 -   [ ] Add production docker container 
     -   [ ] Add to dockerhub
--   [ ] Add innoextract support
+-   [x] Add innoextract support
 -   [ ] Add coverage (codecov ?) and Shield from shield.io   
 -   [ ] Midi music
     -   [ ] Configuration should setup midi out of the box

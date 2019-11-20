@@ -24,7 +24,8 @@ If you are into some old DOS games you can buy and take a look at [Steam](https:
 Legaci has the following dependencies to work:
  - Nodejs
  - DOSBox
- - Wine
+ - Wine (optional)
+ - Innoextract
  - Docker (development only)
 
 ## Installation
@@ -42,6 +43,8 @@ sudo apt install dosbox
 ```
 
 3. Please follow the instructions on the [Wine site](https://wiki.winehq.org/Ubuntu) to install Wine.
+
+4. Please fololow the instruction on the [Innoextract site](https://constexpr.org/innoextract/install) to install Innoextract.
 
 ## Usage
 To see all the available options run the following command in the directory Legaci is installed:

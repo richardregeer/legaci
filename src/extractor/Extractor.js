@@ -11,6 +11,10 @@ class Extractor {
     throw new Error('Please extend extract');
   }
 
+  validatePaths(fullFileName, fullDestination) {
+
+  }
+
   getTempFolder() {
     const randomFolder = Math.random().toString(36).substring(2, 15);
     const tempFolder = `${this._tempFolderPath}/${randomFolder}`;

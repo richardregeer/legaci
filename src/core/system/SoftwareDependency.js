@@ -15,6 +15,10 @@ class SoftwareDependency {
   static isWineAvailable() {
     return !shell.exec('hash wine > /dev/null 2>&1').code > 0;
   }
+
+  static isInnoExtractAvailable() {
+    return !shell.exec('hash innoextract > /dev/null 2>&1').code > 0;
+  }
 }
 
 module.exports = SoftwareDependency;

@@ -10,6 +10,7 @@ const LoggerFactory = require('./logging/LoggerFactory');
 const SoftwareDependency = require('./core/system/SoftwareDependency');
 const PackageTypeResolver = require('./game/package/PackageTypeResolver');
 const WineExtractor = require('./extractor/WineExtractor');
+const InnoExtractExtractor = require('./extractor/InnoExtractExtractor');
 const TemplateFactory = require('./core/file/TemplateFactory');
 const DosBoxGameRunner = require('./runner/DosBoxGameRunner');
 
@@ -24,8 +25,13 @@ if (!SoftwareDependency.isDosBoxAvailable()) {
   shell.exit(1);
 }
 
-if (!SoftwareDependency.isWineAvailable()) {
-  console.log(chalk.red('Wine is not installed on your system and is required'));
+// if (!SoftwareDependency.isWineAvailable()) {
+//   console.log(chalk.red('Wine is not installed on your system and is required'));
+//   shell.exit(1);
+// }
+
+if (!SoftwareDependency.isInnoExtractAvailable()) {
+  console.log(chalk.red('Innoextract is not installed on your system and is required'));
   shell.exit(1);
 }
 
@@ -38,7 +44,8 @@ program
 function install(fileName, destination) {
   const fileHandler = new FileHandler();
   const logger = new LoggerFactory().createLogger();
-  const extractor = new WineExtractor(logger, '~/tmp', shell);
+  // const extractor = new WineExtractor(logger, '~/tmp', shell);
+  const extractor = new InnoExtractExtractor(logger, '~/tmp', shell);
   const configurationFactory = new ConfigurationFactory(fileHandler, logger, shell);
   const packageTypeResolver = new PackageTypeResolver(shell);
   const templateFactory = new TemplateFactory(fileHandler, logger);
