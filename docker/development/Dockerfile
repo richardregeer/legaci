@@ -7,6 +7,7 @@ RUN apt-get update \
     && wget -nc https://dl.winehq.org/wine-builds/winehq.key \
     && apt-key add winehq.key \
     && apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ xenial main'  \
+    && add-apt-repository ppa:arx/release \
     && apt-get clean \
     && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 

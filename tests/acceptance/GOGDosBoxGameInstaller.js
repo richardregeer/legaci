@@ -12,7 +12,7 @@ test.after(() => {
   shell.rm('-rf', '~/legaci-test');
 });
 
-test('Install GOG DOSBox windows installer with success using Wine', (t) => {
+test('Install GOG DOSBox windows installer with success using Innoextract', (t) => {
   const command = `bin/legaci ${PACKAGE_PATH} ${INSTALL_PATH}`;
   shell.exec(command);
 
