@@ -3,6 +3,7 @@
 const gamePackageTypes = require('./gamePackageTypes');
 const GOGGamePackage = require('./GOGGamePackage');
 const GOGDosBoxGamePackage = require('./GOGDosBoxGamePackage');
+const GOGScummVMGamePackage = require('./GOGScummVMGamePackage');
 
 class PackageTypeResolver {
   constructor(cli) {
@@ -14,6 +15,10 @@ class PackageTypeResolver {
     if (GOGGamePackage.isValid(extractedPath, this._cli)) {
       if (GOGDosBoxGamePackage.isValid(extractedPath, this._cli)) {
         return gamePackageTypes.GOG_DOSBOX;
+      }
+
+      if (GOGScummVMGamePackage.isValid(extractedPath, this._cli)) {
+        return gamePackageTypes.GOG_SCUMMVM;
       }
     }
 

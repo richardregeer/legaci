@@ -2,6 +2,7 @@
 
 const DosBoxConfiguration = require('./DosBoxConfiguration');
 const DosBoxGOGRunConfiguration = require('./DosBoxGOGRunConfiguration');
+const ScummVmConfiguration = require('./ScummVMConfiguration');
 
 class ConfigurationFactory {
   constructor(fileHandler, logger, cli) {
@@ -16,6 +17,10 @@ class ConfigurationFactory {
 
   createGOGDosBoxRunConfiguration() {
     return new DosBoxGOGRunConfiguration(this._fileHandler, this._logger, this._cli);
+  }
+
+  createScummVMConfiguration() {
+    return new ScummVmConfiguration(this._fileHandler, this._logger, this._cli);
   }
 }
 

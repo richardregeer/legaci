@@ -1,16 +1,18 @@
 'use strict';
 
+const path = require('path');
 const shell = require('shelljs');
 const program = require('commander');
 const chalk = require('chalk');
 const GameInstaller = require('./game/GameInstaller');
+const GameExtractor = require('./game/GameExtractor');
 const ConfigurationFactory = require('./configuration/ConfigurationFactory');
 const FileHandler = require('./core/file/FileHandler');
 const LoggerFactory = require('./logging/LoggerFactory');
 const SoftwareDependency = require('./core/system/SoftwareDependency');
 const PackageTypeResolver = require('./game/package/PackageTypeResolver');
-// const WineExtractor = require('./extractor/WineExtractor');
-const InnoExtractExtractor = require('./extractor/InnoExtractExtractor');
+const FileTypeResolver = require('./core/file/FileTypeResolver');
+const ExtractorFactory = require('./extractor/ExtractorFactory');
 const TemplateFactory = require('./core/file/TemplateFactory');
 const DosBoxGameRunner = require('./runner/DosBoxGameRunner');
 
@@ -44,14 +46,20 @@ program
 function install(fileName, destination) {
   const fileHandler = new FileHandler();
   const logger = new LoggerFactory().createLogger();
-  // const extractor = new WineExtractor(logger, '~/tmp', shell);
-  const extractor = new InnoExtractExtractor(logger, '~/tmp', shell);
+  const extractorFactory = new ExtractorFactory(logger, '~/tmp', shell);
   const configurationFactory = new ConfigurationFactory(fileHandler, logger, shell);
   const packageTypeResolver = new PackageTypeResolver(shell);
+  const fileTypeResolver = new FileTypeResolver(path);
   const templateFactory = new TemplateFactory(fileHandler, logger);
   const gameRunner = new DosBoxGameRunner(fileHandler, logger, shell);
-  const installer = new GameInstaller(
-    extractor,
+
+  const gameExtractor = new GameExtractor(
+    extractorFactory,
+    fileTypeResolver,
+    logger
+  );
+
+  const gameInstaller = new GameInstaller(
     configurationFactory,
     fileHandler,
     logger,
@@ -60,7 +68,11 @@ function install(fileName, destination) {
     gameRunner
   );
 
-  installer.install(fileName, destination);
+  // Extract the game package
+  gameExtractor.extract(fileName, destination);
+
+  // Install the game package
+  gameInstaller.install(fileName, destination);
 }
 
 program.parse(process.argv);
