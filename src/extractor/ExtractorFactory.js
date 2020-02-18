@@ -2,6 +2,7 @@
 
 const FileTypes = require('../core/file/fileTypes');
 const InnoExtractExtractor = require('./InnoExtractExtractor');
+const ZipExtractor = require('./ZipExtractor');
 
 class ExtractorFactory {
   constructor(logger, tempFolderPath, cli) {
@@ -14,6 +15,9 @@ class ExtractorFactory {
     switch (fileType) {
       case FileTypes.EXE:
         return new InnoExtractExtractor(this._logger, this._tempFolderPath, this._cli);
+      case FileTypes.ZIP:
+        return new ZipExtractor(this._logger, this._tempFolderPath, this._cli);
+      case FileTypes.SH:
       default:
     }
 

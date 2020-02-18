@@ -16,7 +16,6 @@ test('IsValid should return false when given file is not a GOG installation file
 });
 
 test('IsValid should return true when given file is a GOG installation file', (t) => {
-  const result = GOGGamePackage.isValid('tests/fixtures/games/Tyrian', shell);
-
-  t.true(result);
+  t.true(GOGGamePackage.isValid('tests/fixtures/games/Tyrian', shell), 'tests/fixtures/games/Tyrian is not a valid gog installation file');
+  t.true(GOGGamePackage.isValid('tests/fixtures/games/Biomenance', shell), 'tests/fixtures/games/Biomenance is not a valid gog installation file');
 });

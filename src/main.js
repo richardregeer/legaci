@@ -1,9 +1,9 @@
 'use strict';
 
-const path = require('path');
 const shell = require('shelljs');
 const program = require('commander');
 const chalk = require('chalk');
+
 const GameInstaller = require('./game/GameInstaller');
 const GameExtractor = require('./game/GameExtractor');
 const ConfigurationFactory = require('./configuration/ConfigurationFactory');
@@ -15,6 +15,8 @@ const FileTypeResolver = require('./core/file/FileTypeResolver');
 const ExtractorFactory = require('./extractor/ExtractorFactory');
 const TemplateFactory = require('./core/file/TemplateFactory');
 const DosBoxGameRunner = require('./runner/DosBoxGameRunner');
+const ShellScriptRunner = require('./runner/ShellScriptRunner');
+const fileTypes = require('./core/file/fileTypes');
 
 const { version } = require('../package.json');
 
@@ -49,9 +51,10 @@ function install(fileName, destination) {
   const extractorFactory = new ExtractorFactory(logger, '~/tmp', shell);
   const configurationFactory = new ConfigurationFactory(fileHandler, logger, shell);
   const packageTypeResolver = new PackageTypeResolver(shell);
-  const fileTypeResolver = new FileTypeResolver(path);
+  const fileTypeResolver = new FileTypeResolver(shell);
   const templateFactory = new TemplateFactory(fileHandler, logger);
   const gameRunner = new DosBoxGameRunner(fileHandler, logger, shell);
+  const shellScriptRunner = new ShellScriptRunner(logger, shell);
 
   const gameExtractor = new GameExtractor(
     extractorFactory,
@@ -68,11 +71,15 @@ function install(fileName, destination) {
     gameRunner
   );
 
-  // Extract the game package
-  gameExtractor.extract(fileName, destination);
+  const fileType = fileTypeResolver.getFileType(fileName);
 
-  // Install the game package
-  gameInstaller.install(fileName, destination);
+  // Extract and install the game package
+  if (fileType === fileTypes.SH) {
+    shellScriptRunner.run(fileName);
+  } else {
+    gameExtractor.extract(fileName, destination);
+    gameInstaller.install(fileName, destination);
+  }
 }
 
 program.parse(process.argv);
