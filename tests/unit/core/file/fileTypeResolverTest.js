@@ -43,14 +43,6 @@ test('GetFileType should return SH when path contains a shell file', (t) => {
   t.is(result, FileTypes.SH);
 });
 
-test('GetFileType should return DMG when path contains a dmg file', (t) => {
-  const { resolver } = t.context;
-
-  const result = resolver.getFileType('/test/path/file.dmg');
-
-  t.is(result, FileTypes.DMG);
-});
-
 test('GetFileType should throw an exception when file type is unknown', (t) => {
   const { resolver } = t.context;
 

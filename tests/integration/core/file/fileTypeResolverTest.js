@@ -30,14 +30,6 @@ test('getFileTypePackageType should return a shell file when file has a sh exten
   t.is(result, fileTypes.SH);
 });
 
-test('getFileTypePackageType should return a dmg file when file has a dmg extension', (t) => {
-  const { resolver } = t.context;
-
-  const result = resolver.getFileType('tests/fixtures/files/somefile.dmg');
-
-  t.is(result, fileTypes.DMG);
-});
-
 test('getFileTypePackageType should return a exe file when file has an exe extension', (t) => {
   const { resolver } = t.context;
 

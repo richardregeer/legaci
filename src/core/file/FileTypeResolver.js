@@ -21,7 +21,6 @@ class FileTypeResolver {
 
         return fileTypes.SH;
       case '.exe': return fileTypes.EXE;
-      case '.dmg': return fileTypes.DMG;
       default:
     }
 

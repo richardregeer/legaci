@@ -1,7 +1,9 @@
 'use strict';
 
 const FileTypes = require('../core/file/fileTypes');
+const ExtractorTypes = require('./extractorTypes');
 const InnoExtractExtractor = require('./InnoExtractExtractor');
+const WineExtractor = require('./WineExtractor');
 const ZipExtractor = require('./ZipExtractor');
 
 class ExtractorFactory {
@@ -11,12 +13,26 @@ class ExtractorFactory {
     this._cli = cli;
   }
 
-  createExtractor(fileType) {
+  createByExtractorType(extractorType) {
+    switch (extractorType) {
+      case ExtractorTypes.INNOEXTRACT:
+        return new InnoExtractExtractor(this._logger, this._tempFolderPath, this._cli);
+      case ExtractorTypes.WINE:
+        return new WineExtractor(this._logger, this._tempFolderPath, this._cli);
+      case ExtractorTypes.UNZIP:
+        return new ZipExtractor(this._logger, this._tempFolderPath, this._cli);
+      default:
+    }
+
+    throw new Error('Unknown extractor type');
+  }
+
+  createByFileType(fileType) {
     switch (fileType) {
       case FileTypes.EXE:
-        return new InnoExtractExtractor(this._logger, this._tempFolderPath, this._cli);
+        return this.createByExtractorType(ExtractorTypes.INNOEXTRACT);
       case FileTypes.ZIP:
-        return new ZipExtractor(this._logger, this._tempFolderPath, this._cli);
+        return this.createByExtractorType(ExtractorTypes.UNZIP);
       case FileTypes.SH:
       default:
     }

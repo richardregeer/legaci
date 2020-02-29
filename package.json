@@ -32,7 +32,17 @@
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.18.2",
     "mock-fs": "^4.10.1",
+    "nyc": "^15.0.0",
     "shx": "^0.3.2",
     "sinon": "^7.4.1"
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "tests/**"
+    ]
   }
 }

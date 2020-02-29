@@ -1,9 +1,9 @@
 'use strict';
 
-const GameRunner = require('../../src/runner/GameRunner');
+const GameRunner = require('./GameRunner');
 
-class DosBoxGameRunner extends GameRunner {
-  createBinFile(gamePath, template) {
+class ScummVMGameRunner extends GameRunner {
+  createBinFile(gamePath, template, variables = []) {
     if (!this._cli.test('-e', gamePath)) {
       throw new Error(`Unable to create bin file, ${gamePath} does not exists`);
     }
@@ -13,8 +13,9 @@ class DosBoxGameRunner extends GameRunner {
       const binPath = `${gamePath}/legaci-run.sh`;
 
       // Replace template variables
-      template.replaceVariable('CONF_PATH', `${gamePath}/legaci.conf`);
-      template.replaceVariable('RUN_CONF_PATH', `${gamePath}/legaci-start.conf`);
+      template.replaceVariable('GAME_PATH', `${gamePath}`);
+      template.replaceVariable('CONF_PATH', `${gamePath}/__support/app/${variables.configFilePath}`);
+      template.replaceVariable('SCUMMVM_GAME_ID', variables.gameId);
 
       // Save bin file and make it executablereplaceVariable
       template.save(binPath);
@@ -29,4 +30,4 @@ class DosBoxGameRunner extends GameRunner {
   }
 }
 
-module.exports = DosBoxGameRunner;
+module.exports = ScummVMGameRunner;

@@ -10,7 +10,7 @@ shell.silent = true;
 const GOGGamePackage = require('../../../../src/game/package/GOGGamePackage');
 
 test('IsValid should return false when given file is not a GOG installation file', (t) => {
-  const result = GOGGamePackage.isValid('tests/games/notValidGOGDosBox', shell);
+  const result = GOGGamePackage.isValid('tests/games/notValidGOG', shell);
 
   t.false(result);
 });

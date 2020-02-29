@@ -20,7 +20,7 @@ class ConfigurationFactory {
   }
 
   createScummVMConfiguration() {
-    return new ScummVmConfiguration(this._fileHandler, this._logger, this._cli);
+    return new ScummVmConfiguration(this._fileHandler, this._logger);
   }
 }
 

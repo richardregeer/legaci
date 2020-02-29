@@ -2,9 +2,13 @@
 
 class GOGScummVMGamePackage {
   static isValid(path, cli) {
-    const result = cli.find(path + '/scummvm/');
+    const resultUpper = cli.find(path + '/SCUMMVM/');
+    const resultLower = cli.find(path + '/scummvm/');
+    const resultCamelCase = cli.find(path + '/ScummVm/');
 
-    if (result.length === 0) {
+    const found = resultUpper.length + resultLower.length + resultCamelCase.length;
+
+    if (found === 0) {
       return false;
     }
 

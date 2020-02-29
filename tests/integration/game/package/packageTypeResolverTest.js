@@ -18,7 +18,7 @@ test('getPackageType should throw an error if not an valid GOG DosBox package', 
   const { packageTypeResolver } = t.context;
 
   t.throws(() => {
-    packageTypeResolver.getPackageType('tests/games/notValidGOGDosBox');
+    packageTypeResolver.getPackageType('tests/games/notValidGOGx');
   }, Error);
 });
 

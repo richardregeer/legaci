@@ -3,6 +3,5 @@
 module.exports = {
   ZIP: 'A compressed file',
   SH: 'A bash shell script file',
-  EXE: 'A Windows executable file',
-  DMG: 'A OSX compressed installation file'
+  EXE: 'A Windows executable file'
 };

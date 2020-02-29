@@ -14,9 +14,11 @@ const PackageTypeResolver = require('./game/package/PackageTypeResolver');
 const FileTypeResolver = require('./core/file/FileTypeResolver');
 const ExtractorFactory = require('./extractor/ExtractorFactory');
 const TemplateFactory = require('./core/file/TemplateFactory');
-const DosBoxGameRunner = require('./runner/DosBoxGameRunner');
+const GameRunnerFactory = require('./runner/GameRunnerFactory');
 const ShellScriptRunner = require('./runner/ShellScriptRunner');
 const fileTypes = require('./core/file/fileTypes');
+const extractorTypes = require('./extractor/extractorTypes');
+const InstallerFactory = require('./game/installer/InstallerFactory');
 
 const { version } = require('../package.json');
 
@@ -42,6 +44,7 @@ if (!SoftwareDependency.isInnoExtractAvailable()) {
 // Run application
 program
   .version(version, '-v, --version')
+  .option('-x, --extractor <type>', 'Force to use an extractor [wine|innoextract|unzip|auto]', parseExtractorType)
   .command('legaci <file> <destination>', 'Extract installer and install to destination')
   .action(install);
 
@@ -53,8 +56,16 @@ function install(fileName, destination) {
   const packageTypeResolver = new PackageTypeResolver(shell);
   const fileTypeResolver = new FileTypeResolver(shell);
   const templateFactory = new TemplateFactory(fileHandler, logger);
-  const gameRunner = new DosBoxGameRunner(fileHandler, logger, shell);
+  const gameRunnerFactory = new GameRunnerFactory(logger, fileHandler, shell);
   const shellScriptRunner = new ShellScriptRunner(logger, shell);
+
+  const installerFactory = new InstallerFactory(
+    configurationFactory,
+    fileHandler,
+    templateFactory,
+    gameRunnerFactory,
+    shell
+  );
 
   const gameExtractor = new GameExtractor(
     extractorFactory,
@@ -63,12 +74,9 @@ function install(fileName, destination) {
   );
 
   const gameInstaller = new GameInstaller(
-    configurationFactory,
-    fileHandler,
     logger,
-    packageTypeResolver,
-    templateFactory,
-    gameRunner
+    installerFactory,
+    packageTypeResolver
   );
 
   const fileType = fileTypeResolver.getFileType(fileName);
@@ -77,9 +85,23 @@ function install(fileName, destination) {
   if (fileType === fileTypes.SH) {
     shellScriptRunner.run(fileName);
   } else {
-    gameExtractor.extract(fileName, destination);
+    gameExtractor.extract(fileName, destination, program.extractor);
     gameInstaller.install(fileName, destination);
   }
 }
 
+function parseExtractorType(type) {
+  switch (type) {
+    case 'wine': return extractorTypes.WINE;
+    case 'innoextract': return extractorTypes.INNOEXTRACT;
+    case 'unzip': return extractorTypes.UNZIP;
+    case 'auto': // Auto resolve the correct extractor
+    default: return extractorTypes.UNKNOWN;
+  }
+}
+
+// try {
 program.parse(process.argv);
+// } catch (error) {
+//   console.log(chalk.red(`Error in installing game file: ${error.message}`));
+// }

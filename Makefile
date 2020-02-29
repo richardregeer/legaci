@@ -59,6 +59,11 @@ test: test_unit test_integration## Run all the tests of the complete project.
 test_unit: ## Run all the unit tests of the complete project.
 	${START_COMMAND} ${NODE_MODULES}/ava --verbose **/unit/**/*.js **/unit/**/**/*.js
 
+.PHONY: test_coverage
+test_coverage: ## Calculate the unit test coverage of the complete project.
+	${START_COMMAND} ${NODE_MODULES}/nyc --reporter=text --reporter=text-summary --reporter=html \
+	${NODE_MODULES}/ava --verbose **/unit/**/*.js **/unit/**/**/*.js
+
 .PHONY: test_integration
 test_integration: ## Run all the integration tests of the complete project.
 	${START_COMMAND} ${NODE_MODULES}/ava --verbose **/integration/**/*.js **/integration/**/**/*.js
