@@ -36,14 +36,15 @@ test.after(() => {
   shell.rm('-rf', shell.pwd() + '/' + TEST_PATH);
 });
 
-test('Create bin file for should create a executable shell file', (t) => {
+test('Create bin file for a ScummVM game should create a executable shell file', (t) => {
   const { runner, fileHandler, template } = t.context;
 
-  runner.createBinFile(TEST_PATH, template);
+  runner.createBinFile(TEST_PATH, template, { configFilePath: 'testConfigPath', gameId: 'testGameId' });
 
   t.true(shell.test('-e', shell.pwd() + `/${TEST_PATH}/legaci-run.sh`), `ScummVM bin file is is not found on path ${TEST_PATH}`);
 
   const binFile = fileHandler.readFileSync(shell.pwd() + `/${TEST_PATH}/legaci-run.sh`);
 
-  t.true(binFile.indexOf('/legaci-run.sh') > 0, 'ScummVM run configuration is not found');
+  t.true(binFile.indexOf('testConfigPath') > 0, 'ScummVM configuration is not found');
+  t.true(binFile.indexOf('testGameId') > 0, 'ScummVM game id is not found');
 });

@@ -5,7 +5,6 @@
 const test = require('ava');
 const sinon = require('sinon');
 
-const Logger = require('../../../../src/logging/Logger');
 const FileHandler = require('../../../../src/core/file/FileHandler');
 const ConfigurationFactory = require('../../../../src/configuration/ConfigurationFactory');
 const DosBoxConfiguration = require('../../../../src/configuration/DosBoxConfiguration');
@@ -16,7 +15,6 @@ const Template = require('../../../../src/core/file/Template');
 const DosBoxGameRunner = require('../../../../src/runner/DosBoxGameRunner');
 
 test.beforeEach((t) => {
-  t.context.logger = sinon.createStubInstance(Logger);
   t.context.fileHandler = sinon.createStubInstance(FileHandler);
   t.context.dosBoxConfiguration = sinon.createStubInstance(DosBoxConfiguration);
   t.context.dosBoxGOGRunConfiguration = sinon.createStubInstance(DosBoxGOGRunConfiguration);
@@ -37,7 +35,6 @@ test.beforeEach((t) => {
   t.context.dosBoxinstaller = new DosBoxInstaller(
     t.context.configurationFactory,
     t.context.fileHandler,
-    t.context.logger,
     t.context.templateFactory,
     t.context.gameRunner
   );

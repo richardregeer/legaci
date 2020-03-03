@@ -19,8 +19,8 @@ class ScummVMInstaller {
 
   install(fullDestination) {
     const gameId = this._getScummVMGameId(fullDestination);
-    const configFilePath = this._getConfigIniFilePath(fullDestination);
 
+    const configFilePath = this._getConfigIniFilePath(fullDestination);
     const binTemplate = this._templateFactory.createTemplate('./etc/bin/scummvm.bin.template.sh');
     this._gameRunner.createBinFile(fullDestination, binTemplate, { gameId, configFilePath });
   }
@@ -43,7 +43,7 @@ class ScummVMInstaller {
       .replace('gameid=', '');
 
     if (result === '') {
-      throw new Error('Missing gameid from GOG ScummVM installation. ');
+      throw new Error('Missing gameid from GOG ScummVM installation.');
     }
 
     return result;

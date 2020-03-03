@@ -19,7 +19,6 @@ class InstallerFactory {
     this._cli = cli;
   }
 
-  // TODO add gamerunner factory
   createByPackageType(packageType) {
     switch (packageType) {
       case packageTypes.GOG_DOSBOX:

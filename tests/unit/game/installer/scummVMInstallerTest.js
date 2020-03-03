@@ -5,71 +5,68 @@
 const test = require('ava');
 const sinon = require('sinon');
 
-const Logger = require('../../../src/logging/Logger');
-const FileHandler = require('../../../src/core/file/FileHandler');
-const ConfigurationFactory = require('../../../src/configuration/ConfigurationFactory');
-const DosBoxConfiguration = require('../../../src/configuration/DosBoxConfiguration');
-const DosBoxGOGRunConfiguration = require('../../../src/configuration/DosBoxGOGRunConfiguration');
-const PackageTypeResolver = require('../../../src/game/package/PackageTypeResolver');
-const gamePackageTypes = require('../../../src/game/package/gamePackageTypes');
-const GameInstaller = require('../../../src/game/GameInstaller');
-const TemplateFactory = require('../../../src/core/file/TemplateFactory');
-const Template = require('../../../src/core/file/Template');
-const DosBoxGameRunner = require('../../../src/runner/DosBoxGameRunner');
+const FileHandler = require('../../../../src/core/file/FileHandler');
+const ConfigurationFactory = require('../../../../src/configuration/ConfigurationFactory');
+const TemplateFactory = require('../../../../src/core/file/TemplateFactory');
+const Template = require('../../../../src/core/file/Template');
+const ScummVMGameRunner = require('../../../../src/runner/ScummVMGameRunner');
+const ScummVMInstaller = require('../../../../src/game/installer/ScummVmInstaller');
 
 test.beforeEach((t) => {
-  t.context.logger = sinon.createStubInstance(Logger);
   t.context.fileHandler = sinon.createStubInstance(FileHandler);
-  t.context.dosBoxConfiguration = sinon.createStubInstance(DosBoxConfiguration);
-  t.context.dosBoxGOGRunConfiguration = sinon.createStubInstance(DosBoxGOGRunConfiguration);
-
-  t.context.packageTypeResolver = sinon.createStubInstance(PackageTypeResolver);
-  t.context.packageTypeResolver.getPackageType.returns(gamePackageTypes.GOG_DOSBOX);
-
   t.context.configurationFactory = sinon.createStubInstance(ConfigurationFactory);
-  t.context.configurationFactory.createDosBoxConfiguration
-    .returns(t.context.dosBoxConfiguration);
-
-  t.context.configurationFactory.createGOGDosBoxRunConfiguration
-    .returns(t.context.dosBoxGOGRunConfiguration);
-
   t.context.templateFactory = sinon.createStubInstance(TemplateFactory);
   t.context.template = sinon.createStubInstance(Template);
   t.context.templateFactory.createTemplate.returns(t.context.template);
 
-  t.context.gameRunner = sinon.createStubInstance(DosBoxGameRunner);
+  t.context.gameRunner = sinon.createStubInstance(ScummVMGameRunner);
 
-  t.context.gameInstaller = new GameInstaller(
+  t.context.cli = sinon.stub({
+    cat() {},
+    grep() {},
+    find() {}
+  });
+  t.context.cli.cat.returns(t.context.cli);
+  t.context.cli.grep.returns('gameid=test');
+  t.context.cli.find.returns(['some/path/test.ini']);
+
+  t.context.gameInstaller = new ScummVMInstaller(
     t.context.configurationFactory,
     t.context.fileHandler,
-    t.context.logger,
-    t.context.packageTypeResolver,
     t.context.templateFactory,
-    t.context.gameRunner
+    t.context.gameRunner,
+    t.context.cli
   );
 });
 
-test('Install should throw an error when package is not a GOG Dosbox game', (t) => {
-  const { gameInstaller, packageTypeResolver } = t.context;
+test('Install should throw an error when node ScummVM gameid is found', (t) => {
+  const { gameInstaller, cli } = t.context;
 
-  packageTypeResolver.getPackageType.returns('Unknown');
+  cli.cat.returns(cli);
+  cli.grep.returns('');
 
   t.throws(() => {
     gameInstaller.install('/tmp/test-game.exe', '/tmp/test-game');
-  }, Error, 'Only GOG Dosbox games are supported');
+  }, Error, 'Missing gameid from GOG ScummVM installation.');
 });
 
-test('GOG DosBox Windows installer should extract create DosBox configuration files.', (t) => {
+test('Install should throw an error when no ScummVM ini file is found', (t) => {
+  const { gameInstaller, cli } = t.context;
+
+  cli.find.returns([]);
+
+  t.throws(() => {
+    gameInstaller.install('/tmp/test-game.exe', '/tmp/test-game');
+  }, Error, 'Missing configuration ini file from ScummVM GOG installation.');
+});
+
+test('GOG ScummVM installer should install ScummVM configuration files.', (t) => {
   const {
-    dosBoxGOGRunConfiguration,
-    dosBoxConfiguration,
     gameInstaller,
     gameRunner
   } = t.context;
 
   gameInstaller.install('/tmp/test-game.exe', '/tmp/test-game');
 
-  t.true(dosBoxConfiguration.saveConfiguration.calledOnce);
-  t.true(dosBoxGOGRunConfiguration.saveConfiguration.calledOnce);
   t.true(gameRunner.createBinFile.calledOnce);
 });

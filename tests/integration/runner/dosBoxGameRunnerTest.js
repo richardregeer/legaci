@@ -36,7 +36,7 @@ test.after(() => {
   shell.rm('-rf', shell.pwd() + '/' + TEST_PATH);
 });
 
-test('Create bin file for should create a executable shell file', (t) => {
+test('Create bin file for a DosBox game should create a executable shell file', (t) => {
   const { runner, fileHandler, template } = t.context;
 
   runner.createBinFile(TEST_PATH, template);

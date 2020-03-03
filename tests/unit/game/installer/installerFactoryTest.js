@@ -21,15 +21,14 @@ test.beforeEach((t) => {
   t.context.fileHandler = sinon.createStubInstance(FileHandler);
   t.context.configurationFactory = sinon.createStubInstance(ConfigurationFactory);
   t.context.templateFactory = sinon.createStubInstance(TemplateFactory);
-  t.context.gameRunner = sinon.createStubInstance(GameRunnerFactory);
+  t.context.gameRunnerFactory = sinon.createStubInstance(GameRunnerFactory);
   t.context.cli = sinon.stub({});
 
   t.context.factory = new InstallerFactory(
-    t.context.logger,
     t.context.configurationFactory,
     t.context.fileHandler,
     t.context.templateFactory,
-    t.context.gameRunner,
+    t.context.gameRunnerFactory,
     t.context.cli
   );
 });
@@ -39,7 +38,7 @@ test('CreateByPackageType should throw an Error if package type does not exist',
 
   t.throws(() => {
     factory.createByPackageType('Unknown');
-  }, Error);
+  }, Error, 'Unknown package type');
 });
 
 test('CreateByPackageType should return a new DosBoxInstaller instance when package type is GOG _DOSBOX', (t) => {
