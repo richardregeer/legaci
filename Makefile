@@ -62,7 +62,8 @@ test_unit: ## Run all the unit tests of the complete project.
 .PHONY: test_coverage
 test_coverage: ## Calculate the unit test coverage of the complete project.
 	${START_COMMAND} ${NODE_MODULES}/nyc --reporter=text --reporter=text-summary --reporter=html \
-	${NODE_MODULES}/ava --verbose **/unit/**/*.js **/unit/**/**/*.js
+	${NODE_MODULES}/ava --verbose **/unit/**/*.js **/unit/**/**/*.js \
+	**/integration/**/*.js **/integration/**/**/*.js
 
 .PHONY: test_integration
 test_integration: ## Run all the integration tests of the complete project.
