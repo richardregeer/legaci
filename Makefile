@@ -70,4 +70,4 @@ test_integration: ## Run all the integration tests of the complete project.
 
 .PHONY: test_acceptance
 test_acceptance: ## Run all the acceptance tests of the complete project.
-	${START_COMMAND} ${NODE_MODULES}/ava --verbose **/acceptance/*.js
+	${START_COMMAND} ${NODE_MODULES}/ava --verbose --serial **/acceptance/*.js

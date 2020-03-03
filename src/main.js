@@ -100,8 +100,8 @@ function parseExtractorType(type) {
   }
 }
 
-// try {
-program.parse(process.argv);
-// } catch (error) {
-//   console.log(chalk.red(`Error in installing game file: ${error.message}`));
-// }
+try {
+  program.parse(process.argv);
+} catch (error) {
+  console.log(chalk.red(`Error in installing game file: ${error.message}`));
+}

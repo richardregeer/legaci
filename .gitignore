@@ -2,5 +2,6 @@ node_modules
 .idea
 .test
 assets/*.exe
+assets/larry3.sh
 coverage
 .nyc_output
