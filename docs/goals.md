@@ -56,20 +56,19 @@
 -   [x] Add list of GOG Windows DosBox games that are able to install and work out of the box
 
 # Fase 2: Add new fetures
--   [x] Add innoextract support
-        - [ ] Fix sometime extracted data is in app folder. Not always the case
+-   [ ] Add innoextract support
+        - [x] Fix sometime extracted data is in app folder. Not always the case
         - [ ] Move File validation to base class
--   [ ] ScummVM Support
-    -   [ ] GOG ScummVM Configuration
-    -   [ ] Update configuration options
-    -   [ ] Update CLI Options 
-    -   [ ] Able to select ScumVM or Dosbox
-    -   [ ] Update Documentation   
+-   [x] ScummVM Support
+    -   [x] GOG ScummVM Configuration
+    -   [x] Update CLI Options 
+    -   [x] Able to select ScumVM or Dosbox
+    -   [x] Update Documentation   
 -   [ ] Run acceptance tests in Docker container
     -   [ ] Run tests in CI
     -   [ ] Able to run locally with configuration
--   [ ] Able to suppress error stacktraces
--   [ ] Show or log errors from executed commands  
+-   [x] Able to suppress error stacktraces
+-   [x] Show or log errors from executed commands  
 -   [ ] Add configuration file
 -   [ ] Add optional option as CLI parameters
 -   [ ] Add production docker container 
@@ -79,14 +78,13 @@
     -   [ ] Configuration should setup midi out of the box
     -   [ ] Support for software midi
     -   [ ] Update documentation and installation
--   [ ] Add installer support
-    -   [ ] OSX DMG files
-    -   [ ] Zip files
-    -   [ ] Shell install files
-    -   [ ] ScummVM Support
-    -   [ ] DosBox Support
-    -   [ ] Update CLI Options
-    -   [ ] Update Documentation
+-   [x] Add installer support
+    -   [x] Zip files
+    -   [x] Shell install files
+    -   [x] ScummVM Support
+    -   [x] DosBox Support
+    -   [x] Update CLI Options
+    -   [x] Update Documentation
 -   [ ] Steam support
     -   [ ] Install games from steam using SteamCMD
     -   [ ] Able to install Windows / OSX / Linux version
