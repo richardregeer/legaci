@@ -18,25 +18,30 @@ class ScummVMInstaller {
   }
 
   install(fullDestination) {
-    const gameId = this._getScummVMGameId(fullDestination);
-
     const configFilePath = this._getConfigIniFilePath(fullDestination);
+    const gameId = this._getScummVMGameId(configFilePath);
+
     const binTemplate = this._templateFactory.createTemplate('./etc/bin/scummvm.bin.template.sh');
-    this._gameRunner.createBinFile(fullDestination, binTemplate, { gameId, configFilePath });
+    const baseConfigFilePath = path.basename(configFilePath);
+    this._gameRunner.createBinFile(fullDestination, binTemplate, { gameId, configFilePath: baseConfigFilePath });
   }
 
   _getConfigIniFilePath(fullDestination) {
-    const result = this._cli.find(`${fullDestination}/__support/app/*.ini`);
+    let result = this._cli.find(`${fullDestination}/*.ini`);
+
+    if (result.length === 0) {
+      result = this._cli.find(`${fullDestination}/__support/app/*.ini`);
+    }
 
     if (result.length === 0) {
       throw new Error('Missing configuration ini file from ScummVM GOG installation.');
     }
 
-    return path.basename(result[0]);
+    return result[0];
   }
 
-  _getScummVMGameId(fullDestination) {
-    const result = this._cli.cat(`${fullDestination}/__support/app/*.ini`)
+  _getScummVMGameId(configIniFilePath) {
+    const result = this._cli.cat(configIniFilePath)
       .grep('gameid=')
       .toString()
       .trim()
