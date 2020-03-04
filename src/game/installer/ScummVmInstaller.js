@@ -23,7 +23,11 @@ class ScummVMInstaller {
 
     const binTemplate = this._templateFactory.createTemplate('./etc/bin/scummvm.bin.template.sh');
     const baseConfigFilePath = path.basename(configFilePath);
-    this._gameRunner.createBinFile(fullDestination, binTemplate, { gameId, configFilePath: baseConfigFilePath });
+    this._gameRunner.createBinFile(
+      fullDestination,
+      binTemplate,
+      { gameId, configFilePath: baseConfigFilePath }
+    );
   }
 
   _getConfigIniFilePath(fullDestination) {
