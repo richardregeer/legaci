@@ -26,7 +26,8 @@ class InstallerFactory {
           this._configurationFactory,
           this._fileHandler,
           this._templateFactory,
-          this._gameRunnerFactory.createDosBoxGameRunner()
+          this._gameRunnerFactory.createDosBoxGameRunner(),
+          this._cli
         );
       case packageTypes.GOG_SCUMMVM:
         return new ScummVmInstaller(

@@ -11,10 +11,17 @@ const TemplateFactory = require('../../../../src/core/file/TemplateFactory');
 const Template = require('../../../../src/core/file/Template');
 const ScummVMGameRunner = require('../../../../src/runner/ScummVMGameRunner');
 const ScummVMInstaller = require('../../../../src/game/installer/ScummVmInstaller');
+const ScummVMConfiguration = require('../../../../src/configuration/ScummVMConfiguration');
 
 test.beforeEach((t) => {
   t.context.fileHandler = sinon.createStubInstance(FileHandler);
+  t.context.scummVMConfiguration = sinon.createStubInstance(ScummVMConfiguration);
+  t.context.scummVMConfiguration.saveConfiguration.returns('/some/path/legaci.ini');
+
   t.context.configurationFactory = sinon.createStubInstance(ConfigurationFactory);
+  t.context.configurationFactory.createScummVMConfiguration
+    .returns(t.context.scummVMConfiguration);
+
   t.context.templateFactory = sinon.createStubInstance(TemplateFactory);
   t.context.template = sinon.createStubInstance(Template);
   t.context.templateFactory.createTemplate.returns(t.context.template);
@@ -50,23 +57,31 @@ test('Install should throw an error when node ScummVM gameid is found', (t) => {
   }, Error, 'Missing gameid from GOG ScummVM installation.');
 });
 
-test('Install should throw an error when no ScummVM ini file is found', (t) => {
-  const { gameInstaller, cli } = t.context;
+test('GOG ScummVM installer should install default ScummVM configuration file when GOG ini file not found.', (t) => {
+  const {
+    gameRunner,
+    configurationFactory,
+    cli,
+    gameInstaller
+  } = t.context;
 
   cli.find.returns([]);
 
-  t.throws(() => {
-    gameInstaller.install('/tmp/test-game.exe', '/tmp/test-game');
-  }, Error, 'Missing configuration ini file from ScummVM GOG installation.');
+  gameInstaller.install('/tmp/test-game.exe', '/tmp/test-game');
+
+  t.true(configurationFactory.createScummVMConfiguration.calledOnce);
+  t.true(gameRunner.createBinFile.calledOnce);
 });
 
 test('GOG ScummVM installer should install ScummVM configuration files.', (t) => {
   const {
     gameInstaller,
-    gameRunner
+    gameRunner,
+    configurationFactory
   } = t.context;
 
   gameInstaller.install('/tmp/test-game.exe', '/tmp/test-game');
 
+  t.true(configurationFactory.createScummVMConfiguration.notCalled);
   t.true(gameRunner.createBinFile.calledOnce);
 });

@@ -18,7 +18,12 @@ class ScummVMInstaller {
   }
 
   install(fullDestination) {
-    const configFilePath = this._getConfigIniFilePath(fullDestination);
+    let configFilePath = this._getConfigIniFilePath(fullDestination);
+    if (configFilePath === null) {
+      const scummVMconfiguration = this._configurationFactory.createScummVMConfiguration();
+      configFilePath = scummVMconfiguration.saveConfiguration(fullDestination, './etc/scummvm/scummvm.template.ini');
+    }
+
     const gameId = this._getScummVMGameId(configFilePath);
 
     const binTemplate = this._templateFactory.createTemplate('./etc/bin/scummvm.bin.template.sh');
@@ -38,7 +43,7 @@ class ScummVMInstaller {
     }
 
     if (result.length === 0) {
-      throw new Error('Missing configuration ini file from ScummVM GOG installation.');
+      return null;
     }
 
     return result[0];

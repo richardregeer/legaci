@@ -18,7 +18,6 @@ test('Install GOG DOSBox windows installer with success using InnoExtract', (t) 
   shell.exec(command);
 
   t.true(shell.test('-e', INSTALL_PATH), `Game is not extracted to expected path ${INSTALL_PATH}`);
-  t.true(shell.test('-e', `${INSTALL_PATH}/legaci.conf`), 'legaci.conf not found in extracted game path');
   t.true(shell.test('-e', `${INSTALL_PATH}/legaci-start.conf`), 'legaci-start.conf not found in extracted game path');
   t.true(shell.test('-e', `${INSTALL_PATH}/legaci-run.sh`), 'legaci-run.sh not found in extracted game path');
 });
@@ -30,7 +29,6 @@ test('Install GOG DOSBox linux shell installer with success using InnoExtract', 
   shell.exec(command);
 
   t.true(shell.test('-e', INSTALL_PATH), `Game is not extracted to expected path ${INSTALL_PATH}`);
-  t.true(shell.test('-e', `${INSTALL_PATH}/legaci.conf`), 'legaci.conf not found in extracted game path');
   t.true(shell.test('-e', `${INSTALL_PATH}/legaci-start.conf`), 'legaci-start.conf not found in extracted game path');
   t.true(shell.test('-e', `${INSTALL_PATH}/legaci-run.sh`), 'legaci-run.sh not found in extracted game path');
 });
