@@ -5,3 +5,4 @@ assets/*.exe
 assets/*.sh
 coverage
 .nyc_output
+dist

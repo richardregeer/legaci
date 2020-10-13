@@ -1,0 +1,32 @@
+{
+    "name": "Tyrian 2000",
+    "releaseStatus": "freeware",
+    "genre": "Action",
+    "released": "1999-10-07",
+    "launchers": [
+        {
+            "application": "DosBox",
+            "version": "0.74",
+            "runConfiguration": "./dosbox-run-config",
+            "gameConfiguration": "./dosbox-game-config",
+            "binFile": ""
+        }
+    ],
+    "sourcePorts": [
+    ],
+    "references": [
+        "https://www.mobygames.com/game/tyrian-2000"
+    ],
+    "reviews": [
+        ""
+    ],
+    "stores": [
+        {
+            "store": "GOG.com",
+            "id": "tyrian_2000",
+            "url": "https://www.gog.com/game/tyrian_2000" 
+        }
+    ],
+    "downloadlocations": [   
+    ]
+}

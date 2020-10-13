@@ -39,6 +39,7 @@ endif
 ifeq ($(ENV),ci)
 	@echo -e '${CYAN}Install Legaci for the ci environment${DEFAULT}'
 	npm install
+	npm install -g codecov
 endif
 
 .PHONY: docker_build
@@ -61,7 +62,7 @@ test_unit: ## Run all the unit tests of the complete project.
 
 .PHONY: test_coverage
 test_coverage: ## Calculate the unit test coverage of the complete project.
-	${START_COMMAND} ${NODE_MODULES}/nyc --reporter=text --reporter=text-summary --reporter=html \
+	${START_COMMAND} ${NODE_MODULES}/nyc -reporter=text-lcov --reporter=text --reporter=text-summary --reporter=html \
 	${NODE_MODULES}/ava --verbose **/unit/**/*.js **/unit/**/**/*.js \
 	**/integration/**/*.js **/integration/**/**/*.js
 
