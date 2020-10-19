@@ -1,5 +1,5 @@
-import { Game } from "../entities/Game";
-import { GameConfiguration } from "../entities/GameConfiguration";
+import { Game } from "../entity/Game";
+import { GameConfiguration } from "../entity/GameConfiguration";
 
 export interface GameSetupInterface {
     

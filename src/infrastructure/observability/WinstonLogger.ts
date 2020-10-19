@@ -1,6 +1,6 @@
 import { Chalk } from 'chalk';
 import { Logger } from 'winston';
-import { LoggerInterface } from '../../core/observability/LoggingInterface';
+import { LoggerInterface } from '../../core/observability/LoggerInterface';
 
 export class WinstonLogger implements LoggerInterface {
   private _logger: Logger; 

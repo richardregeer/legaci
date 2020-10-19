@@ -1,12 +1,11 @@
-import { GameConfiguration } from "../entities/GameConfiguration";
+import { GameConfiguration } from "../entity/GameConfiguration";
 import { GameSetupInterface } from "./GameSetupInterface";
 
 export interface GameSetupFactoryInterface {
     
     /**
-     * @param  {string} source
      * @param  {GameConfiguration} gameConfig
-     * @returns Promise<GameSetupInterface>
+     * @returns GameSetupInterface
      */
-    create(source: string, gameConfig: GameConfiguration): Promise<GameSetupInterface>
+    create(gameConfig: GameConfiguration): GameSetupInterface
 }

@@ -3,7 +3,8 @@
       "target": "es6",
       "module": "commonjs",
       "sourceMap": false,
-      "outDir": "dist"
+      "outDir": "dist",
+      "resolveJsonModule": true
     },
     "exclude": [
       "node_modules",

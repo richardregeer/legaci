@@ -1,9 +1,9 @@
-import { GameConfiguration } from "../../core/entities/GameConfiguration";
-import { Runner } from "../../core/entities/Runner";
-import { SourcePort } from "../../core/entities/SourcePort";
-import { Store } from "../../core/entities/Store";
+import { GameConfiguration } from "../../core/entity/GameConfiguration";
+import { Runner } from "../../core/entity/Runner";
+import { SourcePort } from "../../core/entity/SourcePort";
+import { Store } from "../../core/entity/Store";
 import { FileHandlerInterface } from "../../core/file/FileHandlerInterface";
-import { LoggerInterface } from "../../core/observability/LoggingInterface";
+import { LoggerInterface } from "../../core/observability/LoggerInterface";
 import { GameConfigurationResolverInterface } from "../../core/resolver/GameConfigurationResolverInterface";
 
 export class GameConfigurationResolver implements GameConfigurationResolverInterface {

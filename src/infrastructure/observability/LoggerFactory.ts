@@ -1,5 +1,6 @@
 import { Chalk } from 'chalk';
 import { createLogger, transports, format } from 'winston';
+import { LoggerInterface } from '../../core/observability/LoggerInterface';
 import { WinstonLogger } from './WinstonLogger';
 
 const { printf } = format;
@@ -15,9 +16,9 @@ export class LoggerFactory {
   }
   
   /**
-   * @returns WinstonLogger
+   * @returns LoggerInterface
    */
-  public createLogger(): WinstonLogger {
+  public createLogger(): LoggerInterface {
     const customFormat = printf(({ message }) => {
       return `${message}`;
     });

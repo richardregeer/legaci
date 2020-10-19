@@ -1,20 +1,20 @@
-import { FileDoesNotExistsError } from "../../core/errors/FileDoesNotExistsError";
+import { FileDoesNotExistsError } from "../../core/error/FileDoesNotExistsError";
 import { ExtractorInterface } from "../../core/extractor/ExtractorInterface";
 import { FileHandlerInterface } from "../../core/file/FileHandlerInterface";
-import { LoggerInterface } from "../../core/observability/LoggingInterface";
-import { ShellInterface } from "../../core/shell/ShellIInterface";
+import { LoggerInterface } from "../../core/observability/LoggerInterface";
+import { CommandInterface } from "../../core/command/CommandInterface";
 
 export class ZipExtractor implements ExtractorInterface {
     private _logger: LoggerInterface;
     private _fileHandler: FileHandlerInterface;
-    private _shell: ShellInterface;
+    private _shell: CommandInterface;
 
     /**
      * @param  {FileHandlerInterface} fileHandler
      * @param  {LoggerInterface} logger
      * @param  {ShellInterface} shell
      */
-    public constructor(fileHandler: FileHandlerInterface, logger: LoggerInterface, shell: ShellInterface) {
+    public constructor(fileHandler: FileHandlerInterface, logger: LoggerInterface, shell: CommandInterface) {
         this._logger = logger;
         this._shell = shell;
         this._fileHandler = fileHandler;

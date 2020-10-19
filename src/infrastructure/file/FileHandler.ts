@@ -1,9 +1,9 @@
 import path = require('path');
 import fs = require('fs');
 import { FileHandlerInterface } from '../../core/file/FileHandlerInterface';
-import { FileDoesNotExistsError } from '../../core/errors/FileDoesNotExistsError';
+import { FileDoesNotExistsError } from '../../core/error/FileDoesNotExistsError';
 import { FileType } from '../../core/file/FileType';
-import { UnknownFileTypeError } from '../../core/errors/UnkownFileTypeError';
+import { UnknownFileTypeError } from '../../core/error/UnkownFileTypeError';
 
 export class FileHandler implements FileHandlerInterface {
   

@@ -4,7 +4,7 @@ export interface ExtractorFactoryInterface {
     
     /**
      * @param  {string} source
-     * @returns Promise<ExtractorInterface>
+     * @returns ExtractorInterface
      */
-    create(source: string): Promise<ExtractorInterface>
+    create(source: string): ExtractorInterface
 }

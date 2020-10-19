@@ -1,8 +1,8 @@
-import { ApplicationRunner } from "../../core/entities/ApplicationRunner";
-import { Game } from "../../core/entities/Game";
-import { GameConfiguration } from "../../core/entities/GameConfiguration";
+import { ApplicationRunner } from "../../core/entity/ApplicationRunner";
+import { Game } from "../../core/entity/Game";
+import { GameConfiguration } from "../../core/entity/GameConfiguration";
 import { TemplateInterface } from "../../core/file/TemplateInterface";
-import { LoggerInterface } from "../../core/observability/LoggingInterface";
+import { LoggerInterface } from "../../core/observability/LoggerInterface";
 import { GameSetupInterface } from "../../core/setup/GameSetupInterface";
 
 export class DosBoxInstaller implements GameSetupInterface {
@@ -23,7 +23,7 @@ export class DosBoxInstaller implements GameSetupInterface {
     /**
      * @param  {GameConfiguration} gameConfig
      * @param  {string} destination
-     * @returns Promise
+     * @returns Promise<Game>
      */
     public async install(gameConfig: GameConfiguration, destination: string): Promise<Game> {
         await this.generateConfiguration(gameConfig, destination);

@@ -1,7 +1,7 @@
-import { Game } from "../entities/Game";
-import { GameConfiguration } from "../entities/GameConfiguration";
+import { Game } from "../entity/Game";
+import { GameConfiguration } from "../entity/GameConfiguration";
 import { ExtractorFactoryInterface } from "../extractor/ExtractorFactoryInterface";
-import { LoggerInterface } from "../observability/LoggingInterface";
+import { LoggerInterface } from "../observability/LoggerInterface";
 import { GameSetupFactoryInterface } from "../setup/GameSetupFactoryInterface";
 
 export class InstallGameUseCase {
@@ -33,7 +33,7 @@ export class InstallGameUseCase {
         const extractor = await this._extractorFactory.create(source);
         await extractor.extract(source, destination);
     
-        const gameSetup = await this._gameSetupFactory.create(source, gameConfig);
+        const gameSetup = await this._gameSetupFactory.create(gameConfig);
         return gameSetup.install(gameConfig, destination);
     }
 }

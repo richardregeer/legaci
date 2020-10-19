@@ -1,3 +1,4 @@
+import { UnsupportedApplicationRunnerError } from "../error/UnsupportedApplicationRunnerError";
 import { ApplicationRunner } from "./ApplicationRunner";
 
 export class Runner {
@@ -12,7 +13,7 @@ export class Runner {
      * @param  {string} version
      * @param  {string} launchConfigPath
      * @param  {string} configurationPath
-     * @throws {UnsupportedLauncherApplicationError}
+     * @throws {UnsupportedApplicationRunnerError}
      */
     public constructor(application : string, version : string, runConfigurationPath: string, configurationPath: string, binFile: string) {
         switch (application.toLocaleLowerCase) {
@@ -22,7 +23,7 @@ export class Runner {
             case ApplicationRunner.SCUMMVM.toString: 
                 this._application = ApplicationRunner.SCUMMVM;
                 break;
-            default: throw new UnsupportedLauncherApplicationError(`Unsupported launch application ${application}`);
+            default: throw new UnsupportedApplicationRunnerError(`Unsupported launch application ${application}`);
         }
 
         this._version = version;
