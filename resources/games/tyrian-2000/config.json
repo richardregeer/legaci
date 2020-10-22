@@ -1,9 +1,10 @@
 {
     "name": "Tyrian 2000",
+    "id": "tyrian-2000",
     "releaseStatus": "freeware",
     "genre": "Action",
     "released": "1999-10-07",
-    "launchers": [
+    "runners": [
         {
             "application": "DosBox",
             "version": "0.74",
@@ -27,6 +28,6 @@
             "url": "https://www.gog.com/game/tyrian_2000" 
         }
     ],
-    "downloadlocations": [   
+    "downloadLocations": [   
     ]
 }

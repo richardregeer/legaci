@@ -30,10 +30,10 @@ export class InstallGameUseCase {
      * @returns Promise<Game>
      */
     public async installGame(gameConfig: GameConfiguration, source: string, destination: string): Promise<Game> { 
-        const extractor = await this._extractorFactory.create(source);
+        const extractor = this._extractorFactory.create(source);
         await extractor.extract(source, destination);
     
-        const gameSetup = await this._gameSetupFactory.create(gameConfig);
+        const gameSetup = this._gameSetupFactory.create(gameConfig);
         return gameSetup.install(gameConfig, destination);
     }
 }

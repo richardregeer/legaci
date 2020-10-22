@@ -23,17 +23,14 @@ export class InstallGameController {
     }
     
     /**
-     * @param  {string} configSource
+     * @param  {string} gameId
      * @param  {string} gameSource
      * @param  {string} gameDestination
-     * @returns Promise
+     * @returns Promise<Game>
      */
-    public async handleInstallCommand(configSource: string, gameSource: string, gameDestination: string): Promise<Game> {
-        try {
-            const gameConfig = await this._gameConfigurationResolver.resolve(configSource);
-            return this._installGameUseCase.installGame(gameConfig, gameSource, gameDestination); 
-        } catch(ex: unknown) {
-            // Add logging  
-        } 
+    public async handleInstallCommand(gameId: string, gameSource: string, gameDestination: string): Promise<Game> {
+        const gameConfig = await this._gameConfigurationResolver.resolveById(gameId);
+        
+        return this._installGameUseCase.installGame(gameConfig, gameSource, gameDestination); 
     }
 }

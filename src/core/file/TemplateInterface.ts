@@ -1,10 +1,10 @@
 export interface TemplateInterface {
   
   /**
-   * @param  {string} path
+   * @param  {string} source
    * @returns string
    */
-  load(path: string): string;
+  load(source: string): string;
   
   /**
    * @param  {string} destination

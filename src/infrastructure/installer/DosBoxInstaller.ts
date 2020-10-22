@@ -66,22 +66,22 @@ export class DosBoxInstaller implements GameSetupInterface {
      * @returns Promise<string>
      */
     public async generateRunner(gameConfig: GameConfiguration, destination: string): Promise<string> {
-        const launcher = gameConfig.runners.find(x => x.application === ApplicationRunner.DOSBOX)
+        const runner = gameConfig.findByApplicationRunner(ApplicationRunner.DOSBOX)
         let launchConfigPath = '';
 
         // Use DosBox fallback launch configuration if no launcher is found
-        if (!launcher || !launcher.binFile) {
+        if (!runner || !runner.binFile) {
             launchConfigPath = '../../resources/launchers/dosbox/dosbox.lauch.template.sh';   
         } else {
-            launchConfigPath = launcher.binFile;
+            launchConfigPath = runner.binFile;
         }
 
          // Try loading the launch configuration
          const content = this._template.load(launchConfigPath);
-         if (!launcher.binFile) {
+         if (!runner.binFile) {
             this._template.replaceVariable('CONF_PATH', `-conf ${destination}/legaci.conf`, content);
 
-            if (launcher.runConfigurationPath) {
+            if (runner.runConfigurationPath) {
                 this._template.replaceVariable('RUN_CONF_PATH', `-conf ${destination}/legaci-start.conf`, content);         
             }
             else {

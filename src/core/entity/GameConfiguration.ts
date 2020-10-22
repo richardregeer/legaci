@@ -1,9 +1,10 @@
+import { ApplicationRunner } from "./ApplicationRunner";
 import { Runner } from "./Runner";
 import { SourcePort } from "./SourcePort";
 import { Store } from "./Store";
 
 export class GameConfiguration {
-    private _name: string;
+    private readonly _name: string;
     private _releaseStatus: string;
     private _genre: string;
     private _released: Date;
@@ -20,6 +21,21 @@ export class GameConfiguration {
      */
     public constructor(name: string) {
         this._name = name;
+        this._runners = [];
+        this._sourcePorts = [];
+        this._references = [];
+        this._stores = [];
+        this._reviews = [];
+        this._downloadLocations = [];
+    }
+
+    public hasRunners(): boolean {
+        return this._runners.length !== 0;
+    }
+
+    public findByApplicationRunner(runner: ApplicationRunner): Runner | null {
+        //return this._runners.find((x: Runner) => x.application.toLowerCase() as string === runner.toLowerCase());
+        return this._runners[0] || null;
     }
 
     /**

@@ -17,12 +17,14 @@ export class CLICommandHandler {
     }
     
     /**
+     * @param  {string} gameId
+     * @param  {string} file
+     * @param  {string} destination
      * @returns Promise<void>
      */
-    public async handleCLICommand(): Promise<void> {
-        try {
-        } catch(ex: unknown) {
-            // Add logging  
-        } 
+    public async handleCLICommand(gameId: string, file: string, destination: string): Promise<void> {        
+        const installController = this._cliCommandFactory.createInstallController();
+        
+        await installController.handleInstallCommand(gameId, file, destination);  
     }
 }

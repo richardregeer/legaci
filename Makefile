@@ -12,7 +12,7 @@ PROJECT_ROOT := $(shell pwd)
 NODE_MODULES := ./node_modules/.bin
 
 ifeq ($(DOCKER),true)
-	START_COMMAND := docker run --rm -it -v ${PROJECT_ROOT}:/development legaci:development 
+	START_COMMAND := docker run --rm -it --init -v ${PROJECT_ROOT}:/development legaci:development 
 else 
 	START_COMMAND := 
 endif
@@ -48,7 +48,15 @@ ifeq ($(ENV),development)
 	@echo -e '${CYAN}Build Legaci development docker image: legaci:development${DEFAULT}'
 	docker build -t legaci:development docker/development
 endif
-	
+
+.PHONY: compile
+compile: ## Compile the Typescript code.
+	${START_COMMAND} ${NODE_MODULES}/tsc
+
+.PHONY: compile_watch
+compile_watch: ## Compile the Typescript code in watch mode.
+	${START_COMMAND} ${NODE_MODULES}/tsc -w	
+
 .PHONY: lint
 lint: ## Check the codestyle of the complete project.
 	${START_COMMAND} ${NODE_MODULES}/eslint .

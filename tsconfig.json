@@ -1,10 +1,11 @@
 {
     "compilerOptions": {
-      "target": "es6",
+      "target": "ES2017",
       "module": "commonjs",
       "sourceMap": false,
       "outDir": "dist",
-      "resolveJsonModule": true
+      "resolveJsonModule": true,
+      "preserveConstEnums": true
     },
     "exclude": [
       "node_modules",

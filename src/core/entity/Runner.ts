@@ -12,23 +12,18 @@ export class Runner {
      * @param  {string} application
      * @param  {string} version
      * @param  {string} launchConfigPath
-     * @param  {string} configurationPath
+     * @param  {string} configurationSource
      * @throws {UnsupportedApplicationRunnerError}
      */
-    public constructor(application : string, version : string, runConfigurationPath: string, configurationPath: string, binFile: string) {
-        switch (application.toLocaleLowerCase) {
-            case ApplicationRunner.DOSBOX.toString: 
-                this._application = ApplicationRunner.DOSBOX;
-                break;
-            case ApplicationRunner.SCUMMVM.toString: 
-                this._application = ApplicationRunner.SCUMMVM;
-                break;
-            default: throw new UnsupportedApplicationRunnerError(`Unsupported launch application ${application}`);
+    public constructor(application : string, version : string, runConfigurationSource: string, configurationSource: string, binFile: string) {
+        if(!Object.values(ApplicationRunner).includes(application.toLowerCase() as ApplicationRunner)) {
+            throw new UnsupportedApplicationRunnerError(`Unsupported application runner ${application}`);
         }
 
+        this._application = application as ApplicationRunner;
         this._version = version;
-        this._runConfigurationPath = runConfigurationPath;
-        this._configurationPath = configurationPath;
+        this._runConfigurationPath = runConfigurationSource;
+        this._configurationPath = configurationSource;
         this._binFile = binFile;
     }
 

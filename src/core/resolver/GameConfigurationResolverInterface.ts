@@ -6,5 +6,11 @@ export interface GameConfigurationResolverInterface {
      * @param  {string} source
      * @returns Promise<GameConfiguration>
      */
-    resolve(source: string): Promise<GameConfiguration>;
+    resolveBySource(source: string): Promise<GameConfiguration>;
+    
+    /**
+     * @param  {string} id
+     * @returns Promise
+     */
+    resolveById(id: string):  Promise<GameConfiguration>;
 }

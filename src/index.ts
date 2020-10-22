@@ -15,9 +15,8 @@ const cliCommandHandler = container.resolve<CLICommandHandler>(CLICommandHandler
 
 program
   .version(version, '-v, --version')
-  .option('-d, --default <useDefaultConfig>', 'Install game with default configuratation')
-  .command('legaci <file> <destination>', 'Extract installer and install to destination')
-  .action(cliCommandHandler.handleCLICommand);
+  .command('legaci <gameId> <file> <destination>', 'Extract installer and install to destination')
+  .action((gameId, file, destination) => cliCommandHandler.handleCLICommand(gameId, file, destination));
 
 try {
   program.parse(process.argv);

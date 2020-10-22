@@ -12,11 +12,11 @@ export class Template implements TemplateInterface {
   }
 
   /**
-   * @param  {string} path
+   * @param  {string} source
    * @returns string
    */
-  public load(path: string): string {
-    return this._fileHandler.readSync(path);
+  public load(source: string): string {
+    return this._fileHandler.readSync(source);
   }
 
   /**

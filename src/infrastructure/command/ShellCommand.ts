@@ -17,10 +17,11 @@ export class ShellCommand implements CommandInterface {
     /**
      * @param  {string} command
      * @param  {boolean} silent
-     * @returns number
+     * @returns Promise
      */
-    public executeSync(command: string, silent: boolean): number {
+    public async execute(command: string, silent: boolean): Promise<number> {
         this._shellConfig.silent = silent;
-        return this._execute(command).code;
+
+        return Promise.resolve(this._execute(command).code);
     }
 }

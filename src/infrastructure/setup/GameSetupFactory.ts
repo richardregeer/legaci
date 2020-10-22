@@ -28,16 +28,15 @@ export class GameSetupFactory implements GameSetupFactoryInterface {
      * @returns GameSetupInterface
      */
     public create(gameConfig: GameConfiguration): GameSetupInterface {
-        if (gameConfig.runners.length === 0) {
+        if (!gameConfig.hasRunners()) {
             throw new UnsupportedApplicationRunnerError('No application runner found for configuration');
         }
 
-        const runner = gameConfig.runners[0];
-        if (runner.application === ApplicationRunner.DOSBOX) {
-            return new DosBoxInstaller(this._template, this._logger);
-        }
-        else {
+        const runner = gameConfig.findByApplicationRunner(ApplicationRunner.DOSBOX);
+        if (runner === null) {
             throw new UnsupportedApplicationRunnerError('Application runner is not supported');
         }
+
+        return new DosBoxInstaller(this._template, this._logger);    
     }
 }

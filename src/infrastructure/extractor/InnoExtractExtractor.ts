@@ -32,11 +32,11 @@ import { CommandInterface } from "../../core/command/CommandInterface";
         }
 
         this._fileHandler.createDirWhenNotExistsSync(destination);
-
+        
         try {
             const command = `innoextract "${source}" -g -d ${destination}`;
             this._logger.info('Extracting game file using Innoextract');
-            this._shell.executeSync(command, false);
+            await this._shell.execute(command, false);
 
             this._logger.info(`Finished extracting game file to path ${destination}`);
         } catch (error) {

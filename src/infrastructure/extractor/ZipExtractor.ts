@@ -36,7 +36,7 @@ export class ZipExtractor implements ExtractorInterface {
         try {
             const command = `unzip "${source}" -d ${destination}`;
             this._logger.info('Extracting game file using unzip');
-            this._shell.executeSync(command, false);
+            await this._shell.execute(command, false);
                 
             this._logger.info(`Finished extracting game file to path ${destination}`);
         } catch (error) {
