@@ -1,20 +1,32 @@
 {
     "name": "Tyrian 2000",
+    "aliases": [
+        "Tyrian"
+    ],
     "id": "tyrian-2000",
     "releaseStatus": "freeware",
     "genre": "Action",
     "released": "1999-10-07",
+    "platform": "DOS",
     "runners": [
         {
             "application": "DosBox",
             "version": "0.74",
-            "runConfiguration": "./dosbox-run-config",
-            "gameConfiguration": "./dosbox-game-config",
-            "binFile": ""
+            "runConfiguration": "dosbox.run.conf",
+            "gameConfiguration": "dosbox.conf",
+            "binFile": "run.sh"
         }
     ],
+    "preInstallScript": "",
+    "postInstallScript": "",
     "sourcePorts": [
     ],
+    "patches": [
+        
+    ],
+    "mods": [
+
+    ],  
     "references": [
         "https://www.mobygames.com/game/tyrian-2000"
     ],
@@ -28,6 +40,9 @@
             "url": "https://www.gog.com/game/tyrian_2000" 
         }
     ],
-    "downloadLocations": [   
+    "downloadLocations": [
+        "https://www.myabandonware.com/game/tyrian-2000-9zi",
+        "http://www.abandonia.com/games/16631/Tyrian+2000.html",
+        "https://www.abandonwaredos.com/abandonware-game.php?abandonware=Tyrian+2000&gid=1886" 
     ]
 }

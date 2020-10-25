@@ -43,7 +43,7 @@ export class Container {
         this._container.set(ShellCommand.name, shell);
 
         // Install usecase
-        const gameSetupFactory = new GameSetupFactory(fileTemplate, logger);
+        const gameSetupFactory = new GameSetupFactory(fileTemplate, fileHandler, logger);
         this._container.set(GameSetupFactory.name, gameSetupFactory);
         const extractorFactory = new ExtractorFactory(fileHandler, logger, shell);
         this._container.set(ExtractorFactory.name, extractorFactory);
@@ -51,7 +51,7 @@ export class Container {
         this._container.set(InstallGameUseCase.name, installGameUseCase);
 
         // CLI command handler
-        const gameConfigurationResolver = new GameConfigurationResolver(fileHandler, logger);
+        const gameConfigurationResolver = new GameConfigurationResolver(fileHandler);
         this._container.set(GameConfigurationResolver.name, gameConfigurationResolver);
         const cliCommandFactory = new CLICommandFactory(installGameUseCase, gameConfigurationResolver, logger);
         this._container.set(CLICommandFactory.name, cliCommandFactory);

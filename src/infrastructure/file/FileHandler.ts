@@ -6,7 +6,6 @@ import { FileType } from '../../core/file/FileType';
 import { UnknownFileTypeError } from '../../core/error/UnkownFileTypeError';
 
 export class FileHandler implements FileHandlerInterface {
-  
   /**
    * @param  {string} destination
    * @returns string
@@ -106,5 +105,20 @@ export class FileHandler implements FileHandlerInterface {
       }
 
       throw new UnknownFileTypeError(`Unknown file type ${extName}`);
+  }
+
+  /**
+   * @param  {string} source
+   * @returns void
+   * @throws FileDoesNotExistsError
+   */
+  public makeFileExecutabeSync(source: string): void {
+    const fileName = path.basename(source);
+
+    if (!this.existsSync(source)) {
+      throw new FileDoesNotExistsError(`File ${fileName} does not exists`);
     }
+
+    fs.chmodSync(source, fs.constants.S_IRWXU | fs.constants.S_IRGRP | fs.constants.S_IROTH);
+  }
 }

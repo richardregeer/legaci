@@ -25,6 +25,8 @@ export class CLICommandHandler {
     public async handleCLICommand(gameId: string, file: string, destination: string): Promise<void> {        
         const installController = this._cliCommandFactory.createInstallController();
         
-        await installController.handleInstallCommand(gameId, file, destination);  
+        await installController.handleInstallCommand(gameId, file, destination);
+
+        return Promise.resolve();
     }
 }

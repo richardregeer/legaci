@@ -11,15 +11,16 @@ export class Runner {
     /**
      * @param  {string} application
      * @param  {string} version
-     * @param  {string} launchConfigPath
+     * @param  {string} runConfigurationSource
      * @param  {string} configurationSource
+     * @param  {string} binFile
      * @throws {UnsupportedApplicationRunnerError}
      */
-    public constructor(application : string, version : string, runConfigurationSource: string, configurationSource: string, binFile: string) {
+    public constructor(application : string, version : string, runConfigurationSource: string, configurationSource: string, binFile: string) {   
         if(!Object.values(ApplicationRunner).includes(application.toLowerCase() as ApplicationRunner)) {
             throw new UnsupportedApplicationRunnerError(`Unsupported application runner ${application}`);
         }
-
+        
         this._application = application as ApplicationRunner;
         this._version = version;
         this._runConfigurationPath = runConfigurationSource;

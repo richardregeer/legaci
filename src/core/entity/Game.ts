@@ -4,7 +4,7 @@ export class Game {
     private readonly _name: string;
     private readonly _gameConfig: GameConfiguration;    
     private readonly _installationPath: string;
-    private readonly _binFile: string;
+    private readonly _binFilePath: string;
   
     /**
      * @param  {string} name
@@ -12,10 +12,10 @@ export class Game {
      * @param  {string} binFile
      * @param  {GameConfiguration} gameConfig
      */
-    public constructor(name : string, installationPath: string, binFile: string, gameConfig : GameConfiguration) {
+    public constructor(name : string, installationPath: string, binFilePath: string, gameConfig : GameConfiguration) {
         this._name = name;
         this._installationPath = installationPath;
-        this._binFile = binFile;
+        this._binFilePath = binFilePath;
         
         this._gameConfig = gameConfig;    
     }
@@ -30,7 +30,7 @@ export class Game {
      * @returns string
      */
     public get binFile(): string {
-        return this._binFile;
+        return this._binFilePath;
     }
     
     /**

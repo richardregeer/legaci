@@ -1,24 +1,21 @@
-import path = require("path");
+import * as path from 'path';
 import { GameConfiguration } from "../../core/entity/GameConfiguration";
 import { Runner } from "../../core/entity/Runner";
 import { SourcePort } from "../../core/entity/SourcePort";
 import { Store } from "../../core/entity/Store";
 import { GameConfigurationNotFoundError } from "../../core/error/GameConfigurationNotFoundError";
 import { FileHandlerInterface } from "../../core/file/FileHandlerInterface";
-import { LoggerInterface } from "../../core/observability/LoggerInterface";
 import { GameConfigurationResolverInterface } from "../../core/resolver/GameConfigurationResolverInterface";
 
 export class GameConfigurationResolver implements GameConfigurationResolverInterface {
     private readonly _fileHandler: FileHandlerInterface;
-    private readonly _logger: LoggerInterface;
     
     /**
      * @param  {FileHandlerInterface} fileHandler
      * @param  {LoggerInterface} logger
      */
-    public constructor(fileHandler: FileHandlerInterface, logger: LoggerInterface) {
+    public constructor(fileHandler: FileHandlerInterface) {
         this._fileHandler = fileHandler;
-        this._logger = logger;
     }
   
     /**
@@ -43,42 +40,44 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
     public async resolveBySource(source: string): Promise<GameConfiguration> {
         const content = this._fileHandler.readSync(source);
         const configuration = JSON.parse(content);
+        const dirName = path.dirname(source);
+
 
         // Mapp fields to configuration object
         const gameConfiguration =  new GameConfiguration(configuration.name);
         gameConfiguration.genre = configuration.genre;
         gameConfiguration.releaseStatus = configuration.releaseStatus;
         gameConfiguration.released = configuration.released;
-
-        gameConfiguration.runners.push(configuration.runners.map((i: { application: string; version: string; runConfiguration: string; gameConfiguration: string; binFile: string; }) => {
-            return new Runner(
+         
+        configuration.runners.forEach((i: { application: string; version: string; runConfiguration: string; gameConfiguration: string; binFile: string; }) => {     
+            gameConfiguration.runners.push(new Runner(
                 i.application,
                 i.version,
-                i.runConfiguration,
-                i.gameConfiguration,
-                i.binFile
-            )
-        }));
+                path.join(dirName, i.runConfiguration),
+                path.join(dirName, i.gameConfiguration),
+                path.join(dirName, i.binFile)
+            ));
+        });
         
-        gameConfiguration.sourcePorts.push(configuration.sourcePorts.map((i: { application: string; version: string; }) => {
-            return new SourcePort(
-                i.application,
-                i.version
-            )
-        }));
+        // configuration.sourcePorts.forEach((i: { name: string; version: string; }) => {
+        //     gameConfiguration.sourcePorts.push(new SourcePort(
+        //         i.name,
+        //         i.version
+        //     ));
+        // });
 
-        gameConfiguration.stores.push(configuration.stores.map((i: { store: string; id: string; url: string; }) => {
-            return new Store(
-                i.store,
-                i.id,
-                i.url
-            );
-        }));
+        // configuration.stores.forEach(((i: { store: string; id: string; url: string; }) => {
+        //     gameConfiguration.stores.push(new Store(
+        //         i.store,
+        //         i.id,
+        //         i.url
+        //     ));
+        // }));
 
-        gameConfiguration.references.push(configuration.references.map((i: string) => i));
-        gameConfiguration.reviews.push(configuration.reviews.map((i: string) => i));
-        gameConfiguration.downloadLocations.push(configuration.downloadLocations.map((i: string) => i));
+        // gameConfiguration.references.push(configuration.references.map((i: string) => i));
+        // gameConfiguration.reviews.push(configuration.reviews.map((i: string) => i));
+        // gameConfiguration.downloadLocations.push(configuration.downloadLocations.map((i: string) => i));
 
-        return gameConfiguration;
+        return Promise.resolve(gameConfiguration);
     }
 }

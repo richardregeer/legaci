@@ -34,8 +34,7 @@ export class GameConfiguration {
     }
 
     public findByApplicationRunner(runner: ApplicationRunner): Runner | null {
-        //return this._runners.find((x: Runner) => x.application.toLowerCase() as string === runner.toLowerCase());
-        return this._runners[0] || null;
+        return this._runners.find((x: Runner) => x.application.toLowerCase() as string === runner.toLowerCase());
     }
 
     /**

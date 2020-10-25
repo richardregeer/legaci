@@ -50,4 +50,10 @@ export interface FileHandlerInterface {
      * @returns FileType
      */
     resolveFileTypeSync(source: string): FileType;
+
+    /**
+     * @param  {string} source
+     * @returns void
+     */
+    makeFileExecutabeSync(source: string): void;
 }

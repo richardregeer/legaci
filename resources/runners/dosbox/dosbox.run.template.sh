@@ -1,6 +1,11 @@
 #!/bin/bash
 
-root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd $root_dir
+GAME_PATH=$1
+GAME_PATH=$(dirname "$0")
 
-dosbox {{CONF_PATH}} {{RUN_CONF_PATH}}
+if [ -z "$1" ]; then
+   
+    echo No path given using path $GAME_PATH
+fi
+
+dosbox  $GAME_PATH/bin/RTetris.exe -conf $GAME_PATH/{{CONF_PATH}} -exit
