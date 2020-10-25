@@ -5,6 +5,7 @@ import { FileHandlerInterface } from "../../core/file/FileHandlerInterface";
 import { TemplateInterface } from "../../core/file/TemplateInterface";
 import { LoggerInterface } from "../../core/observability/LoggerInterface";
 import { GameSetupInterface } from "../../core/setup/GameSetupInterface";
+import chalk from 'chalk';
 
 export class DosBoxInstaller implements GameSetupInterface {
     private readonly _template: TemplateInterface;
@@ -30,6 +31,8 @@ export class DosBoxInstaller implements GameSetupInterface {
      * @returns Promise<Game>
      */
     public async install(gameConfig: GameConfiguration, destination: string): Promise<Game> {
+        this._logger.info(`Application runner ${chalk.white('DosBox')} will be used to run ${chalk.white(gameConfig.name)}`);
+
         await this.generateConfiguration(gameConfig, destination);
         const binFilePath = await this.generateRunner(gameConfig, destination);
 
@@ -54,7 +57,7 @@ export class DosBoxInstaller implements GameSetupInterface {
             this._template.save(`${destination}/dosbox.legaci.run.conf`, content);
         }
         
-        this._logger.info('DosBox configuration file saved succesfully');
+        this._logger.info('DosBox configuration file created and saved succesfully');
 
         return Promise.resolve();
     }
@@ -94,7 +97,7 @@ export class DosBoxInstaller implements GameSetupInterface {
         
         this._fileHandler.makeFileExecutabeSync(binFileDestination);
 
-        this._logger.info(`${gameConfig.name} bin file saved succesfully`);
+        this._logger.info(`${chalk.white(gameConfig.name)} bin file created and saved succesfully`);
             
         return Promise.resolve(binFileDestination);
     }

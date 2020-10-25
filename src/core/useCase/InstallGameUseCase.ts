@@ -3,6 +3,7 @@ import { GameConfiguration } from "../entity/GameConfiguration";
 import { ExtractorFactoryInterface } from "../extractor/ExtractorFactoryInterface";
 import { LoggerInterface } from "../observability/LoggerInterface";
 import { GameSetupFactoryInterface } from "../setup/GameSetupFactoryInterface";
+import chalk from 'chalk';
 
 export class InstallGameUseCase {
     private readonly _gameSetupFactory: GameSetupFactoryInterface;
@@ -30,10 +31,17 @@ export class InstallGameUseCase {
      * @returns Promise<Game>
      */
     public async installGame(gameConfig: GameConfiguration, source: string, destination: string): Promise<Game> { 
+        this._logger.info(`Start installing ${chalk.white(gameConfig.name)} from ${chalk.white.underline(source)} to ${chalk.white.underline(destination)}`);
+        
         const extractor = this._extractorFactory.create(source);
         await extractor.extract(source, destination);
     
         const gameSetup = this._gameSetupFactory.create(gameConfig);
-        return gameSetup.install(gameConfig, destination);
+        const game = await gameSetup.install(gameConfig, destination);
+
+        this._logger.info(`Finished installing ${chalk.white(game.name)} to ${chalk.white.underline(destination)}`);
+        this._logger.info(`Run: ${chalk.bgBlue.white.underline(game.binFile)} to start ${chalk.white(game.name)}`);
+
+        return game;
     }
 }

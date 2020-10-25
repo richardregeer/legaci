@@ -30,13 +30,13 @@ export class Container {
         const loggerFactory = new LoggerFactory(chalk);
         this._container.set(LoggerFactory.name, loggerFactory);
         const logger = loggerFactory.createLogger();
-        this._container.set(WinstonLogger.name, logger);
+        this._container.set('LoggerInterface', logger);
 
         // File
         const fileHandler = new FileHandler();
-        this._container.set(FileHandler.name, fileHandler);
+        this._container.set('FileHandlerInterface', fileHandler);
         const fileTemplate = new Template(fileHandler);
-        this._container.set(Template.name, fileTemplate);
+        this._container.set('TemplateInterface', fileTemplate);
 
         // Command
         const shell = new ShellCommand(shellJs.exec, shellJs.config);
@@ -44,15 +44,15 @@ export class Container {
 
         // Install usecase
         const gameSetupFactory = new GameSetupFactory(fileTemplate, fileHandler, logger);
-        this._container.set(GameSetupFactory.name, gameSetupFactory);
+        this._container.set('GameSetupFactoryInterface', gameSetupFactory);
         const extractorFactory = new ExtractorFactory(fileHandler, logger, shell);
-        this._container.set(ExtractorFactory.name, extractorFactory);
+        this._container.set('ExtractorFactoryInterface', extractorFactory);
         const installGameUseCase = new InstallGameUseCase(gameSetupFactory, logger, extractorFactory);
         this._container.set(InstallGameUseCase.name, installGameUseCase);
 
         // CLI command handler
         const gameConfigurationResolver = new GameConfigurationResolver(fileHandler);
-        this._container.set(GameConfigurationResolver.name, gameConfigurationResolver);
+        this._container.set('GameConfigurationResolverInterface', gameConfigurationResolver);
         const cliCommandFactory = new CLICommandFactory(installGameUseCase, gameConfigurationResolver, logger);
         this._container.set(CLICommandFactory.name, cliCommandFactory);
         const cliCommandHandler = new CLICommandHandler(cliCommandFactory, logger);

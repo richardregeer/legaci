@@ -20,7 +20,7 @@ export class WinstonLogger implements LoggerInterface {
    * @returns void
    */
   public debug(message: string): void {
-    this._logger.debug(message);
+    this._logger.debug(this._chalk.green(message));
   }
 
   /**
@@ -28,7 +28,7 @@ export class WinstonLogger implements LoggerInterface {
    * @returns void
    */
   public info(message: string): void {
-    this._logger.info(message);
+    this._logger.info(this._chalk.cyan(message));
   }
 
   /**

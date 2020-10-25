@@ -1,7 +1,12 @@
 import { Game } from "../../core/entity/Game";
+import { FileDoesNotExistsError } from "../../core/error/FileDoesNotExistsError";
+import { GameConfigurationNotFoundError } from "../../core/error/GameConfigurationNotFoundError";
+import { UnknownFileTypeError } from "../../core/error/UnkownFileTypeError";
+import { UnsupportedApplicationRunnerError } from "../../core/error/UnsupportedApplicationRunnerError";
 import { LoggerInterface } from "../../core/observability/LoggerInterface";
 import { GameConfigurationResolverInterface } from "../../core/resolver/GameConfigurationResolverInterface";
 import { InstallGameUseCase } from "../../core/useCase/InstallGameUseCase";
+import chalk from 'chalk';
 
 export class InstallGameController {
     private readonly _installGameUseCase: InstallGameUseCase;
@@ -26,11 +31,30 @@ export class InstallGameController {
      * @param  {string} gameId
      * @param  {string} gameSource
      * @param  {string} gameDestination
-     * @returns Promise<Game>
+     * @returns Promise<Game | null>
      */
-    public async handleInstallCommand(gameId: string, gameSource: string, gameDestination: string): Promise<Game> {
-        const gameConfig = await this._gameConfigurationResolver.resolveById(gameId);
-        
-        return this._installGameUseCase.installGame(gameConfig, gameSource, gameDestination); 
+    public async handleInstallCommand(gameId: string, gameSource: string, gameDestination: string): Promise<Game | null> {
+        try {
+            const gameConfig = await this._gameConfigurationResolver.resolveById(gameId);
+            return this._installGameUseCase.installGame(gameConfig, gameSource, gameDestination);
+        } catch(error: unknown) {
+            if (error instanceof GameConfigurationNotFoundError) {
+                this._logger.error(`No game configuration found for game ${chalk.white(gameId)}`, error as Error);
+            }
+            else if (error instanceof UnsupportedApplicationRunnerError) {
+                this._logger.error('Configured application runner is not supported', error as Error);    
+            }
+            else if (error instanceof FileDoesNotExistsError) {
+                this._logger.error(`File ${chalk.underline.white(gameSource)} is not found`, error as Error);    
+            }
+            else if (error instanceof UnknownFileTypeError) {
+                this._logger.error(`The filetype of ${chalk.underline.white(gameSource)} is not supported for install`, error as Error);
+            }
+            else {
+                this._logger.error(`Error installing game ${chalk.white(gameId)} from ${chalk.underline.white(gameSource)} to ${chalk.underline.white(gameDestination)}`, error as Error);
+            }
+        }
+
+        return Promise.resolve(null);
     }
 }
