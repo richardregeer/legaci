@@ -12,9 +12,9 @@
         {
             "application": "DosBox",
             "version": "0.74",
-            "runConfiguration": "dosbox.run.conf",
-            "gameConfiguration": "dosbox.conf",
-            "binFile": "run.sh"
+            "runConfiguration": "",
+            "gameConfiguration": "",
+            "binFile": ""
         }
     ],
     "preInstallScript": "",
@@ -26,7 +26,10 @@
     ],
     "mods": [
 
-    ],  
+    ],
+    "configurationFiles": [
+        "TYRIAN.CFG"
+    ],
     "references": [
         "https://www.mobygames.com/game/tyrian-2000"
     ],

@@ -12,7 +12,6 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
     
     /**
      * @param  {FileHandlerInterface} fileHandler
-     * @param  {LoggerInterface} logger
      */
     public constructor(fileHandler: FileHandlerInterface) {
         this._fileHandler = fileHandler;
@@ -32,12 +31,37 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
 
         return this.resolveBySource(source);
     }
-    
+     
+    /**
+     * @param  {string} source
+     * @param  {string} configuration
+     * @param  {string} fallbackFileName
+     * @param  {string} runner
+     * @returns string
+     */
+    private parseConfigPath(source: string, configuration: string, fallbackFileName: string, runner: string): string {
+        // Use fallback source when no configuration is given
+        if (!configuration || configuration === '') {
+            return path.join(
+                __dirname, 
+                '../../../../', 
+                'resources', 
+                'runners', 
+                runner.toLocaleLowerCase(), 
+                fallbackFileName
+            );
+        }
+
+        return source;
+    }
+
     /**
      * @param  {string} path
      * @returns Promise<GameConfiguration>
      */
     public async resolveBySource(source: string): Promise<GameConfiguration> {
+        console.log(source);
+
         const content = this._fileHandler.readSync(source);
         const configuration = JSON.parse(content);
         const dirName = path.dirname(source);
@@ -53,9 +77,9 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
             gameConfiguration.runners.push(new Runner(
                 i.application,
                 i.version,
-                path.join(dirName, i.runConfiguration),
-                path.join(dirName, i.gameConfiguration),
-                path.join(dirName, i.binFile)
+                this.parseConfigPath(path.join(dirName, i.runConfiguration), i.runConfiguration, 'run.template.conf', i.application),
+                this.parseConfigPath(path.join(dirName, i.gameConfiguration), i.gameConfiguration, 'configuration.template.conf', i.application),
+                this.parseConfigPath(path.join(dirName, i.binFile), i.binFile, 'bin.template.sh', i.application)
             ));
         });
         

@@ -10,7 +10,6 @@ import { ExtractorFactory } from "./infrastructure/extractor/ExtractorFactory";
 import { ShellCommand } from "./infrastructure/command/ShellCommand";
 import { GameConfigurationResolver } from './infrastructure/resolver/GameConfigurationResolver';
 import { CLICommandHandler } from './infrastructure/cliController/CLICommandHandler';
-import { WinstonLogger } from './infrastructure/observability/WinstonLogger';
 import { UnableToResolveError } from './infrastructure/error/UnableToResolveError';
 
 export class Container {

@@ -45,21 +45,33 @@ export class DosBoxInstaller implements GameSetupInterface {
      * @returns Promise<void>
      */
     public async generateConfiguration(gameConfig: GameConfiguration, destination: string): Promise<void> {
-        const runner = gameConfig.findByApplicationRunner(ApplicationRunner.DOSBOX)
-        const configurationPath = runner.configurationPath;
+        try {
+            const runner = gameConfig.findByApplicationRunner(ApplicationRunner.DOSBOX)
+            const configurationPath = runner.configurationPath;
 
-        const content = this._template.load(configurationPath);
-        this._template.save(`${destination}/dosbox.legaci.conf`, content);
+            if (configurationPath.includes('.template.')) {
+                this._logger.warning('Use default DosBox configuration');   
+            }
 
-        // Try loading the run configuration
-        if (runner.runConfigurationPath) {
-            const content = this._template.load(runner.runConfigurationPath);
-            this._template.save(`${destination}/dosbox.legaci.run.conf`, content);
+            const content = this._template.load(configurationPath);
+            this._template.save(`${destination}/dosbox.legaci.conf`, content);
+
+            if (runner.runConfigurationPath.includes('.template.')) {
+                this._logger.warning('Use default DosBox run configuration');   
+            }
+
+            // Try loading the run configuration
+            if (runner.runConfigurationPath) {
+                const content = this._template.load(runner.runConfigurationPath);
+                this._template.save(`${destination}/dosbox.legaci.run.conf`, content);
+            }
+            
+            this._logger.info('DosBox configuration file created and saved succesfully');
+
+            return Promise.resolve();
+        } catch(error: any) {
+            return Promise.reject(error);
         }
-        
-        this._logger.info('DosBox configuration file created and saved succesfully');
-
-        return Promise.resolve();
     }
     
     /**
@@ -91,6 +103,10 @@ export class DosBoxInstaller implements GameSetupInterface {
         //     }
         // }
         
+        if (binFileConfigPath.includes('.template.')) {
+            this._logger.warning('Use default bin file. Game folder will be mounted but the game will not start automatically!');   
+        }
+
         const content = this._template.load(binFileConfigPath);
         const binFileDestination = `${destination}/legaci-run.sh`;
         this._template.save(binFileDestination, content);

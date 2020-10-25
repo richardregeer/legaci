@@ -4,19 +4,19 @@ import { ApplicationRunner } from "./ApplicationRunner";
 export class Runner {
     private readonly _application: ApplicationRunner;
     private readonly _version: string;
-    private readonly _runConfigurationPath: string;
-    private readonly _configurationPath: string;
-    private readonly _binFile: string;
+    private readonly _runConfigurationPath?: string;
+    private readonly _configurationPath?: string;
+    private readonly _binFile?: string;
     
     /**
      * @param  {string} application
      * @param  {string} version
-     * @param  {string} runConfigurationSource
-     * @param  {string} configurationSource
-     * @param  {string} binFile
+     * @param  {string} runConfigurationSource?
+     * @param  {string} configurationSource?
+     * @param  {string} binFile?
      * @throws {UnsupportedApplicationRunnerError}
      */
-    public constructor(application : string, version : string, runConfigurationSource: string, configurationSource: string, binFile: string) {   
+    public constructor(application : string, version : string, runConfigurationSource?: string, configurationSource?: string, binFile?: string) {   
         if(!Object.values(ApplicationRunner).includes(application.toLowerCase() as ApplicationRunner)) {
             throw new UnsupportedApplicationRunnerError(`Unsupported application runner ${application}`);
         }
@@ -28,11 +28,11 @@ export class Runner {
         this._binFile = binFile;
     }
 
-    public get configurationPath(): string {
+    public get configurationPath(): string | undefined {
         return this._configurationPath;
     }
 
-    public get runConfigurationPath(): string {
+    public get runConfigurationPath(): string | undefined {
         return this._runConfigurationPath;
     }
 
@@ -44,7 +44,7 @@ export class Runner {
         return this._application;
     }
 
-    public get binFile(): string {
+    public get binFile(): string | undefined {
         return this._binFile;
     }
 }
