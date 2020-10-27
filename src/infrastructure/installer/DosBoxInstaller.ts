@@ -4,10 +4,10 @@ import { GameConfiguration } from "../../core/entity/GameConfiguration";
 import { FileHandlerInterface } from "../../core/file/FileHandlerInterface";
 import { TemplateInterface } from "../../core/file/TemplateInterface";
 import { LoggerInterface } from "../../core/observability/LoggerInterface";
-import { GameSetupInterface } from "../../core/setup/GameSetupInterface";
+import { GameRunnerSetupInterface } from "../../core/setup/GameRunnerSetupInterface";
 import chalk from 'chalk';
 
-export class DosBoxInstaller implements GameSetupInterface {
+export class DosBoxInstaller implements GameRunnerSetupInterface {
     private readonly _template: TemplateInterface;
     private readonly _logger: LoggerInterface;
     private readonly _fileHandler: FileHandlerInterface;

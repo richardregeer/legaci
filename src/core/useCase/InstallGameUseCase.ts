@@ -1,27 +1,32 @@
+import chalk from 'chalk';
 import { Game } from "../entity/Game";
 import { GameConfiguration } from "../entity/GameConfiguration";
 import { ExtractorFactoryInterface } from "../extractor/ExtractorFactoryInterface";
 import { LoggerInterface } from "../observability/LoggerInterface";
-import { GameSetupFactoryInterface } from "../setup/GameSetupFactoryInterface";
-import chalk from 'chalk';
+import { GameRunnerSetupFactoryInterface } from "../setup/GameRunnerSetupFactoryInterface";
+import { GameFilesInstallerInterface } from "../setup/GameFilesInstallerInterface";
 
 export class InstallGameUseCase {
-    private readonly _gameSetupFactory: GameSetupFactoryInterface;
+    private readonly _gameRunnerSetupFactory: GameRunnerSetupFactoryInterface;
     private readonly _logger: LoggerInterface;
     private readonly _extractorFactory: ExtractorFactoryInterface;
+    private readonly _gameFilesInstaller: GameFilesInstallerInterface;
     
     /**
-     * @param  {GameSetupFactoryInterface} gameInstallerFactory
+     * @param  {GameRunnerSetupFactoryInterface} gameRunnerSetupFactory
      * @param  {LoggerInterface} logger
      * @param  {ExtractorFactoryInterface} extractorFactory
+     * @param  {GameFilesInstallerInterface} gameFilesInstaller
      */
     public constructor(
-        gameInstallerFactory: GameSetupFactoryInterface, 
+        gameRunnerSetupFactory: GameRunnerSetupFactoryInterface, 
         logger: LoggerInterface,
-        extractorFactory: ExtractorFactoryInterface){
-        this._gameSetupFactory = gameInstallerFactory;
+        extractorFactory: ExtractorFactoryInterface,
+        gameFilesInstaller: GameFilesInstallerInterface){
+        this._gameRunnerSetupFactory = gameRunnerSetupFactory;
         this._logger = logger;
         this._extractorFactory = extractorFactory;
+        this._gameFilesInstaller = gameFilesInstaller;
     }
     
     /**
@@ -31,16 +36,21 @@ export class InstallGameUseCase {
      * @returns Promise<Game>
      */
     public async installGame(gameConfig: GameConfiguration, source: string, destination: string): Promise<Game> { 
-        this._logger.info(`Start installing ${chalk.white(gameConfig.name)} from ${chalk.white.underline(source)} to ${chalk.white.underline(destination)}`);
+        this._logger.info(`Start installing ${chalk.bold.white(gameConfig.name)} from ${chalk.white.underline(source)} to ${chalk.white.underline(destination)}`);
         
+        // Extract game file
         const extractor = this._extractorFactory.create(source);
         await extractor.extract(source, destination);
     
-        const gameSetup = this._gameSetupFactory.create(gameConfig);
-        const game = await gameSetup.install(gameConfig, destination);
+        // Setup application runner
+        const gameRunnerSetup = this._gameRunnerSetupFactory.create(gameConfig);
+        const game = await gameRunnerSetup.install(gameConfig, destination);
+        
+        // Install additional game files
+        await this._gameFilesInstaller.install(gameConfig, destination);
 
         this._logger.info(`Finished installing ${chalk.white(game.name)} to ${chalk.white.underline(destination)}`);
-        this._logger.info(`Run: ${chalk.bgBlue.white.underline(game.binFile)} to start ${chalk.white(game.name)}`);
+        this._logger.info(`Run: ${chalk.bold.white.underline(game.binFile)} to start ${chalk.white(game.name)}`);
 
         return game;
     }

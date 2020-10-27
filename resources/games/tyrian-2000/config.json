@@ -8,6 +8,7 @@
     "genre": "Action",
     "released": "1999-10-07",
     "platform": "DOS",
+    "installSource": "SingleFile",
     "runners": [
         {
             "application": "DosBox",
@@ -17,8 +18,6 @@
             "binFile": "tyrian.sh"
         }
     ],
-    "preInstallScript": "",
-    "postInstallScript": "",
     "sourcePorts": [
     ],
     "patches": [
@@ -27,8 +26,11 @@
     "mods": [
 
     ],
-    "configurationFiles": [
-        "TYRIAN.CFG"
+    "gameFiles": [
+        {
+            "name": "TYRIAN.CFG",
+            "location": "" 
+        }
     ],
     "references": [
         "https://www.mobygames.com/game/tyrian-2000"

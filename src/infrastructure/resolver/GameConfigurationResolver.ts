@@ -1,6 +1,7 @@
 import * as path from 'path';
 import { ApplicationRunner } from '../../core/entity/ApplicationRunner';
 import { GameConfiguration } from "../../core/entity/GameConfiguration";
+import { GameFile } from '../../core/entity/GameFile';
 import { Runner } from "../../core/entity/Runner";
 import { SourcePort } from "../../core/entity/SourcePort";
 import { Store } from "../../core/entity/Store";
@@ -101,7 +102,16 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
         gameConfiguration.released = configuration.released;
         
         this.parseRunners(dirName, configuration.runners, gameConfiguration);
- 
+        
+        configuration.gameFiles.forEach((i: { name: string, location: string }) => {
+            gameConfiguration.gameFiles.push(
+                new GameFile(
+                    i.name, 
+                    path.join(dirName, i.location || '')
+                )
+            );
+        });
+       
         // configuration.sourcePorts.forEach((i: { name: string; version: string; }) => {
         //     gameConfiguration.sourcePorts.push(new SourcePort(
         //         i.name,

@@ -1,4 +1,5 @@
 import { ApplicationRunner } from "./ApplicationRunner";
+import { GameFile } from "./GameFile";
 import { Runner } from "./Runner";
 import { SourcePort } from "./SourcePort";
 import { Store } from "./Store";
@@ -14,6 +15,7 @@ export class GameConfiguration {
     private _reviews: Array<string>;
     private _stores: Array<Store>;
     private _downloadLocations: Array<string>;
+    private _gameFiles: Array<GameFile>;
     private _downloadRequired: boolean;
 
     /**
@@ -27,6 +29,7 @@ export class GameConfiguration {
         this._stores = [];
         this._reviews = [];
         this._downloadLocations = [];
+        this._gameFiles = [];
     }
 
     public hasRunners(): boolean {
@@ -126,6 +129,13 @@ export class GameConfiguration {
      */
     public get downloadLocations(): Array<string> {
         return this._downloadLocations;
+    }
+
+    /**
+     * @returns Array<string>
+     */
+    public get gameFiles(): Array<GameFile> {
+        return this._gameFiles;
     }
 
     /**

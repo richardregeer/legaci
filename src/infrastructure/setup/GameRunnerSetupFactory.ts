@@ -4,11 +4,11 @@ import { UnsupportedApplicationRunnerError } from "../../core/error/UnsupportedA
 import { FileHandlerInterface } from "../../core/file/FileHandlerInterface";
 import { TemplateInterface } from "../../core/file/TemplateInterface";
 import { LoggerInterface } from "../../core/observability/LoggerInterface";
-import { GameSetupFactoryInterface } from "../../core/setup/GameSetupFactoryInterface";
-import { GameSetupInterface } from "../../core/setup/GameSetupInterface";
+import { GameRunnerSetupFactoryInterface } from "../../core/setup/GameRunnerSetupFactoryInterface";
+import { GameRunnerSetupInterface } from "../../core/setup/GameRunnerSetupInterface";
 import { DosBoxInstaller } from "../installer/DosBoxInstaller";
 
-export class GameSetupFactory implements GameSetupFactoryInterface {
+export class GameRunnerSetupFactory implements GameRunnerSetupFactoryInterface {
     private readonly _template: TemplateInterface;
     private readonly _logger: LoggerInterface;
     private readonly _fileHandler: FileHandlerInterface;
@@ -31,7 +31,7 @@ export class GameSetupFactory implements GameSetupFactoryInterface {
      * @throws UnsupportedApplicationRunnerError
      * @returns GameSetupInterface
      */
-    public create(gameConfig: GameConfiguration): GameSetupInterface {
+    public create(gameConfig: GameConfiguration): GameRunnerSetupInterface {
         if (!gameConfig.hasRunners()) {
             throw new UnsupportedApplicationRunnerError('No application runner found for configuration');
         }

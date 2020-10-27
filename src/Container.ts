@@ -3,7 +3,7 @@ import * as shellJs from 'shelljs';
 import { InstallGameUseCase } from "./core/useCase/InstallGameUseCase";
 import { CLICommandFactory } from "./infrastructure/cliController/CLICommandFactory";
 import { LoggerFactory } from "./infrastructure/observability/LoggerFactory";
-import { GameSetupFactory } from "./infrastructure/setup/GameSetupFactory";
+import { GameRunnerSetupFactory } from "./infrastructure/setup/GameRunnerSetupFactory";
 import { Template } from "./infrastructure/file/Template";
 import { FileHandler } from "./infrastructure/file/FileHandler";
 import { ExtractorFactory } from "./infrastructure/extractor/ExtractorFactory";
@@ -11,6 +11,7 @@ import { ShellCommand } from "./infrastructure/command/ShellCommand";
 import { GameConfigurationResolver } from './infrastructure/resolver/GameConfigurationResolver';
 import { CLICommandHandler } from './infrastructure/cliController/CLICommandHandler';
 import { UnableToResolveError } from './infrastructure/error/UnableToResolveError';
+import { GameFilesInstaller } from './infrastructure/installer/GameFilesInstaller';
 
 export class Container {
     private _container: Map<string, unknown>; 
@@ -42,11 +43,13 @@ export class Container {
         this._container.set(ShellCommand.name, shell);
 
         // Install usecase
-        const gameSetupFactory = new GameSetupFactory(fileTemplate, fileHandler, logger);
+        const gameSetupFactory = new GameRunnerSetupFactory(fileTemplate, fileHandler, logger);
         this._container.set('GameSetupFactoryInterface', gameSetupFactory);
         const extractorFactory = new ExtractorFactory(fileHandler, logger, shell);
         this._container.set('ExtractorFactoryInterface', extractorFactory);
-        const installGameUseCase = new InstallGameUseCase(gameSetupFactory, logger, extractorFactory);
+        const gameFilesInstaller = new GameFilesInstaller(fileHandler, logger);
+        this._container.set('GameFilesInstallerInterface', gameFilesInstaller);
+        const installGameUseCase = new InstallGameUseCase(gameSetupFactory, logger, extractorFactory, gameFilesInstaller);
         this._container.set(InstallGameUseCase.name, installGameUseCase);
 
         // CLI command handler

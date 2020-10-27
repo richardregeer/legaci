@@ -1,7 +1,7 @@
 import { Game } from "../entity/Game";
 import { GameConfiguration } from "../entity/GameConfiguration";
 
-export interface GameSetupInterface {
+export interface GameRunnerSetupInterface {
     
     /**
      * @param  {GameConfiguration} gameConfig
