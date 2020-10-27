@@ -28,14 +28,23 @@ export class InstallGameController {
     }
     
     /**
-     * @param  {string} gameId
      * @param  {string} gameSource
      * @param  {string} gameDestination
+     * @param  {string} gameId?
      * @returns Promise<Game | null>
      */
-    public async handleInstallCommand(gameId: string, gameSource: string, gameDestination: string): Promise<Game | null> {
+    public async handleInstallCommand(gameSource: string, gameDestination: string, gameId?: string): Promise<Game | null> {
         try {
-            const gameConfig = await this._gameConfigurationResolver.resolveById(gameId);
+            let gameConfig;
+            if (gameId) {
+                // Resolve game configuration by given gameId
+                gameConfig = await this._gameConfigurationResolver.resolveById(gameId);
+            }
+            else { 
+                // No game id given use the default game configuration
+                gameConfig = await this._gameConfigurationResolver.resolveDefaultConfiguration();
+            }
+            
             return this._installGameUseCase.installGame(gameConfig, gameSource, gameDestination);
         } catch(error: unknown) {
             if (error instanceof GameConfigurationNotFoundError) {

@@ -1,4 +1,5 @@
 import * as path from 'path';
+import { ApplicationRunner } from '../../core/entity/ApplicationRunner';
 import { GameConfiguration } from "../../core/entity/GameConfiguration";
 import { Runner } from "../../core/entity/Runner";
 import { SourcePort } from "../../core/entity/SourcePort";
@@ -31,7 +32,25 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
 
         return this.resolveBySource(source);
     }
-     
+    
+    /**
+     * @param  {string} dirname
+     * @param  {Array<Record<string, unknown>>} configRunners
+     * @param  {GameConfiguration} gameConfiguration
+     * @returns void
+     */
+    private parseRunners(dirName: string, configRunners: Array<Record<string, unknown>>, gameConfiguration: GameConfiguration): void {
+        configRunners.forEach((i: { application: string; version: string; runConfiguration: string; gameConfiguration: string; binFile: string; }) => {     
+            gameConfiguration.runners.push(new Runner(
+                i.application,
+                i.version,
+                this.parseConfigPath(path.join(dirName, i.runConfiguration || ''), i.runConfiguration, 'run.template.conf', i.application),
+                this.parseConfigPath(path.join(dirName, i.gameConfiguration || ''), i.gameConfiguration, 'configuration.template.conf', i.application),
+                this.parseConfigPath(path.join(dirName, i.binFile || ''), i.binFile, 'bin.template.sh', i.application)
+            ));
+        });
+    }
+
     /**
      * @param  {string} source
      * @param  {string} configuration
@@ -54,35 +73,35 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
 
         return source;
     }
+   
+    /**
+     * @returns Promise<GameConfiguration>
+     */
+    public async resolveDefaultConfiguration(): Promise<GameConfiguration> {
+        const gameConfiguration = new GameConfiguration('Legaci game');
+        this.parseRunners( path.dirname(__dirname), [{ application: ApplicationRunner.DOSBOX, version: '0.74' }], gameConfiguration);
+
+        return Promise.resolve(gameConfiguration);
+    }
 
     /**
-     * @param  {string} path
+     * @param  {string} source
      * @returns Promise<GameConfiguration>
      */
     public async resolveBySource(source: string): Promise<GameConfiguration> {
-        console.log(source);
-
         const content = this._fileHandler.readSync(source);
         const configuration = JSON.parse(content);
         const dirName = path.dirname(source);
 
 
-        // Mapp fields to configuration object
+        // Map fields to configuration object
         const gameConfiguration =  new GameConfiguration(configuration.name);
         gameConfiguration.genre = configuration.genre;
         gameConfiguration.releaseStatus = configuration.releaseStatus;
         gameConfiguration.released = configuration.released;
-         
-        configuration.runners.forEach((i: { application: string; version: string; runConfiguration: string; gameConfiguration: string; binFile: string; }) => {     
-            gameConfiguration.runners.push(new Runner(
-                i.application,
-                i.version,
-                this.parseConfigPath(path.join(dirName, i.runConfiguration), i.runConfiguration, 'run.template.conf', i.application),
-                this.parseConfigPath(path.join(dirName, i.gameConfiguration), i.gameConfiguration, 'configuration.template.conf', i.application),
-                this.parseConfigPath(path.join(dirName, i.binFile), i.binFile, 'bin.template.sh', i.application)
-            ));
-        });
         
+        this.parseRunners(dirName, configuration.runners, gameConfiguration);
+ 
         // configuration.sourcePorts.forEach((i: { name: string; version: string; }) => {
         //     gameConfiguration.sourcePorts.push(new SourcePort(
         //         i.name,

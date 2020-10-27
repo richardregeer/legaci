@@ -5,6 +5,7 @@ import { LoggerInterface } from '../../core/observability/LoggerInterface';
 export class WinstonLogger implements LoggerInterface {
   private _logger: Logger; 
   private _chalk: Chalk;
+  private _debug: boolean;
   
   /**
    * @param  {Logger} logger
@@ -13,6 +14,7 @@ export class WinstonLogger implements LoggerInterface {
   constructor(logger: Logger, chalk: Chalk) {
     this._logger = logger;
     this._chalk = chalk;
+    this._debug = true;
   }
   
   /**
@@ -45,6 +47,12 @@ export class WinstonLogger implements LoggerInterface {
    * @returns void
    */
   public error(message: string, error: Error): void {
-    this._logger.error(this._chalk.red(message));
+    if (this._debug) {
+      this._logger.error(this._chalk.red(message));
+      this._logger.error(error.stack);  
+    }
+    else {
+      this._logger.error(this._chalk.red(message));
+    } 
   }
 }

@@ -9,6 +9,11 @@ export interface GameConfigurationResolverInterface {
     resolveBySource(source: string): Promise<GameConfiguration>;
     
     /**
+     * @returns Promise
+     */
+    resolveDefaultConfiguration():Promise<GameConfiguration>; 
+    
+    /**
      * @param  {string} id
      * @returns Promise
      */

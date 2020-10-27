@@ -13,8 +13,8 @@
             "application": "DosBox",
             "version": "0.74",
             "runConfiguration": "",
-            "gameConfiguration": "",
-            "binFile": ""
+            "gameConfiguration": "dosbox-tyrian2000.conf",
+            "binFile": "tyrian.sh"
         }
     ],
     "preInstallScript": "",

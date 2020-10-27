@@ -17,8 +17,9 @@ const logger = container.resolve<LoggerInterface>('LoggerInterface');
 
 program
   .version(version, '-v, --version')
-  .command('legaci <gameId> <file> <destination>', 'Extract installer and install to destination')
-  .action((gameId, file, destination) => cliCommandHandler.handleCLICommand(gameId, file, destination));
+  .command('legaci <file> <destination>', 'The game file to install on the given destination')
+  .option('-g, --game-id <gameId>', 'The legaci game identifier of the game to install')
+  .action((file, destination) => cliCommandHandler.handleCLICommand(file, destination, program.gameId));
 
 try {
   (async()=> await program.parse(process.argv))();
