@@ -64,6 +64,6 @@ export class InstallGameController {
             }
         }
 
-        return Promise.resolve(null);
+        return null;
     }
 }

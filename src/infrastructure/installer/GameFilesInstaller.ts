@@ -1,7 +1,7 @@
 import { GameConfiguration } from "../../core/entity/GameConfiguration";
 import { FileHandlerInterface } from "../../core/file/FileHandlerInterface";
 import { LoggerInterface } from "../../core/observability/LoggerInterface";
-import { GameFilesInstallerInterface } from "../../core/setup/GameFilesInstallerInterface";
+import { GameFilesInstallerInterface } from "../../core/installer/GameFilesInstallerInterface";
 import chalk from 'chalk';
 import { GameFile } from "../../core/entity/GameFile";
 
@@ -25,7 +25,7 @@ export class GameFilesInstaller implements GameFilesInstallerInterface {
      */
     public async install(gameConfig: GameConfiguration, destination: string): Promise<void> {
         if (gameConfig.gameFiles.length === 0) {
-            return Promise.resolve();
+           return;
         }
 
         this._logger.info('Start copying additional game files');

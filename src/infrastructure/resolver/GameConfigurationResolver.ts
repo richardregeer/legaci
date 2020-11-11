@@ -27,7 +27,7 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
     public async resolveById(id: string): Promise<GameConfiguration> {
         const source = path.join(__dirname, '../../../../', 'resources', 'games', id, 'config.json');
 
-        if (!this._fileHandler.existsSync(source)) {
+        if (!this._fileHandler.existsSync(source, false)) {
             throw new GameConfigurationNotFoundError(`No game configuration found for ${id}`);
         }
 
@@ -94,12 +94,12 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
         const configuration = JSON.parse(content);
         const dirName = path.dirname(source);
 
-
         // Map fields to configuration object
         const gameConfiguration =  new GameConfiguration(configuration.name);
         gameConfiguration.genre = configuration.genre;
         gameConfiguration.releaseStatus = configuration.releaseStatus;
         gameConfiguration.released = configuration.released;
+        gameConfiguration.id = configuration.id;
         
         this.parseRunners(dirName, configuration.runners, gameConfiguration);
         

@@ -3,6 +3,19 @@ import { FileType } from "./FileType";
 export interface FileHandlerInterface {
     
     /**
+     * @param  {string} glob
+     * @returns Array<string>
+     */
+    findFilesSync(glob: string): Array<string>;
+
+    /**
+     * @param  {string} glob
+    * @param  {string} destination
+    * @returns void
+    */
+    moveFilesSync(glob: string, destination: string): void;
+
+    /**
      * @param  {string} destination
      * @param  {string} contents
      * @returns void
@@ -15,12 +28,14 @@ export interface FileHandlerInterface {
      * @returns void
      */
     copySync(source: string, destination: string): void;
-    
+
     /**
-     * @param  {string} source
-     * @returns string
+     * @param  {string} glob
+     * @param  {string} destination
+     * @returns boolean
      */
-    
+    copyFilesSync(glob: string, destination: string): void;
+  
     /**
      * @param  {string} source
      * @returns string
@@ -29,9 +44,10 @@ export interface FileHandlerInterface {
     
     /**
      * @param  {string} source
+     * @param  {boolean} ignoreCase
      * @returns boolean
      */
-    existsSync(source: string): boolean;
+    existsSync(source: string, ignoreCase: boolean): boolean;
     
     /**
      * @param  {string} source

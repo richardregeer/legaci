@@ -4,8 +4,29 @@ import { FileHandlerInterface } from '../../core/file/FileHandlerInterface';
 import { FileDoesNotExistsError } from '../../core/error/FileDoesNotExistsError';
 import { FileType } from '../../core/file/FileType';
 import { UnknownFileTypeError } from '../../core/error/UnkownFileTypeError';
+import { cp, find, mv, ShellArray } from 'shelljs';
 
 export class FileHandler implements FileHandlerInterface {
+
+  /**
+   * @param  {string} glob
+   * @returns Array<string>
+   */
+  public findFilesSync(glob: string): Array<string> {
+    const files: ShellArray = find(glob);
+
+    return files as Array<string>;
+  }
+
+  /**
+   * @param  {string} glob
+   * @param  {string} destination
+   * @returns void
+   */
+  public moveFilesSync(glob: string, destination: string): void {
+    mv(glob, destination);
+  }
+  
   /**
    * @param  {string} destination
    * @returns string
@@ -21,10 +42,26 @@ export class FileHandler implements FileHandlerInterface {
   
   /**
    * @param  {string} source
+   * @param  {} ignoreCase=false
    * @returns boolean
    */
-  public existsSync(source: string): boolean {
+  public existsSync(source: string, ignoreCase = false): boolean {
+    const dirName = path.dirname(source);
+    const fileName = path.basename(source);
+
     if (!fs.existsSync(source)) {
+      if (ignoreCase) {
+        let correctedFileName = fileName.toLowerCase();
+        if (fs.existsSync(dirName + `/${correctedFileName}`)) {
+          return true;
+        }
+
+        correctedFileName = fileName.toUpperCase();
+        if (fs.existsSync(dirName + `/${correctedFileName}`)) {
+          return true;
+        }
+      }
+
       return false;
     }  
 
@@ -73,7 +110,16 @@ export class FileHandler implements FileHandlerInterface {
     this.createDirWhenNotExistsSync(destination);
     fs.copyFileSync(source, destination);
   }
-
+  
+  /**
+   * @param  {string} glob
+   * @param  {string} destination
+   * @returns boolean
+   */
+  public copyFilesSync(glob: string, destination: string): void {
+    cp('-r', glob, destination);
+  }
+  
   /**
    * @param  {string} source
    * @throws FileDoesNotExistsError

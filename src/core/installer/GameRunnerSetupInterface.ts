@@ -22,5 +22,5 @@ export interface GameRunnerSetupInterface {
      * @param  {string} destination
      * @returns Promise<string>
      */
-    generateRunner(gameConfig: GameConfiguration, destination: string) : Promise<string>;  
+    generateRunner(gameConfig: GameConfiguration, destination: string) : Promise<string>;
 }

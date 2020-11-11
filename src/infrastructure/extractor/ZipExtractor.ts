@@ -28,7 +28,7 @@ export class ZipExtractor implements ExtractorInterface {
      * @returns Promise<void>
      */
     public async extract(source: string, destination: string): Promise<void> {
-        if (!this._fileHandler.existsSync(source)) {
+        if (!this._fileHandler.existsSync(source, false)) {
             throw new FileDoesNotExistsError(`Unable to extract ${chalk.underline.white(source)} does not exists`);
         }
 

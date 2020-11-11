@@ -3,7 +3,7 @@ import * as shellJs from 'shelljs';
 import { InstallGameUseCase } from "./core/useCase/InstallGameUseCase";
 import { CLICommandFactory } from "./infrastructure/cliController/CLICommandFactory";
 import { LoggerFactory } from "./infrastructure/observability/LoggerFactory";
-import { GameRunnerSetupFactory } from "./infrastructure/setup/GameRunnerSetupFactory";
+import { GameRunnerSetupFactory } from "./infrastructure/installer/GameRunnerSetupFactory";
 import { Template } from "./infrastructure/file/Template";
 import { FileHandler } from "./infrastructure/file/FileHandler";
 import { ExtractorFactory } from "./infrastructure/extractor/ExtractorFactory";
@@ -12,6 +12,8 @@ import { GameConfigurationResolver } from './infrastructure/resolver/GameConfigu
 import { CLICommandHandler } from './infrastructure/cliController/CLICommandHandler';
 import { UnableToResolveError } from './infrastructure/error/UnableToResolveError';
 import { GameFilesInstaller } from './infrastructure/installer/GameFilesInstaller';
+import { SourceTypeService } from './core/resolver/SourceTypeService';
+import { GOGDosboxSourceTypeResolver } from './infrastructure/resolver/GOGDosboxSourceTypeResolver';
 
 export class Container {
     private _container: Map<string, unknown>; 
@@ -41,6 +43,13 @@ export class Container {
         // Command
         const shell = new ShellCommand(shellJs.exec, shellJs.config);
         this._container.set(ShellCommand.name, shell);
+        
+        // SourceType
+        const sourceTypeServices = [
+            new GOGDosboxSourceTypeResolver(fileHandler)
+        ]
+        const sourceTypeService = new SourceTypeService(sourceTypeServices);
+        this._container.set(SourceTypeService.name, sourceTypeService);
 
         // Install usecase
         const gameSetupFactory = new GameRunnerSetupFactory(fileTemplate, fileHandler, logger);
@@ -49,7 +58,7 @@ export class Container {
         this._container.set('ExtractorFactoryInterface', extractorFactory);
         const gameFilesInstaller = new GameFilesInstaller(fileHandler, logger);
         this._container.set('GameFilesInstallerInterface', gameFilesInstaller);
-        const installGameUseCase = new InstallGameUseCase(gameSetupFactory, logger, extractorFactory, gameFilesInstaller);
+        const installGameUseCase = new InstallGameUseCase(gameSetupFactory, logger, extractorFactory, gameFilesInstaller, sourceTypeService);
         this._container.set(InstallGameUseCase.name, installGameUseCase);
 
         // CLI command handler

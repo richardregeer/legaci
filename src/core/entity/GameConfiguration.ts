@@ -17,6 +17,7 @@ export class GameConfiguration {
     private _downloadLocations: Array<string>;
     private _gameFiles: Array<GameFile>;
     private _downloadRequired: boolean;
+    private _id: string;
 
     /**
      * @param  {string} name
@@ -87,6 +88,20 @@ export class GameConfiguration {
      */
     public set released(value: Date) {
         this._released = value;
+    }
+
+    /**
+     * @returns string
+     */
+    public get id(): string {
+        return this._id;
+    }
+  
+    /**
+     * @param  {string} value
+     */
+    public set id(value: string) {
+        this._id = value;
     }
   
     /**
