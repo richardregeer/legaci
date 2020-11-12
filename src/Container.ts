@@ -33,17 +33,17 @@ export class Container {
         this._container.set(LoggerFactory.name, loggerFactory);
         const logger = loggerFactory.createLogger();
         this._container.set('LoggerInterface', logger);
+        
+        // Command
+        const shell = new ShellCommand(shellJs.exec, shellJs.config);
+        this._container.set(ShellCommand.name, shell);
 
         // File
-        const fileHandler = new FileHandler();
+        const fileHandler = new FileHandler(shellJs.config);
         this._container.set('FileHandlerInterface', fileHandler);
         const fileTemplate = new Template(fileHandler);
         this._container.set('TemplateInterface', fileTemplate);
 
-        // Command
-        const shell = new ShellCommand(shellJs.exec, shellJs.config);
-        this._container.set(ShellCommand.name, shell);
-        
         // SourceType
         const sourceTypeServices = [
             new GOGDosboxSourceTypeResolver(fileHandler)

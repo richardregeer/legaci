@@ -1,9 +1,11 @@
+import chalk from "chalk";
 import { Game } from "../../core/entity/Game";
 import { GameConfiguration } from "../../core/entity/GameConfiguration";
 import { DosBoxInstaller } from "./DosBoxInstaller";
 
 export class GOGDosBoxInstaller extends DosBoxInstaller {     
-
+    // TODO move convert configuration to a separate class
+    
     /**
      * @param  {string} line
      * @param  {string} destination
@@ -84,16 +86,41 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
     }
     
     /**
+     * @param  {string} destination
+     * @returns void
+     */
+    private cleanup(destination: string): void {
+      this._fileHandler.removeFilesSync(
+        `${destination}/app`, 
+        `${destination}/tmp`, 
+        `${destination}/__redist`,
+        `${destination}/__support`, 
+        `${destination}/commonappdata`,
+        `${destination}/DOSBOX`,
+        `${destination}/webcache.zip`
+      );
+
+      this._logger.info(`Removed unused GOG.com files from installation folder`);
+    }
+
+    /**
      * @param  {GameConfiguration} gameConfig
      * @param  {string} destination
      * @returns Promise<Game>
      */
     public async install(gameConfig: GameConfiguration, destination: string): Promise<Game> {
+      this._logger.info(`${chalk.white('GOG.com')} installation file detected`);
+      
       // Make sure we move all files that are in the app folder. Some games have required data there that 
       // Inoextract does not copy.
       this._fileHandler.copyFilesSync(`${destination}/app/*`, destination);
 
-      return super.install(gameConfig, destination);
+      const game = await super.install(gameConfig, destination);
+
+      // Remove all files from GOG.com that are not needed for the game.
+      this.cleanup(destination);
+      
+      return game;
     }
 
     /**
@@ -103,7 +130,7 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
      */
     public async generateConfiguration(gameConfig: GameConfiguration, destination: string): Promise<void> {
         // Try to find the GOG dosbox configuration files
-        const resultConfiguration = this._fileHandler.findFilesSync(`${destination}/**/*.conf`);
+        const resultConfiguration = this._fileHandler.findFilesSync(false, destination, '/**/*.conf');
 
         const config = resultConfiguration.find((value) => {
           return value.indexOf('single') < 0;

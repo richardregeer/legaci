@@ -4,16 +4,43 @@ import { FileHandlerInterface } from '../../core/file/FileHandlerInterface';
 import { FileDoesNotExistsError } from '../../core/error/FileDoesNotExistsError';
 import { FileType } from '../../core/file/FileType';
 import { UnknownFileTypeError } from '../../core/error/UnkownFileTypeError';
-import { cp, find, mv, ShellArray } from 'shelljs';
+import { cp, find, mv, rm, ShellConfig } from 'shelljs';
 
 export class FileHandler implements FileHandlerInterface {
+  private readonly _shellConfig: ShellConfig;
+    
+  /**
+   * @param  {ShellConfig} shellConfig
+  */
+  public constructor(shellConfig: ShellConfig) {
+    this._shellConfig = shellConfig;
+  }
+  
+  /**
+   * @param  {string[]} ...glob
+   * @returns void
+   */
+  removeFilesSync(...glob: string[]): void {
+    rm('-rf', glob);
+  }
 
   /**
-   * @param  {string} glob
-   * @returns Array<string>
+   * @param  {boolean} ignoreCase
+   * @param  {string} source
+   * @param  {string[]} ...glob
+   * @returns Array
    */
-  public findFilesSync(glob: string): Array<string> {
-    const files: ShellArray = find(glob);
+  public findFilesSync(ignoreCase: boolean, source: string, ...glob: string[]): Array<string> {
+    this._shellConfig.silent = true;
+    let files = find(`${source}/${glob}`);
+
+    if (files.length === 0 && ignoreCase) {
+      files = find(glob.map((x) => `${source}/${x.toLocaleUpperCase()}`));
+    }
+
+    if (files.length === 0 && ignoreCase) {
+      files = find(glob.map((x) => `${source}/${x.toLowerCase()}`));
+    }
 
     return files as Array<string>;
   }
@@ -24,6 +51,7 @@ export class FileHandler implements FileHandlerInterface {
    * @returns void
    */
   public moveFilesSync(glob: string, destination: string): void {
+    this._shellConfig.silent = true; 
     mv(glob, destination);
   }
   
@@ -117,6 +145,7 @@ export class FileHandler implements FileHandlerInterface {
    * @returns boolean
    */
   public copyFilesSync(glob: string, destination: string): void {
+    this._shellConfig.silent = true; 
     cp('-r', glob, destination);
   }
   

@@ -25,12 +25,14 @@ export class GOGDosboxSourceTypeResolver implements SourceTypeResolverInterface 
      * @returns boolean
      */
     public isSourceType(source: string): boolean { 
-        const files = this._fileHandler.findFilesSync(source + '/goggame-*.info');
-
+        const files = this._fileHandler.findFilesSync(true, source, '**/gog*');
+        
         if(files.length === 0) {
             return false;
         }
 
-        return this._fileHandler.existsSync(source + '/Dosbox/', true);
+        const dosBoxFiles = this._fileHandler.findFilesSync(true, source , '**/Dosbox/');
+       
+        return dosBoxFiles.length > 0;
     } 
 }

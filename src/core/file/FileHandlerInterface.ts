@@ -2,11 +2,20 @@ import { FileType } from "./FileType";
 
 export interface FileHandlerInterface {
     
+   
     /**
-     * @param  {string} glob
+     * @param  {boolean} ignoreCase
+     * @param  {string} source
+     * @param  {string[]} ...glob
      * @returns Array<string>
      */
-    findFilesSync(glob: string): Array<string>;
+    findFilesSync(ignoreCase: boolean, source: string, ...glob: string[]): Array<string>;
+    
+    /**
+     * @param  {string[]} ...glob
+     * @returns void
+     */
+    removeFilesSync(...glob: string[]): void;
 
     /**
      * @param  {string} glob
