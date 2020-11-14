@@ -1,8 +1,6 @@
 import { FileType } from "./FileType";
 
 export interface FileHandlerInterface {
-    
-   
     /**
      * @param  {boolean} ignoreCase
      * @param  {string} source
@@ -75,6 +73,12 @@ export interface FileHandlerInterface {
      * @returns FileType
      */
     resolveFileTypeSync(source: string): FileType;
+    
+    /**
+     * @param  {string} source
+     * @returns string
+     */
+    resolveFileName(source: string): string;
 
     /**
      * @param  {string} source

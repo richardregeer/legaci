@@ -13,7 +13,8 @@ import { CLICommandHandler } from './infrastructure/cliController/CLICommandHand
 import { UnableToResolveError } from './infrastructure/error/UnableToResolveError';
 import { GameFilesInstaller } from './infrastructure/installer/GameFilesInstaller';
 import { SourceTypeService } from './core/resolver/SourceTypeService';
-import { GOGDosboxSourceTypeResolver } from './infrastructure/resolver/GOGDosboxSourceTypeResolver';
+import { GOGDosboxSourceTypeResolver } from './infrastructure/resolver/GOGDosboxSourceTypeResolver copy';
+import { GOGScummVMSourceTypeResolver } from './infrastructure/resolver/GOGScummVMSourceTypeResolver';
 
 export class Container {
     private _container: Map<string, unknown>; 
@@ -46,7 +47,8 @@ export class Container {
 
         // SourceType
         const sourceTypeServices = [
-            new GOGDosboxSourceTypeResolver(fileHandler)
+            new GOGDosboxSourceTypeResolver(fileHandler),
+            new GOGScummVMSourceTypeResolver(fileHandler)
         ]
         const sourceTypeService = new SourceTypeService(sourceTypeServices);
         this._container.set(SourceTypeService.name, sourceTypeService);

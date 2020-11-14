@@ -184,6 +184,16 @@ export class FileHandler implements FileHandlerInterface {
 
   /**
    * @param  {string} source
+   * @returns string
+   */
+  resolveFileName(source: string): string {
+    const extName = path.extname(source);
+
+    return path.basename(source).replace(extName, '');
+  }
+
+  /**
+   * @param  {string} source
    * @returns void
    * @throws FileDoesNotExistsError
    */

@@ -41,17 +41,18 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
      * @returns void
      */
     private parseRunners(dirName: string, configRunners: Array<Record<string, unknown>>, gameConfiguration: GameConfiguration): void {
-        configRunners.forEach((i: { application: string; version: string; runConfiguration: string; gameConfiguration: string; binFile: string; }) => {     
+        configRunners.forEach((i: { application: string; version: string; runConfiguration: string; gameConfiguration: string; binFile: string; id: string}) => {     
             gameConfiguration.runners.push(new Runner(
                 i.application,
                 i.version,
                 this.parseConfigPath(path.join(dirName, i.runConfiguration || ''), i.runConfiguration, 'run.template.conf', i.application),
                 this.parseConfigPath(path.join(dirName, i.gameConfiguration || ''), i.gameConfiguration, 'configuration.template.conf', i.application),
-                this.parseConfigPath(path.join(dirName, i.binFile || ''), i.binFile, 'bin.template.sh', i.application)
+                this.parseConfigPath(path.join(dirName, i.binFile || ''), i.binFile, 'bin.template.sh', i.application),
+                i.id
             ));
         });
     }
-
+s
     /**
      * @param  {string} source
      * @param  {string} configuration
@@ -81,8 +82,8 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
     public async resolveDefaultConfiguration(): Promise<GameConfiguration> {
         const gameConfiguration = new GameConfiguration('Legaci game');
         this.parseRunners( path.dirname(__dirname), [{ application: ApplicationRunner.DOSBOX, version: '0.74' }], gameConfiguration);
-
-        return Promise.resolve(gameConfiguration);
+            
+        return gameConfiguration;
     }
 
     /**

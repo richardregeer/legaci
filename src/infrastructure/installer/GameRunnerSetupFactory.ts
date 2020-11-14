@@ -9,6 +9,8 @@ import { GameRunnerSetupFactoryInterface } from "../../core/installer/GameRunner
 import { GameRunnerSetupInterface } from "../../core/installer/GameRunnerSetupInterface";
 import { DosBoxInstaller } from "./DosBoxInstaller";
 import { GOGDosBoxInstaller } from "./GOGDosBoxInstaller";
+import { ScummVMInstaller } from "./ScummVMInstaller";
+import { GOGScummVMInstaller } from "./GOGScummVMInstaller";
 
 export class GameRunnerSetupFactory implements GameRunnerSetupFactoryInterface {
     private readonly _template: TemplateInterface;
@@ -38,7 +40,19 @@ export class GameRunnerSetupFactory implements GameRunnerSetupFactoryInterface {
             throw new UnsupportedApplicationRunnerError('No application runner found for configuration');
         }
 
-        const runner = gameConfig.findByApplicationRunner(ApplicationRunner.DOSBOX);
+        // ScummVM
+        let runner = gameConfig.findByApplicationRunner(ApplicationRunner.SCUMMVM);
+        if (runner !== null) {
+            switch(sourceType) {
+                case SourceType.GOG_SCUMMVM:
+                    return new GOGScummVMInstaller(this._template, this._fileHandler, this._logger); 
+                default:
+                    return new ScummVMInstaller(this._template, this._fileHandler, this._logger); 
+            }
+        }
+
+        // DosBox
+        runner = gameConfig.findByApplicationRunner(ApplicationRunner.DOSBOX);
         if (runner === null) {
             throw new UnsupportedApplicationRunnerError('Application runner is not supported');
         }

@@ -38,7 +38,13 @@ export class GameConfiguration {
     }
 
     public findByApplicationRunner(runner: ApplicationRunner): Runner | null {
-        return this._runners.find((x: Runner) => x.application.toLowerCase() as string === runner.toLowerCase());
+        const applicationRunner = this._runners.find((x: Runner) => x.application.toLowerCase() as string === runner.toLowerCase());
+
+        if (!applicationRunner) {
+            return null;
+        }
+
+        return applicationRunner; 
     }
 
     /**

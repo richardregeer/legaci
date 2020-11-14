@@ -1,4 +1,4 @@
-FROM richardregeer/web-development:node-10
+FROM richardregeer/web-development:node-14
 
 # Add repositories
 RUN apt-get update \

@@ -7,6 +7,7 @@ export class Runner {
     private readonly _runConfigurationPath?: string;
     private readonly _configurationPath?: string;
     private readonly _binFile?: string;
+    private readonly _id?: string;
     
     /**
      * @param  {string} application
@@ -14,9 +15,10 @@ export class Runner {
      * @param  {string} runConfigurationSource?
      * @param  {string} configurationSource?
      * @param  {string} binFile?
+     * @param  {string} id?
      * @throws {UnsupportedApplicationRunnerError}
      */
-    public constructor(application : string, version : string, runConfigurationSource?: string, configurationSource?: string, binFile?: string) {   
+    public constructor(application : string, version : string, runConfigurationSource?: string, configurationSource?: string, binFile?: string, id?: string) {   
         if(!Object.values(ApplicationRunner).includes(application.toLowerCase() as ApplicationRunner)) {
             throw new UnsupportedApplicationRunnerError(`Unsupported application runner ${application}`);
         }
@@ -26,6 +28,7 @@ export class Runner {
         this._runConfigurationPath = runConfigurationSource;
         this._configurationPath = configurationSource;
         this._binFile = binFile;
+        this._id = id;
     }
 
     public get configurationPath(): string | undefined {
@@ -46,5 +49,9 @@ export class Runner {
 
     public get binFile(): string | undefined {
         return this._binFile;
+    }
+
+    public get id(): string | undefined {
+        return this._id;
     }
 }

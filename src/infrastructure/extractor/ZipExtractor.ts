@@ -35,10 +35,16 @@ export class ZipExtractor implements ExtractorInterface {
         this._fileHandler.createDirWhenNotExistsSync(destination);
 
         try {
-            const command = `unzip "${source}" -d ${destination}`;
+            const command = `unzip -o "${source}" -d ${destination}`;
             this._logger.info('Extracting game file using unzip');
             await this._shell.execute(command, false);
-                
+
+            // If the name of the zip file is a folder in the archive, move all files from that folder to the root of the destination.
+            const fileName = this._fileHandler.resolveFileName(source);
+            if (this._fileHandler.existsSync(`${destination}/${fileName}`, true)) {
+                this._fileHandler.copyFilesSync(`${destination}/${fileName}/*`, destination);
+            }
+
             this._logger.info(`Finished extracting game file to path ${chalk.underline.white(destination)}`);
         } catch (error) {
             this._logger.error(`Unable to extract game file${chalk.underline.white(source)},`, error);
