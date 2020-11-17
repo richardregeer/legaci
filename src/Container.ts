@@ -20,75 +20,75 @@ import { GOGGameInformationResolver } from './infrastructure/resolver/GOGGameInf
 import { GOGDosboxGameConfigurationResolver } from './infrastructure/resolver/GOGDosboxGameConfigurationResolver';
 
 export class Container {
-    private _container: Map<string, unknown>; 
-    
-    /**
-     */
-    constructor() {
-        this._container = new Map();
-    }
+  private _container: Map<string, unknown>;
 
-    /**
-     * @returns void
-     */
-    public setup(): void {
-        // Logger
-        const loggerFactory = new LoggerFactory(chalk);
-        this._container.set(LoggerFactory.name, loggerFactory);
-        const logger = loggerFactory.createLogger();
-        this._container.set('LoggerInterface', logger);
-        
-        // Command
-        const shell = new ShellCommand(shellJs.exec, shellJs.config);
-        this._container.set(ShellCommand.name, shell);
+  /**
+  */
+  constructor() {
+    this._container = new Map();
+  }
 
-        // File
-        const fileHandler = new FileHandler(shellJs.config);
-        this._container.set('FileHandlerInterface', fileHandler);
-        const fileTemplate = new Template(fileHandler);
-        this._container.set('TemplateInterface', fileTemplate);
+  /**
+    * @returns void
+  */
+  public setup(): void {
+    // Logger
+    const loggerFactory = new LoggerFactory(chalk);
+    this._container.set(LoggerFactory.name, loggerFactory);
+    const logger = loggerFactory.createLogger();
+    this._container.set('LoggerInterface', logger);
 
-        // GameResolverService
-        const gogGameInformationResolver = new GOGGameInformationResolver(fileHandler);
+    // Command
+    const shell = new ShellCommand(shellJs.exec, shellJs.config);
+    this._container.set(ShellCommand.name, shell);
 
-        const sourceTypeServices = [
-            new GOGDosboxSourceTypeResolver(fileHandler),
-            new GOGScummVMSourceTypeResolver(fileHandler)
-        ]
-        const gameConfigurationResolvers = [
-            new GameConfigurationResolver(fileHandler),
-            new GOGScummVMGameConfigurationResolver(fileHandler, gogGameInformationResolver),
-            new GOGDosboxGameConfigurationResolver(fileHandler, gogGameInformationResolver)
-        ]
-        const gameResolverService = new GameResolverService(sourceTypeServices, gameConfigurationResolvers);
-        this._container.set(GameResolverService.name, gameResolverService);
+    // File
+    const fileHandler = new FileHandler(shellJs.config);
+    this._container.set('FileHandlerInterface', fileHandler);
+    const fileTemplate = new Template(fileHandler);
+    this._container.set('TemplateInterface', fileTemplate);
 
-        // Install usecase
-        const gameSetupFactory = new GameRunnerSetupFactory(fileTemplate, fileHandler, logger);
-        this._container.set('GameSetupFactoryInterface', gameSetupFactory);
-        const extractorFactory = new ExtractorFactory(fileHandler, logger, shell);
-        this._container.set('ExtractorFactoryInterface', extractorFactory);
-        const gameFilesInstaller = new GameFilesInstaller(fileHandler, logger);
-        this._container.set('GameFilesInstallerInterface', gameFilesInstaller);
-        const installGameUseCase = new InstallGameUseCase(gameSetupFactory, logger, extractorFactory, gameFilesInstaller, gameResolverService);
-        this._container.set(InstallGameUseCase.name, installGameUseCase);   
+    // GameResolverService
+    const gogGameInformationResolver = new GOGGameInformationResolver(fileHandler);
 
-        // CLI command handler
-        const cliCommandFactory = new CLICommandFactory(installGameUseCase, logger);
-        this._container.set(CLICommandFactory.name, cliCommandFactory);
-        const cliCommandHandler = new CLICommandHandler(cliCommandFactory, logger);
-        this._container.set(CLICommandHandler.name, cliCommandHandler);   
-    }
-    
-    /**
+    const sourceTypeServices = [
+      new GOGDosboxSourceTypeResolver(fileHandler),
+      new GOGScummVMSourceTypeResolver(fileHandler)
+    ]
+    const gameConfigurationResolvers = [
+      new GameConfigurationResolver(fileHandler),
+      new GOGScummVMGameConfigurationResolver(fileHandler, gogGameInformationResolver),
+      new GOGDosboxGameConfigurationResolver(fileHandler, gogGameInformationResolver)
+    ]
+    const gameResolverService = new GameResolverService(sourceTypeServices, gameConfigurationResolvers);
+    this._container.set(GameResolverService.name, gameResolverService);
+
+    // Install usecase
+    const gameSetupFactory = new GameRunnerSetupFactory(fileTemplate, fileHandler, logger);
+    this._container.set('GameSetupFactoryInterface', gameSetupFactory);
+    const extractorFactory = new ExtractorFactory(fileHandler, logger, shell);
+    this._container.set('ExtractorFactoryInterface', extractorFactory);
+    const gameFilesInstaller = new GameFilesInstaller(fileHandler, logger);
+    this._container.set('GameFilesInstallerInterface', gameFilesInstaller);
+    const installGameUseCase = new InstallGameUseCase(gameSetupFactory, logger, extractorFactory, gameFilesInstaller, gameResolverService);
+    this._container.set(InstallGameUseCase.name, installGameUseCase);
+
+    // CLI command handler
+    const cliCommandFactory = new CLICommandFactory(installGameUseCase, logger);
+    this._container.set(CLICommandFactory.name, cliCommandFactory);
+    const cliCommandHandler = new CLICommandHandler(cliCommandFactory, logger);
+    this._container.set(CLICommandHandler.name, cliCommandHandler);
+  }
+
+  /**
      * @param  {string} name
      * @returns T
      */
-    public resolve<T>(name: string): T {
-        if (!this._container.has(name)) {
-        throw new UnableToResolveError(`Unable to resolve ${name} from container`);  
-        }
-        
-        return this._container.get(name) as T;
+  public resolve<T>(name: string): T {
+    if (!this._container.has(name)) {
+      throw new UnableToResolveError(`Unable to resolve ${name} from container`);
     }
+
+    return this._container.get(name) as T;
+  }
 }

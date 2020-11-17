@@ -1,4 +1,7 @@
 {
     "telemetry.enableTelemetry": false,
-    "telemetry.enableCrashReporter": false
+    "telemetry.enableCrashReporter": false,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    }
 }

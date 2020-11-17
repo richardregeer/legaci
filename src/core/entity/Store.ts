@@ -1,37 +1,37 @@
 export class Store {
-    private readonly _name: string;
-    private readonly _id: string;
-    private readonly _url: string;
-    
-    /**
-     * @param  {string} name
-     * @param  {string} id
-     * @param  {string} url
-     */
-    public constructor(name : string, id : string, url: string) {
-        this._name = name;
-        this._id = id;
-        this._url = url;
-    }
-   
-    /**
-     * @returns string
-     */
-    public get name(): string {
-        return this._name;
-    }
+  private readonly _name: string;
+  private readonly _id: string;
+  private readonly _url: string;
 
-    /**
-     * @returns string
-     */
-    public get id(): string {
-        return this._id;
-    }
+  /**
+   * @param  {string} name
+   * @param  {string} id
+   * @param  {string} url
+   */
+  public constructor(name : string, id : string, url: string) {
+    this._name = name;
+    this._id = id;
+    this._url = url;
+  }
 
-    /**
-     * @returns string
-     */
-    public get url(): string {
-        return this._url;
-    }
+  /**
+   * @returns string
+   */
+  public get name(): string {
+    return this._name;
+  }
+
+  /**
+   * @returns string
+   */
+  public get id(): string {
+    return this._id;
+  }
+
+  /**
+   * @returns string
+   */
+  public get url(): string {
+    return this._url;
+  }
 }

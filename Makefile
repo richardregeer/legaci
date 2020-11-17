@@ -59,7 +59,11 @@ compile_watch: ## Compile the Typescript code in watch mode.
 
 .PHONY: lint
 lint: ## Check the codestyle of the complete project.
-	${START_COMMAND} ${NODE_MODULES}/eslint .
+	${START_COMMAND} ${NODE_MODULES}/eslint . --ext .ts
+
+.PHONY: lint_fix
+lint_fix: ## Check the codestyle of the complete project and auto fix errors.
+	${START_COMMAND} ${NODE_MODULES}/eslint . --ext .ts --fix
 
 .PHONY: test
 test: test_unit test_integration## Run all the tests of the complete project.

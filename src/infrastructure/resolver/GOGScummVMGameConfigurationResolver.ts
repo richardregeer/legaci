@@ -7,67 +7,67 @@ import { GameConfigurationResolver } from './GameConfigurationResolver';
 import { GOGGameInformationResolver } from './GOGGameInformationResolver';
 
 export class GOGScummVMGameConfigurationResolver extends GameConfigurationResolver {
-    private readonly _gogGameInformationResolver: GOGGameInformationResolver;
-    
-    /**
-     * @param  {FileHandlerInterface} fileHandler
-     * @param  {GOGGameInformationResolver} gogGameInformationResolver
-     */
-    public constructor(fileHandler: FileHandlerInterface, gogGameInformationResolver: GOGGameInformationResolver) {
-        super(fileHandler);
-        this._gogGameInformationResolver = gogGameInformationResolver;
+  private readonly _gogGameInformationResolver: GOGGameInformationResolver;
+
+  /**
+   * @param  {FileHandlerInterface} fileHandler
+   * @param  {GOGGameInformationResolver} gogGameInformationResolver
+   */
+  public constructor(fileHandler: FileHandlerInterface, gogGameInformationResolver: GOGGameInformationResolver) {
+    super(fileHandler);
+    this._gogGameInformationResolver = gogGameInformationResolver;
+  }
+
+  /**
+   * @returns SourceType
+   */
+  public getSourceType(): SourceType {
+    return SourceType.GOG_SCUMMVM;
+  }
+
+  /**
+   * @param  {SourceType} sourceType
+   * @param  {string} destination
+   * @returns Promise<GameConfiguration>
+   */
+  public async resolveDefaultConfiguration(sourceType: SourceType, destination: string): Promise<GameConfiguration> {
+    const gameConfiguration = await super.resolveDefaultConfiguration(sourceType, destination);
+
+    const gameId = this.getScummVMGameId(destination);
+    this.parseRunners(path.dirname(__dirname), [{ application: ApplicationRunner.SCUMMVM, id: gameId }], gameConfiguration);
+
+    // Try to get the game name from GOG info file
+    const gameName = this._gogGameInformationResolver.getGameName(destination);
+    if (gameName) {
+      gameConfiguration.name = gameName;
     }
 
-    /**
-     * @returns SourceType
-     */
-    public getSourceType(): SourceType {
-        return SourceType.GOG_SCUMMVM;
-    }
+    return gameConfiguration;
+  }
 
-    /**
-     * @param  {SourceType} sourceType
-     * @param  {string} destination
-     * @returns Promise<GameConfiguration>
-     */
-    public async resolveDefaultConfiguration(sourceType: SourceType, destination: string): Promise<GameConfiguration> {
-        const gameConfiguration = await super.resolveDefaultConfiguration(sourceType, destination);
-     
-        const gameId = this.getScummVMGameId(destination);
-        this.parseRunners(path.dirname(__dirname), [{ application: ApplicationRunner.SCUMMVM, id: gameId }], gameConfiguration);
-    
-        // Try to get the game name from GOG info file
-        const gameName = this._gogGameInformationResolver.getGameName(destination);
-        if (gameName) {
-            gameConfiguration.name = gameName;    
-        }
+  /**
+   * @param  {string} destination
+   * @returns string
+   */
+  private getScummVMGameId(destination: string): string {
+    let gameId = '';
 
-        return gameConfiguration;
-    }
-    
-    /**
-     * @param  {string} destination
-     * @returns string
-     */
-    private getScummVMGameId(destination: string): string {
-        let gameId = '';
-        
-        try {
-            const iniFile = this._fileHandler.findFilesSync(false, destination, '/**/*.ini');
-            if (iniFile.length === 0) {
-                return '';
-            }
-
-            const scummVmConfigurationLines = this._fileHandler.readSync(iniFile[0]).toString().split('\n'); 
-            scummVmConfigurationLines.forEach((line: string) => {
-                if (line.indexOf('gameid=') > -1) {
-                    gameId = line.substring(7, line.length);
-                }
-            }); 
-        } catch(error: unknown) {
-            return '';
-        }
-        
-        return gameId;
+    try {
+      const iniFile = this._fileHandler.findFilesSync(false, destination, '/**/*.ini');
+      if (iniFile.length === 0) {
+        return '';
       }
+
+      const scummVmConfigurationLines = this._fileHandler.readSync(iniFile[0]).toString().split('\n');
+      scummVmConfigurationLines.forEach((line: string) => {
+        if (line.indexOf('gameid=') > -1) {
+          gameId = line.substring(7, line.length);
+        }
+      });
+    } catch(error: unknown) {
+      return '';
+    }
+
+    return gameId;
+  }
 }

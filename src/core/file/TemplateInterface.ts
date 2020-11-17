@@ -1,18 +1,17 @@
 export interface TemplateInterface {
-  
   /**
    * @param  {string} source
    * @returns string
    */
   load(source: string): string;
-  
+
   /**
    * @param  {string} destination
    * @param  {string} content
    * @returns void
    */
   save(destination: string, content: string): void;
-  
+
   /**
    * @param  {string} name
    * @param  {string} value

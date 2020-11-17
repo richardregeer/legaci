@@ -170,16 +170,16 @@ export class FileHandler implements FileHandlerInterface {
   * @returns FileType
   */
   public resolveFileTypeSync(source: string): FileType  {
-      const extName = path.extname(source);
+    const extName = path.extname(source);
 
-      switch (extName.toLowerCase()) {
-        case '.zip': return FileType.ZIP;
-        case '.sh': return FileType.SH;
-        case '.exe': return FileType.EXE;
-        default:
-      }
+    switch (extName.toLowerCase()) {
+    case '.zip': return FileType.ZIP;
+    case '.sh': return FileType.SH;
+    case '.exe': return FileType.EXE;
+    default:
+    }
 
-      throw new UnknownFileTypeError(`Unknown file type ${extName}`);
+    throw new UnknownFileTypeError(`Unknown file type ${extName}`);
   }
 
   /**

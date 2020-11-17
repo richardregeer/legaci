@@ -6,32 +6,32 @@ import chalk from 'chalk';
 import { GameFile } from "../../core/entity/GameFile";
 
 export class GameFilesInstaller implements GameFilesInstallerInterface {
-    private readonly _logger: LoggerInterface;
-    private readonly _fileHandler: FileHandlerInterface;
-    
-    /**
-     * @param  {FileHandlerInterface} fileHandler
-     * @param  {LoggerInterface} logger
-     */
-    public constructor(fileHandler: FileHandlerInterface, logger: LoggerInterface) {
-        this._logger = logger;
-        this._fileHandler = fileHandler;
+  private readonly _logger: LoggerInterface;
+  private readonly _fileHandler: FileHandlerInterface;
+
+  /**
+   * @param  {FileHandlerInterface} fileHandler
+   * @param  {LoggerInterface} logger
+   */
+  public constructor(fileHandler: FileHandlerInterface, logger: LoggerInterface) {
+    this._logger = logger;
+    this._fileHandler = fileHandler;
+  }
+
+  /**
+   * @param  {GameConfiguration} gameConfig
+   * @param  {string} destination
+   * @returns Promise
+   */
+  public async install(gameConfig: GameConfiguration, destination: string): Promise<void> {
+    if (gameConfig.gameFiles.length === 0) {
+      return;
     }
 
-    /**
-     * @param  {GameConfiguration} gameConfig
-     * @param  {string} destination
-     * @returns Promise
-     */
-    public async install(gameConfig: GameConfiguration, destination: string): Promise<void> {
-        if (gameConfig.gameFiles.length === 0) {
-           return;
-        }
-
-        this._logger.info('Start copying additional game files');
-        gameConfig.gameFiles.forEach((gameFile: GameFile) => {
-            this._fileHandler.copySync(`${gameFile.location}/${gameFile.name}`, `${destination}/${gameFile.name}`);
-            this._logger.info(`Copied: ${chalk.white(gameFile.name)}`);
-        });
-    }
+    this._logger.info('Start copying additional game files');
+    gameConfig.gameFiles.forEach((gameFile: GameFile) => {
+      this._fileHandler.copySync(`${gameFile.location}/${gameFile.name}`, `${destination}/${gameFile.name}`);
+      this._logger.info(`Copied: ${chalk.white(gameFile.name)}`);
+    });
+  }
 }

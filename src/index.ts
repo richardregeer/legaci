@@ -22,7 +22,7 @@ program
   .action((file, destination) => cliCommandHandler.handleCLICommand(file, destination, program.gameId));
 
 try {
-  (async()=> await program.parse(process.argv))();
+  (async()=> program.parse(process.argv))();
 } catch (error: any) {
   logger.error(`Error while installing game: ${error.message}`, error);
 }

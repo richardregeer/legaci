@@ -3,9 +3,9 @@ import { TemplateInterface } from "../../core/file/TemplateInterface";
 
 export class Template implements TemplateInterface {
   private readonly _fileHandler: FileHandlerInterface;
-  
+
   /**
-   * @param fileHandler 
+   * @param fileHandler
    */
   public constructor(fileHandler: FileHandlerInterface) {
     this._fileHandler = fileHandler;
@@ -26,7 +26,7 @@ export class Template implements TemplateInterface {
   public save(destination: string, content: string): void {
     this._fileHandler.writeSync(destination, content);
   }
-  
+
   /**
    * @param  {string} name
    * @param  {string} value
@@ -35,5 +35,5 @@ export class Template implements TemplateInterface {
    */
   public replaceVariable(name: string, value: string, content: string): string {
     return content.replace(`{{${name}}}`, value);
-  }  
+  }
 }

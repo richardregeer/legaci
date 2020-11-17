@@ -13,56 +13,56 @@ import { ScummVMInstaller } from "./ScummVMInstaller";
 import { GOGScummVMInstaller } from "./GOGScummVMInstaller";
 
 export class GameRunnerSetupFactory implements GameRunnerSetupFactoryInterface {
-    private readonly _template: TemplateInterface;
-    private readonly _logger: LoggerInterface;
-    private readonly _fileHandler: FileHandlerInterface;
-   
-    /**
-     * @param  {TemplateInterface} template
-     * @param  {LoggerInterface} logger
-     */
-    constructor(
-        template: TemplateInterface,
-        fileHandler: FileHandlerInterface,
-        logger: LoggerInterface) {
-        this._template = template;
-        this._logger = logger;
-        this._fileHandler = fileHandler;
+  private readonly _template: TemplateInterface;
+  private readonly _logger: LoggerInterface;
+  private readonly _fileHandler: FileHandlerInterface;
+
+  /**
+   * @param  {TemplateInterface} template
+   * @param  {LoggerInterface} logger
+   */
+  constructor(
+    template: TemplateInterface,
+    fileHandler: FileHandlerInterface,
+    logger: LoggerInterface) {
+    this._template = template;
+    this._logger = logger;
+    this._fileHandler = fileHandler;
+  }
+
+  /**
+   * @param  {GameConfiguration} gameConfig
+   * @param  {SourceType} sourceType
+   * @returns GameRunnerSetupInterface
+   */
+  public create(gameConfig: GameConfiguration, sourceType: SourceType): GameRunnerSetupInterface {
+    if (!gameConfig.hasRunners()) {
+      throw new UnsupportedApplicationRunnerError('No application runner found for configuration');
     }
-   
-    /**
-     * @param  {GameConfiguration} gameConfig
-     * @param  {SourceType} sourceType
-     * @returns GameRunnerSetupInterface
-     */
-    public create(gameConfig: GameConfiguration, sourceType: SourceType): GameRunnerSetupInterface {
-        if (!gameConfig.hasRunners()) {
-            throw new UnsupportedApplicationRunnerError('No application runner found for configuration');
-        }
 
-        // ScummVM
-        let runner = gameConfig.findByApplicationRunner(ApplicationRunner.SCUMMVM);
-        if (runner !== null) {
-            switch(sourceType) {
-                case SourceType.GOG_SCUMMVM:
-                    return new GOGScummVMInstaller(this._template, this._fileHandler, this._logger); 
-                default:
-                    return new ScummVMInstaller(this._template, this._fileHandler, this._logger); 
-            }
-        }
-
-        // DosBox
-        runner = gameConfig.findByApplicationRunner(ApplicationRunner.DOSBOX);
-        if (runner === null) {
-            throw new UnsupportedApplicationRunnerError('Application runner is not supported');
-        }
-
-        // Return the correct installer based on the given source type
-        switch(sourceType) {
-            case SourceType.GOG_DOSBOX: 
-                return new GOGDosBoxInstaller(this._template, this._fileHandler, this._logger);
-            default:
-                return new DosBoxInstaller(this._template, this._fileHandler, this._logger); 
-        }
+    // ScummVM
+    let runner = gameConfig.findByApplicationRunner(ApplicationRunner.SCUMMVM);
+    if (runner !== null) {
+      switch(sourceType) {
+      case SourceType.GOG_SCUMMVM:
+        return new GOGScummVMInstaller(this._template, this._fileHandler, this._logger);
+      default:
+        return new ScummVMInstaller(this._template, this._fileHandler, this._logger);
+      }
     }
+
+    // DosBox
+    runner = gameConfig.findByApplicationRunner(ApplicationRunner.DOSBOX);
+    if (runner === null) {
+      throw new UnsupportedApplicationRunnerError('Application runner is not supported');
+    }
+
+    // Return the correct installer based on the given source type
+    switch(sourceType) {
+    case SourceType.GOG_DOSBOX:
+      return new GOGDosBoxInstaller(this._template, this._fileHandler, this._logger);
+    default:
+      return new DosBoxInstaller(this._template, this._fileHandler, this._logger);
+    }
+  }
 }

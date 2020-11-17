@@ -7,14 +7,14 @@ const { printf } = format;
 
 export class LoggerFactory {
   private readonly _chalk: Chalk;
-  
+
   /**
    * @param  {Chalk} chalk
    */
   public constructor(chalk: Chalk) {
     this._chalk = chalk;
   }
-  
+
   /**
    * @returns LoggerInterface
    */

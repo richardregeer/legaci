@@ -4,25 +4,25 @@ import { InstallGameUseCase } from "../../core/useCase/InstallGameUseCase";
 import { InstallGameController } from "./InstallGameController";
 
 export class CLICommandFactory {
-    private readonly _installGameUseCase: InstallGameUseCase;
-    private readonly _gameConfigurationResolver: GameConfigurationResolverInterface;
-    private readonly _logger: LoggerInterface;
-    
-    /**
-     * @param  {InstallGameUseCase} installGameUseCase
-     * @param  {LoggerInterface} logger
-     */
-    constructor(
-        installGameUseCase: InstallGameUseCase, 
-        logger: LoggerInterface) {
-            this._installGameUseCase = installGameUseCase;
-            this._logger = logger;
-    }
+  private readonly _installGameUseCase: InstallGameUseCase;
+  private readonly _gameConfigurationResolver: GameConfigurationResolverInterface;
+  private readonly _logger: LoggerInterface;
 
-    /**
-     * @returns InstallGameController
-     */
-    createInstallController(): InstallGameController {
-        return new InstallGameController(this._installGameUseCase, this._logger);    
-    }    
+  /**
+   * @param  {InstallGameUseCase} installGameUseCase
+   * @param  {LoggerInterface} logger
+   */
+  constructor(
+    installGameUseCase: InstallGameUseCase,
+    logger: LoggerInterface) {
+    this._installGameUseCase = installGameUseCase;
+    this._logger = logger;
+  }
+
+  /**
+   * @returns InstallGameController
+   */
+  createInstallController(): InstallGameController {
+    return new InstallGameController(this._installGameUseCase, this._logger);
+  }
 }

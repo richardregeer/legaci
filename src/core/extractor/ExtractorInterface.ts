@@ -1,5 +1,4 @@
 export interface ExtractorInterface {
-  
   /**
    * @param  {string} source
    * @param  {string} destination
