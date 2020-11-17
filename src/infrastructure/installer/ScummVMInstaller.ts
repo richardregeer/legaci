@@ -72,7 +72,7 @@ export class ScummVMInstaller implements GameRunnerSetupInterface {
         
         let content = this._template.load(binFileConfigPath);
         const binFileDestination = `${destination}/legaci-run.sh`;
-        content = this._template.replaceVariable('SCUMMVM_GAME_ID', runner.id, content);
+        content = this._template.replaceVariable('SCUMMVM_GAME_ID', runner.id || '', content);
         this._template.save(binFileDestination, content);
         this._fileHandler.makeFileExecutabeSync(binFileDestination);
 

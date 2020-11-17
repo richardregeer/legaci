@@ -12,9 +12,10 @@ import { GameConfigurationResolver } from './infrastructure/resolver/GameConfigu
 import { CLICommandHandler } from './infrastructure/cliController/CLICommandHandler';
 import { UnableToResolveError } from './infrastructure/error/UnableToResolveError';
 import { GameFilesInstaller } from './infrastructure/installer/GameFilesInstaller';
-import { SourceTypeService } from './core/resolver/SourceTypeService';
-import { GOGDosboxSourceTypeResolver } from './infrastructure/resolver/GOGDosboxSourceTypeResolver copy';
+import { GameResolverService } from './core/resolver/GameResolverService';
 import { GOGScummVMSourceTypeResolver } from './infrastructure/resolver/GOGScummVMSourceTypeResolver';
+import { GOGGameConfigurationResolver } from './infrastructure/resolver/GOGGameConfigurationResolver';
+import { GOGDosboxSourceTypeResolver } from './infrastructure/resolver/GOGDosboxSourceTypeResolver';
 
 export class Container {
     private _container: Map<string, unknown>; 
@@ -45,13 +46,17 @@ export class Container {
         const fileTemplate = new Template(fileHandler);
         this._container.set('TemplateInterface', fileTemplate);
 
-        // SourceType
+        // GameResolverService
         const sourceTypeServices = [
             new GOGDosboxSourceTypeResolver(fileHandler),
             new GOGScummVMSourceTypeResolver(fileHandler)
         ]
-        const sourceTypeService = new SourceTypeService(sourceTypeServices);
-        this._container.set(SourceTypeService.name, sourceTypeService);
+        const gameConfigurationResolvers = [
+            new GameConfigurationResolver(fileHandler),
+            new GOGGameConfigurationResolver(fileHandler)
+        ]
+        const gameResolverService = new GameResolverService(sourceTypeServices, gameConfigurationResolvers);
+        this._container.set(GameResolverService.name, gameResolverService);
 
         // Install usecase
         const gameSetupFactory = new GameRunnerSetupFactory(fileTemplate, fileHandler, logger);
@@ -60,13 +65,11 @@ export class Container {
         this._container.set('ExtractorFactoryInterface', extractorFactory);
         const gameFilesInstaller = new GameFilesInstaller(fileHandler, logger);
         this._container.set('GameFilesInstallerInterface', gameFilesInstaller);
-        const installGameUseCase = new InstallGameUseCase(gameSetupFactory, logger, extractorFactory, gameFilesInstaller, sourceTypeService);
-        this._container.set(InstallGameUseCase.name, installGameUseCase);
+        const installGameUseCase = new InstallGameUseCase(gameSetupFactory, logger, extractorFactory, gameFilesInstaller, gameResolverService);
+        this._container.set(InstallGameUseCase.name, installGameUseCase);   
 
         // CLI command handler
-        const gameConfigurationResolver = new GameConfigurationResolver(fileHandler);
-        this._container.set('GameConfigurationResolverInterface', gameConfigurationResolver);
-        const cliCommandFactory = new CLICommandFactory(installGameUseCase, gameConfigurationResolver, logger);
+        const cliCommandFactory = new CLICommandFactory(installGameUseCase, logger);
         this._container.set(CLICommandFactory.name, cliCommandFactory);
         const cliCommandHandler = new CLICommandHandler(cliCommandFactory, logger);
         this._container.set(CLICommandHandler.name, cliCommandHandler);   

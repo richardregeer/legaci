@@ -11,7 +11,6 @@ import chalk from 'chalk';
 export class InstallGameController {
     private readonly _installGameUseCase: InstallGameUseCase;
     private readonly _logger: LoggerInterface
-    private _gameConfigurationResolver: GameConfigurationResolverInterface;
     
     /**
      * @param  {InstallGameUseCase} installGameUseCase
@@ -20,10 +19,8 @@ export class InstallGameController {
      */
     public constructor(
         installGameUseCase: InstallGameUseCase, 
-        gameConfigurationResolver:GameConfigurationResolverInterface, 
         logger: LoggerInterface) {
         this._installGameUseCase = installGameUseCase;
-        this._gameConfigurationResolver = gameConfigurationResolver;
         this._logger = logger;
     }
     
@@ -35,17 +32,7 @@ export class InstallGameController {
      */
     public async handleInstallCommand(gameSource: string, gameDestination: string, gameId?: string): Promise<Game | null> {
         try {
-            let gameConfig;
-            if (gameId) {
-                // Resolve game configuration by given gameId
-                gameConfig = await this._gameConfigurationResolver.resolveById(gameId);
-            }
-            else { 
-                // No game id given use the default game configuration
-                gameConfig = await this._gameConfigurationResolver.resolveDefaultConfiguration();
-            }
-            
-            return this._installGameUseCase.installGame(gameConfig, gameSource, gameDestination);
+            return this._installGameUseCase.installGame(gameSource, gameDestination, gameId);
         } catch(error: unknown) {
             if (error instanceof GameConfigurationNotFoundError) {
                 this._logger.error(`No game configuration found for game ${chalk.white(gameId)}`, error as Error);

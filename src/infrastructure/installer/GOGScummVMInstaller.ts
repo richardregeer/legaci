@@ -51,10 +51,8 @@ export class GOGScummVMInstaller extends ScummVMInstaller {
         // Try to find the GOG dosbox configuration files
         const resultConfiguration = this._fileHandler.findFilesSync(false, destination, '/**/*.ini');
         const config = resultConfiguration[0];
-
-        console.log(resultConfiguration);
            
-        // If there is no GOG Dosbox configuration or a game config is available, continue with the default DosBox setup
+        // If there is no GOG ScummVM configuration or a game config is available, continue with the default ScummVM setup
         if (gameConfig.id || !config) {
             super.generateConfiguration(gameConfig, destination);
         } else {

@@ -5,14 +5,14 @@ import { ExtractorFactoryInterface } from "../extractor/ExtractorFactoryInterfac
 import { LoggerInterface } from "../observability/LoggerInterface";
 import { GameRunnerSetupFactoryInterface } from "../installer/GameRunnerSetupFactoryInterface";
 import { GameFilesInstallerInterface } from "../installer/GameFilesInstallerInterface";
-import { SourceTypeService } from '../resolver/SourceTypeService';
+import { GameResolverService } from '../resolver/GameResolverService';
 
 export class InstallGameUseCase {
     private readonly _gameRunnerSetupFactory: GameRunnerSetupFactoryInterface;
     private readonly _logger: LoggerInterface;
     private readonly _extractorFactory: ExtractorFactoryInterface;
     private readonly _gameFilesInstaller: GameFilesInstallerInterface;
-    private readonly _sourceTypeService: SourceTypeService;
+    private readonly _gameResolverService: GameResolverService;
     
     /**
      * @param  {GameRunnerSetupFactoryInterface} gameRunnerSetupFactory
@@ -26,29 +26,31 @@ export class InstallGameUseCase {
         logger: LoggerInterface,
         extractorFactory: ExtractorFactoryInterface,
         gameFilesInstaller: GameFilesInstallerInterface,
-        sourceTypeService: SourceTypeService){
+        gameResolverService: GameResolverService){
         this._gameRunnerSetupFactory = gameRunnerSetupFactory;
         this._logger = logger;
         this._extractorFactory = extractorFactory;
         this._gameFilesInstaller = gameFilesInstaller;
-        this._sourceTypeService = sourceTypeService;
+        this._gameResolverService = gameResolverService;
     }
     
     /**
-     * @param  {GameConfiguration} gameConfig
      * @param  {string} source
      * @param  {string} destination
+     * @param  {string} gameId?
      * @returns Promise<Game>
      */
-    public async installGame(gameConfig: GameConfiguration, source: string, destination: string): Promise<Game> { 
-        this._logger.info(`Start installing ${chalk.bold.white(gameConfig.name)} from ${chalk.white.underline(source)} to ${chalk.white.underline(destination)}`);
+    public async installGame(source: string, destination: string, gameId?: string): Promise<Game> { 
+        this._logger.info(`Start installing ${chalk.bold.white(gameId || 'Legaci game')} from ${chalk.white.underline(source)} to ${chalk.white.underline(destination)}`);
         
         // Extract game file
         const extractor = this._extractorFactory.create(source);
         await extractor.extract(source, destination);
 
         // Determine source type of the installed files
-        const sourceType = this._sourceTypeService.determineSourceType(destination);
+        const sourceType = this._gameResolverService.determineSourceType(destination);
+        // Resolve the game configuration
+        const gameConfig = await this._gameResolverService.resolveGameConfiguration(sourceType, destination, gameId)
         
         // Setup application runner
         const gameRunnerSetup = this._gameRunnerSetupFactory.create(gameConfig, sourceType);

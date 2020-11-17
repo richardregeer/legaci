@@ -10,15 +10,12 @@ export class CLICommandFactory {
     
     /**
      * @param  {InstallGameUseCase} installGameUseCase
-     * @param  {GameConfigurationResolverInterface} gameConfigurationResolver
      * @param  {LoggerInterface} logger
      */
     constructor(
         installGameUseCase: InstallGameUseCase, 
-        gameConfigurationResolver: GameConfigurationResolverInterface, 
         logger: LoggerInterface) {
             this._installGameUseCase = installGameUseCase;
-            this._gameConfigurationResolver = gameConfigurationResolver;
             this._logger = logger;
     }
 
@@ -26,6 +23,6 @@ export class CLICommandFactory {
      * @returns InstallGameController
      */
     createInstallController(): InstallGameController {
-        return new InstallGameController(this._installGameUseCase, this._gameConfigurationResolver, this._logger);    
+        return new InstallGameController(this._installGameUseCase, this._logger);    
     }    
 }

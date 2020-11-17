@@ -31,8 +31,7 @@ export class GOGDosboxSourceTypeResolver implements SourceTypeResolverInterface 
             return false;
         }
 
-        const dosBoxFiles = this._fileHandler.findFilesSync(true, source , '**/Dosbox/');
-       
+        const dosBoxFiles = this._fileHandler.findFilesSync(true, source , '**/Dosbox/');       
         return dosBoxFiles.length > 0;
     } 
 }

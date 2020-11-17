@@ -4,13 +4,14 @@ import { GameConfiguration } from "../../core/entity/GameConfiguration";
 import { GameFile } from '../../core/entity/GameFile';
 import { Runner } from "../../core/entity/Runner";
 import { SourcePort } from "../../core/entity/SourcePort";
+import { SourceType } from '../../core/entity/SourceType';
 import { Store } from "../../core/entity/Store";
 import { GameConfigurationNotFoundError } from "../../core/error/GameConfigurationNotFoundError";
 import { FileHandlerInterface } from "../../core/file/FileHandlerInterface";
 import { GameConfigurationResolverInterface } from "../../core/resolver/GameConfigurationResolverInterface";
 
 export class GameConfigurationResolver implements GameConfigurationResolverInterface {
-    private readonly _fileHandler: FileHandlerInterface;
+    protected readonly _fileHandler: FileHandlerInterface;
     
     /**
      * @param  {FileHandlerInterface} fileHandler
@@ -40,7 +41,7 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
      * @param  {GameConfiguration} gameConfiguration
      * @returns void
      */
-    private parseRunners(dirName: string, configRunners: Array<Record<string, unknown>>, gameConfiguration: GameConfiguration): void {
+    protected parseRunners(dirName: string, configRunners: Array<Record<string, unknown>>, gameConfiguration: GameConfiguration): void {
         configRunners.forEach((i: { application: string; version: string; runConfiguration: string; gameConfiguration: string; binFile: string; id: string}) => {     
             gameConfiguration.runners.push(new Runner(
                 i.application,
@@ -52,7 +53,7 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
             ));
         });
     }
-s
+
     /**
      * @param  {string} source
      * @param  {string} configuration
@@ -77,12 +78,22 @@ s
     }
    
     /**
+     * @returns SourceType
+     */
+    getSourceType(): SourceType {
+        return SourceType.UNKNOWN;
+    }
+
+    /**
+     * @param  {SourceType} sourceType
+     * @param  {string} destination
      * @returns Promise<GameConfiguration>
      */
-    public async resolveDefaultConfiguration(): Promise<GameConfiguration> {
+    public async resolveDefaultConfiguration(sourceType: SourceType, destination: string): Promise<GameConfiguration> {
         const gameConfiguration = new GameConfiguration('Legaci game');
+
         this.parseRunners( path.dirname(__dirname), [{ application: ApplicationRunner.DOSBOX, version: '0.74' }], gameConfiguration);
-            
+
         return gameConfiguration;
     }
 
@@ -90,7 +101,7 @@ s
      * @param  {string} source
      * @returns Promise<GameConfiguration>
      */
-    public async resolveBySource(source: string): Promise<GameConfiguration> {
+    private async resolveBySource(source: string): Promise<GameConfiguration> {
         const content = this._fileHandler.readSync(source);
         const configuration = JSON.parse(content);
         const dirName = path.dirname(source);
