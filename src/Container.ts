@@ -14,8 +14,10 @@ import { UnableToResolveError } from './infrastructure/error/UnableToResolveErro
 import { GameFilesInstaller } from './infrastructure/installer/GameFilesInstaller';
 import { GameResolverService } from './core/resolver/GameResolverService';
 import { GOGScummVMSourceTypeResolver } from './infrastructure/resolver/GOGScummVMSourceTypeResolver';
-import { GOGGameConfigurationResolver } from './infrastructure/resolver/GOGGameConfigurationResolver';
+import { GOGScummVMGameConfigurationResolver } from './infrastructure/resolver/GOGScummVMGameConfigurationResolver';
 import { GOGDosboxSourceTypeResolver } from './infrastructure/resolver/GOGDosboxSourceTypeResolver';
+import { GOGGameInformationResolver } from './infrastructure/resolver/GOGGameInformationResolver';
+import { GOGDosboxGameConfigurationResolver } from './infrastructure/resolver/GOGDosboxGameConfigurationResolver';
 
 export class Container {
     private _container: Map<string, unknown>; 
@@ -47,13 +49,16 @@ export class Container {
         this._container.set('TemplateInterface', fileTemplate);
 
         // GameResolverService
+        const gogGameInformationResolver = new GOGGameInformationResolver(fileHandler);
+
         const sourceTypeServices = [
             new GOGDosboxSourceTypeResolver(fileHandler),
             new GOGScummVMSourceTypeResolver(fileHandler)
         ]
         const gameConfigurationResolvers = [
             new GameConfigurationResolver(fileHandler),
-            new GOGGameConfigurationResolver(fileHandler)
+            new GOGScummVMGameConfigurationResolver(fileHandler, gogGameInformationResolver),
+            new GOGDosboxGameConfigurationResolver(fileHandler, gogGameInformationResolver)
         ]
         const gameResolverService = new GameResolverService(sourceTypeServices, gameConfigurationResolvers);
         this._container.set(GameResolverService.name, gameResolverService);

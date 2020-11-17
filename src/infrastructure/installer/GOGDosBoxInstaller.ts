@@ -167,7 +167,7 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
       const convertedConfiguration = [];
 
       try {
-        gogRunConfiguration.forEach((line) => {
+        gogRunConfiguration.forEach((line: string) => {
           let newLine = null;
 
           // First try to replace lines if needed

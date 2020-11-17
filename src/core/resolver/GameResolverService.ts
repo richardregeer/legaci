@@ -41,6 +41,7 @@ export class GameResolverService {
      */
     public async resolveGameConfiguration(sourceType: SourceType, destination: string, gameId?: string): Promise<GameConfiguration> {
         let configurationResolver =  this._gameConfigurationResolvers.find((x) => x.getSourceType() === sourceType);
+        
         if (!configurationResolver) {
             configurationResolver = this._gameConfigurationResolvers.find((x) => x.getSourceType() === SourceType.UNKNOWN);
         }

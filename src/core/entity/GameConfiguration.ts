@@ -5,7 +5,7 @@ import { SourcePort } from "./SourcePort";
 import { Store } from "./Store";
 
 export class GameConfiguration {
-    private readonly _name: string;
+    private _name: string;
     private _releaseStatus: string;
     private _genre: string;
     private _released: Date;
@@ -52,6 +52,13 @@ export class GameConfiguration {
      */
     public get name(): string {
         return this._name;
+    }
+
+    /**
+     * @param  {string} value
+     */
+    public set name(value: string) {
+        this._name = value;
     }
 
     /**

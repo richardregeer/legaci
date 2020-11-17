@@ -2,10 +2,22 @@ import * as path from 'path';
 import { ApplicationRunner } from '../../core/entity/ApplicationRunner';
 import { GameConfiguration } from "../../core/entity/GameConfiguration";
 import { SourceType } from '../../core/entity/SourceType';
+import { FileHandlerInterface } from '../../core/file/FileHandlerInterface';
 import { GameConfigurationResolver } from './GameConfigurationResolver';
+import { GOGGameInformationResolver } from './GOGGameInformationResolver';
 
-export class GOGGameConfigurationResolver extends GameConfigurationResolver {
+export class GOGScummVMGameConfigurationResolver extends GameConfigurationResolver {
+    private readonly _gogGameInformationResolver: GOGGameInformationResolver;
     
+    /**
+     * @param  {FileHandlerInterface} fileHandler
+     * @param  {GOGGameInformationResolver} gogGameInformationResolver
+     */
+    public constructor(fileHandler: FileHandlerInterface, gogGameInformationResolver: GOGGameInformationResolver) {
+        super(fileHandler);
+        this._gogGameInformationResolver = gogGameInformationResolver;
+    }
+
     /**
      * @returns SourceType
      */
@@ -21,23 +33,27 @@ export class GOGGameConfigurationResolver extends GameConfigurationResolver {
     public async resolveDefaultConfiguration(sourceType: SourceType, destination: string): Promise<GameConfiguration> {
         const gameConfiguration = await super.resolveDefaultConfiguration(sourceType, destination);
      
-        if (sourceType === SourceType.GOG_SCUMMVM) {
-            const gameId = this.getScummVMGameId(destination);
-            this.parseRunners(path.dirname(__dirname), [{ application: ApplicationRunner.SCUMMVM, id: gameId }], gameConfiguration);
+        const gameId = this.getScummVMGameId(destination);
+        this.parseRunners(path.dirname(__dirname), [{ application: ApplicationRunner.SCUMMVM, id: gameId }], gameConfiguration);
+    
+        // Try to get the game name from GOG info file
+        const gameName = this._gogGameInformationResolver.getGameName(destination);
+        if (gameName) {
+            gameConfiguration.name = gameName;    
         }
-        
+
         return gameConfiguration;
     }
     
     /**
-     * @param  {string} configIniFilePath
+     * @param  {string} destination
      * @returns string
      */
-    private getScummVMGameId(configIniFilePath: string): string {
+    private getScummVMGameId(destination: string): string {
         let gameId = '';
         
         try {
-            const iniFile = this._fileHandler.findFilesSync(false, configIniFilePath, '/**/*.ini');
+            const iniFile = this._fileHandler.findFilesSync(false, destination, '/**/*.ini');
             if (iniFile.length === 0) {
                 return '';
             }
