@@ -1,5 +1,5 @@
-import { Game } from "../entity/Game";
-import { GameConfiguration } from "../entity/GameConfiguration";
+import { Game } from '../entity/Game';
+import { GameConfiguration } from '../entity/GameConfiguration';
 
 export interface GameRunnerSetupInterface {
   /**
@@ -14,18 +14,12 @@ export interface GameRunnerSetupInterface {
    * @param  {string} destination
    * @returns Promise<void>
    */
-  generateConfiguration(
-    gameConfig: GameConfiguration,
-    destination: string
-  ): Promise<void>;
+  generateConfiguration(gameConfig: GameConfiguration, destination: string): Promise<void>;
 
   /**
    * @param  {GameConfiguration} gameConfig
    * @param  {string} destination
    * @returns Promise<string>
    */
-  generateRunner(
-    gameConfig: GameConfiguration,
-    destination: string
-  ): Promise<string>;
+  generateRunner(gameConfig: GameConfiguration, destination: string): Promise<string>;
 }

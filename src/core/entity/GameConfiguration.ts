@@ -1,28 +1,28 @@
-import { ApplicationRunner } from "./ApplicationRunner";
-import { GameFile } from "./GameFile";
-import { Runner } from "./Runner";
-import { SourcePort } from "./SourcePort";
-import { Store } from "./Store";
+import { ApplicationRunner } from './ApplicationRunner';
+import { GameFile } from './GameFile';
+import { Runner } from './Runner';
+import { SourcePort } from './SourcePort';
+import { Store } from './Store';
 
 export class GameConfiguration {
   private _name: string;
   private _releaseStatus: string;
   private _genre: string;
   private _released: Date;
-  private _runners: Array<Runner>;
-  private _sourcePorts: Array<SourcePort>;
-  private _references: Array<string>;
-  private _reviews: Array<string>;
-  private _stores: Array<Store>;
-  private _downloadLocations: Array<string>;
-  private _gameFiles: Array<GameFile>;
-  private _downloadRequired: boolean;
+  private readonly _runners: Runner[];
+  private readonly _sourcePorts: SourcePort[];
+  private readonly _references: string[];
+  private readonly _reviews: string[];
+  private readonly _stores: Store[];
+  private readonly _downloadLocations: string[];
+  private readonly _gameFiles: GameFile[];
+  private readonly _downloadRequired: boolean;
   private _id: string;
 
   /**
    * @param  {string} name
    */
-  public constructor(name: string) {
+  constructor(name: string) {
     this._name = name;
     this._runners = [];
     this._sourcePorts = [];
@@ -38,10 +38,7 @@ export class GameConfiguration {
   }
 
   public findByApplicationRunner(runner: ApplicationRunner): Runner | null {
-    const applicationRunner = this._runners.find(
-      (x: Runner) =>
-        (x.application.toLowerCase() as string) === runner.toLowerCase()
-    );
+    const applicationRunner = this._runners.find((x: Runner) => x.application.toLowerCase() === runner.toLowerCase());
 
     if (!applicationRunner) {
       return null;
@@ -123,49 +120,49 @@ export class GameConfiguration {
   /**
    * @returns Array<Runner>
    */
-  public get runners(): Array<Runner> {
+  public get runners(): Runner[] {
     return this._runners;
   }
 
   /**
    * @returns Array<SourcePort>
    */
-  public get sourcePorts(): Array<SourcePort> {
+  public get sourcePorts(): SourcePort[] {
     return this._sourcePorts;
   }
 
   /**
    * @returns Array<string>
    */
-  public get references(): Array<string> {
+  public get references(): string[] {
     return this._references;
   }
 
   /**
    * @returns Array<string>
    */
-  public get reviews(): Array<string> {
+  public get reviews(): string[] {
     return this._reviews;
   }
 
   /**
    * @returns Array<Store>
    */
-  public get stores(): Array<Store> {
+  public get stores(): Store[] {
     return this._stores;
   }
 
   /**
    * @returns Array<string>
    */
-  public get downloadLocations(): Array<string> {
+  public get downloadLocations(): string[] {
     return this._downloadLocations;
   }
 
   /**
    * @returns Array<string>
    */
-  public get gameFiles(): Array<GameFile> {
+  public get gameFiles(): GameFile[] {
     return this._gameFiles;
   }
 

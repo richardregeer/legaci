@@ -1,10 +1,10 @@
-import path = require("path");
-import fs = require("fs");
-import { FileHandlerInterface } from "../../core/file/FileHandlerInterface";
-import { FileDoesNotExistsError } from "../../core/error/FileDoesNotExistsError";
-import { FileType } from "../../core/file/FileType";
-import { UnknownFileTypeError } from "../../core/error/UnkownFileTypeError";
-import { cp, find, mv, rm, ShellConfig } from "shelljs";
+import path = require('path');
+import fs = require('fs');
+import { FileHandlerInterface } from '../../core/file/FileHandlerInterface';
+import { FileDoesNotExistsError } from '../../core/error/FileDoesNotExistsError';
+import { FileType } from '../../core/file/FileType';
+import { UnknownFileTypeError } from '../../core/error/UnkownFileTypeError';
+import { cp, find, mv, rm, ShellConfig } from 'shelljs';
 
 export class FileHandler implements FileHandlerInterface {
   private readonly _shellConfig: ShellConfig;
@@ -12,7 +12,7 @@ export class FileHandler implements FileHandlerInterface {
   /**
    * @param  {ShellConfig} shellConfig
    */
-  public constructor(shellConfig: ShellConfig) {
+  constructor(shellConfig: ShellConfig) {
     this._shellConfig = shellConfig;
   }
 
@@ -21,8 +21,8 @@ export class FileHandler implements FileHandlerInterface {
    * @param {...any} glob
    * @returns void
    */
-  removeFilesSync(...glob: string[]): void {
-    rm("-rf", glob);
+  public removeFilesSync(...glob: string[]): void {
+    rm('-rf', glob);
   }
 
   /**
@@ -32,13 +32,9 @@ export class FileHandler implements FileHandlerInterface {
    * @param {...any} glob
    * @returns Array
    */
-  public findFilesSync(
-    ignoreCase: boolean,
-    source: string,
-    ...glob: string[]
-  ): Array<string> {
+  public findFilesSync(ignoreCase: boolean, source: string, ...glob: string[]): string[] {
     this._shellConfig.silent = true;
-    let files = find(`${source}/${glob}`);
+    let files = find(`${source}/${glob.toString()}`);
 
     if (files.length === 0 && ignoreCase) {
       files = find(glob.map((x) => `${source}/${x.toLocaleUpperCase()}`));
@@ -48,7 +44,7 @@ export class FileHandler implements FileHandlerInterface {
       files = find(glob.map((x) => `${source}/${x.toLowerCase()}`));
     }
 
-    return files as Array<string>;
+    return files as string[];
   }
 
   /**
@@ -139,9 +135,7 @@ export class FileHandler implements FileHandlerInterface {
     const fileName = path.basename(source);
 
     if (!this.existsSync(source)) {
-      throw new FileDoesNotExistsError(
-        `Unable to copy file ${fileName} from ${sourceDirName}, it does not exists`
-      );
+      throw new FileDoesNotExistsError(`Unable to copy file ${fileName} from ${sourceDirName}, it does not exists`);
     }
 
     this.createDirWhenNotExistsSync(destination);
@@ -155,7 +149,7 @@ export class FileHandler implements FileHandlerInterface {
    */
   public copyFilesSync(glob: string, destination: string): void {
     this._shellConfig.silent = true;
-    cp("-r", glob, destination);
+    cp('-r', glob, destination);
   }
 
   /**
@@ -182,13 +176,12 @@ export class FileHandler implements FileHandlerInterface {
     const extName = path.extname(source);
 
     switch (extName.toLowerCase()) {
-    case ".zip":
-      return FileType.ZIP;
-    case ".sh":
-      return FileType.SH;
-    case ".exe":
-      return FileType.EXE;
-    default:
+      case '.zip':
+        return FileType.ZIP;
+      case '.sh':
+        return FileType.SH;
+      case '.exe':
+        return FileType.EXE;
     }
 
     throw new UnknownFileTypeError(`Unknown file type ${extName}`);
@@ -198,10 +191,10 @@ export class FileHandler implements FileHandlerInterface {
    * @param  {string} source
    * @returns string
    */
-  resolveFileName(source: string): string {
+  public resolveFileName(source: string): string {
     const extName = path.extname(source);
 
-    return path.basename(source).replace(extName, "");
+    return path.basename(source).replace(extName, '');
   }
 
   /**
@@ -216,9 +209,6 @@ export class FileHandler implements FileHandlerInterface {
       throw new FileDoesNotExistsError(`File ${fileName} does not exists`);
     }
 
-    fs.chmodSync(
-      source,
-      fs.constants.S_IRWXU | fs.constants.S_IRGRP | fs.constants.S_IROTH
-    );
+    fs.chmodSync(source, fs.constants.S_IRWXU | fs.constants.S_IRGRP | fs.constants.S_IROTH);
   }
 }

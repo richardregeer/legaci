@@ -1,11 +1,11 @@
-import { Chalk } from "chalk";
-import { Logger } from "winston";
-import { LoggerInterface } from "../../core/observability/LoggerInterface";
+import { Chalk } from 'chalk';
+import { Logger } from 'winston';
+import { LoggerInterface } from '../../core/observability/LoggerInterface';
 
 export class WinstonLogger implements LoggerInterface {
-  private _logger: Logger;
-  private _chalk: Chalk;
-  private _debug: boolean;
+  private readonly _logger: Logger;
+  private readonly _chalk: Chalk;
+  private readonly _debug: boolean;
 
   /**
    * @param  {Logger} logger

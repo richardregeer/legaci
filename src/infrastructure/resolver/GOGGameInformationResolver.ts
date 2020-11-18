@@ -1,4 +1,4 @@
-import { FileHandlerInterface } from "../../core/file/FileHandlerInterface";
+import { FileHandlerInterface } from '../../core/file/FileHandlerInterface';
 
 export class GOGGameInformationResolver {
   protected readonly _fileHandler: FileHandlerInterface;
@@ -6,7 +6,7 @@ export class GOGGameInformationResolver {
   /**
    * @param  {FileHandlerInterface} fileHandler
    */
-  public constructor(fileHandler: FileHandlerInterface) {
+  constructor(fileHandler: FileHandlerInterface) {
     this._fileHandler = fileHandler;
   }
 
@@ -16,18 +16,12 @@ export class GOGGameInformationResolver {
    */
   public getGameName(destination: string): string | undefined {
     try {
-      const gameInfoFile = this._fileHandler.findFilesSync(
-        false,
-        destination,
-        "/**/goggame*.info"
-      );
+      const gameInfoFile = this._fileHandler.findFilesSync(false, destination, '/**/goggame*.info');
       if (gameInfoFile.length === 0) {
         return;
       }
 
-      const gameInfo = JSON.parse(
-        this._fileHandler.readSync(gameInfoFile[0]).toString()
-      );
+      const gameInfo = JSON.parse(this._fileHandler.readSync(gameInfoFile[0]).toString()) as Record<string, string>;
       return gameInfo.name;
     } catch (error: unknown) {
       return;

@@ -1,4 +1,4 @@
-import { SourceType } from "../entity/SourceType";
+import { SourceType } from '../entity/SourceType';
 
 export interface SourceTypeResolverInterface {
   /**

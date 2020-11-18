@@ -1,4 +1,4 @@
-import { FileType } from "./FileType";
+import { FileType } from './FileType';
 
 export interface FileHandlerInterface {
   /**
@@ -7,11 +7,7 @@ export interface FileHandlerInterface {
    * @param  {string[]} ...glob
    * @returns Array<string>
    */
-  findFilesSync(
-    ignoreCase: boolean,
-    source: string,
-    ...glob: string[]
-  ): Array<string>;
+  findFilesSync(ignoreCase: boolean, source: string, ...glob: string[]): string[];
 
   /**
    * @param  {string[]} ...glob

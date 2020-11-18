@@ -1,7 +1,7 @@
-import { Chalk } from "chalk";
-import { createLogger, transports, format } from "winston";
-import { LoggerInterface } from "../../core/observability/LoggerInterface";
-import { WinstonLogger } from "./WinstonLogger";
+import { Chalk } from 'chalk';
+import { createLogger, transports, format } from 'winston';
+import { LoggerInterface } from '../../core/observability/LoggerInterface';
+import { WinstonLogger } from './WinstonLogger';
 
 const { printf } = format;
 
@@ -11,7 +11,7 @@ export class LoggerFactory {
   /**
    * @param  {Chalk} chalk
    */
-  public constructor(chalk: Chalk) {
+  constructor(chalk: Chalk) {
     this._chalk = chalk;
   }
 
@@ -24,7 +24,7 @@ export class LoggerFactory {
     });
 
     const winstonLogger = createLogger({
-      level: "info",
+      level: 'info',
       format: customFormat,
       transports: [new transports.Console()],
     });

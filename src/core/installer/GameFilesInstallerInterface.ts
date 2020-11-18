@@ -1,4 +1,4 @@
-import { GameConfiguration } from "../entity/GameConfiguration";
+import { GameConfiguration } from '../entity/GameConfiguration';
 
 export interface GameFilesInstallerInterface {
   /**

@@ -1,7 +1,7 @@
-import { LoggerInterface } from "../../core/observability/LoggerInterface";
-import { GameConfigurationResolverInterface } from "../../core/resolver/GameConfigurationResolverInterface";
-import { InstallGameUseCase } from "../../core/useCase/InstallGameUseCase";
-import { InstallGameController } from "./InstallGameController";
+import { LoggerInterface } from '../../core/observability/LoggerInterface';
+import { GameConfigurationResolverInterface } from '../../core/resolver/GameConfigurationResolverInterface';
+import { InstallGameUseCase } from '../../core/useCase/InstallGameUseCase';
+import { InstallGameController } from './InstallGameController';
 
 export class CLICommandFactory {
   private readonly _installGameUseCase: InstallGameUseCase;
@@ -20,7 +20,7 @@ export class CLICommandFactory {
   /**
    * @returns InstallGameController
    */
-  createInstallController(): InstallGameController {
+  public createInstallController(): InstallGameController {
     return new InstallGameController(this._installGameUseCase, this._logger);
   }
 }

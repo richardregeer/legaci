@@ -1,5 +1,5 @@
-import { LoggerInterface } from "../../core/observability/LoggerInterface";
-import { CLICommandFactory } from "./CLICommandFactory";
+import { LoggerInterface } from '../../core/observability/LoggerInterface';
+import { CLICommandFactory } from './CLICommandFactory';
 
 export class CLICommandHandler {
   private readonly _cliCommandFactory: CLICommandFactory;
@@ -10,10 +10,7 @@ export class CLICommandHandler {
    * @param cliCommandFactory
    * @param {LoggerInterface} logger
    */
-  public constructor(
-    cliCommandFactory: CLICommandFactory,
-    logger: LoggerInterface
-  ) {
+  constructor(cliCommandFactory: CLICommandFactory, logger: LoggerInterface) {
     this._logger = logger;
     this._cliCommandFactory = cliCommandFactory;
   }
@@ -25,11 +22,7 @@ export class CLICommandHandler {
    * @param gameId
    * @returns Promise<void>
    */
-  public async handleCLICommand(
-    file: string,
-    destination: string,
-    gameId?: string
-  ): Promise<void> {
+  public async handleCLICommand(file: string, destination: string, gameId?: string): Promise<void> {
     const installController = this._cliCommandFactory.createInstallController();
 
     await installController.handleInstallCommand(file, destination, gameId);

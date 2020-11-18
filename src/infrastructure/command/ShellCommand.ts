@@ -1,5 +1,5 @@
-import { ExecFunction, ShellConfig } from "shelljs";
-import { CommandInterface } from "../../core/command/CommandInterface";
+import { ExecFunction, ShellConfig } from 'shelljs';
+import { CommandInterface } from '../../core/command/CommandInterface';
 
 export class ShellCommand implements CommandInterface {
   private readonly _execute: ExecFunction;
@@ -9,7 +9,7 @@ export class ShellCommand implements CommandInterface {
    * @param  {ExecFunction} shellExecute
    * @param  {ShellConfig} shellConfig
    */
-  public constructor(shellExecute: ExecFunction, shellConfig: ShellConfig) {
+  constructor(shellExecute: ExecFunction, shellConfig: ShellConfig) {
     this._execute = shellExecute;
     this._shellConfig = shellConfig;
   }

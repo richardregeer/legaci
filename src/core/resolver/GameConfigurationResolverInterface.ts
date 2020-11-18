@@ -1,5 +1,5 @@
-import { GameConfiguration } from "../entity/GameConfiguration";
-import { SourceType } from "../entity/SourceType";
+import { GameConfiguration } from '../entity/GameConfiguration';
+import { SourceType } from '../entity/SourceType';
 
 export interface GameConfigurationResolverInterface {
   /**
@@ -7,10 +7,7 @@ export interface GameConfigurationResolverInterface {
    * @param  {string} destination
    * @returns Promise<GameConfiguration>
    */
-  resolveDefaultConfiguration(
-    sourceType: SourceType,
-    destination: string
-  ): Promise<GameConfiguration>;
+  resolveDefaultConfiguration(sourceType: SourceType, destination: string): Promise<GameConfiguration>;
 
   /**
    * @param  {string} id

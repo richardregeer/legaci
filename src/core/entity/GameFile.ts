@@ -8,7 +8,7 @@ export class GameFile {
    * @param {string} url
    * @param location
    */
-  public constructor(name: string, location: string) {
+  constructor(name: string, location: string) {
     this._name = name;
     this._location = location;
   }

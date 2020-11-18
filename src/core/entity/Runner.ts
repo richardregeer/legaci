@@ -1,5 +1,5 @@
-import { UnsupportedApplicationRunnerError } from "../error/UnsupportedApplicationRunnerError";
-import { ApplicationRunner } from "./ApplicationRunner";
+import { UnsupportedApplicationRunnerError } from '../error/UnsupportedApplicationRunnerError';
+import { ApplicationRunner } from './ApplicationRunner';
 
 export class Runner {
   private readonly _application: ApplicationRunner;
@@ -34,7 +34,7 @@ export class Runner {
    * @param id
    * @throws {UnsupportedApplicationRunnerError}
    */
-  public constructor(
+  constructor(
     application: string,
     version: string,
     runConfigurationSource?: string,
@@ -42,14 +42,8 @@ export class Runner {
     binFile?: string,
     id?: string
   ) {
-    if (
-      !Object.values(ApplicationRunner).includes(
-        application.toLowerCase() as ApplicationRunner
-      )
-    ) {
-      throw new UnsupportedApplicationRunnerError(
-        `Unsupported application runner ${application}`
-      );
+    if (!Object.values(ApplicationRunner).includes(application.toLowerCase() as ApplicationRunner)) {
+      throw new UnsupportedApplicationRunnerError(`Unsupported application runner ${application}`);
     }
 
     this._application = application as ApplicationRunner;

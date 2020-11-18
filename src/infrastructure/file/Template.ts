@@ -1,5 +1,5 @@
-import { FileHandlerInterface } from "../../core/file/FileHandlerInterface";
-import { TemplateInterface } from "../../core/file/TemplateInterface";
+import { FileHandlerInterface } from '../../core/file/FileHandlerInterface';
+import { TemplateInterface } from '../../core/file/TemplateInterface';
 
 export class Template implements TemplateInterface {
   private readonly _fileHandler: FileHandlerInterface;
@@ -7,7 +7,7 @@ export class Template implements TemplateInterface {
   /**
    * @param fileHandler
    */
-  public constructor(fileHandler: FileHandlerInterface) {
+  constructor(fileHandler: FileHandlerInterface) {
     this._fileHandler = fileHandler;
   }
 

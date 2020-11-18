@@ -1,4 +1,4 @@
-import { GameConfiguration } from "./GameConfiguration";
+import { GameConfiguration } from './GameConfiguration';
 
 export class Game {
   private readonly _name: string;
@@ -13,12 +13,7 @@ export class Game {
    * @param binFilePath
    * @param {GameConfiguration} gameConfig
    */
-  public constructor(
-    name: string,
-    installationPath: string,
-    binFilePath: string,
-    gameConfig: GameConfiguration
-  ) {
+  constructor(name: string, installationPath: string, binFilePath: string, gameConfig: GameConfiguration) {
     this._name = name;
     this._installationPath = installationPath;
     this._binFilePath = binFilePath;

@@ -1,4 +1,4 @@
-import { ExtractorInterface } from "./ExtractorInterface";
+import { ExtractorInterface } from './ExtractorInterface';
 
 export interface ExtractorFactoryInterface {
   /**

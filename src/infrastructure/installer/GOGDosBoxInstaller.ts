@@ -1,7 +1,7 @@
-import chalk from "chalk";
-import { Game } from "../../core/entity/Game";
-import { GameConfiguration } from "../../core/entity/GameConfiguration";
-import { DosBoxInstaller } from "./DosBoxInstaller";
+import chalk from 'chalk';
+import { Game } from '../../core/entity/Game';
+import { GameConfiguration } from '../../core/entity/GameConfiguration';
+import { DosBoxInstaller } from './DosBoxInstaller';
 
 export class GOGDosBoxInstaller extends DosBoxInstaller {
   // TODO move convert configuration to a separate class
@@ -24,7 +24,7 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
    * @returns boolean
    */
   private removeCloudSaves(line: string): boolean {
-    if (line.toLowerCase().indexOf("cloud_saves") > -1) {
+    if (line.toLowerCase().indexOf('cloud_saves') > -1) {
       return true;
     }
 
@@ -36,13 +36,10 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
    * @param  {string} destination
    * @returns string
    */
-  private replaceImageMountPath(
-    line: string,
-    destination: string
-  ): string | null {
-    if (line.toLowerCase().indexOf("imgmount") > -1) {
+  private replaceImageMountPath(line: string, destination: string): string | null {
+    if (line.toLowerCase().indexOf('imgmount') > -1) {
       const newLine = this.correctFilenameCase(line, destination);
-      return newLine.replace("..\\", `${destination}/`);
+      return newLine.replace('..\\', `${destination}/`);
     }
 
     return null;
@@ -53,10 +50,7 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
    * @returns boolean
    */
   private removeApplicationMenu(line: string): boolean {
-    if (
-      line.toLowerCase().indexOf("[1;") > -1 ||
-      line.toLowerCase().indexOf("[0m") > -1
-    ) {
+    if (line.toLowerCase().indexOf('[1;') > -1 || line.toLowerCase().indexOf('[0m') > -1) {
       return true;
     }
 
@@ -69,7 +63,7 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
    * @returns string
    */
   private correctFilenameCase(line: string, destination: string): string {
-    const start = line.indexOf("\\");
+    const start = line.indexOf('\\');
     const end = line.indexOf('"', start);
     const fileName = line.substring(start + 1, end);
 
@@ -78,16 +72,12 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
     }
 
     let correctedFileName = fileName.toLowerCase();
-    if (
-      this._fileHandler.existsSync(destination + `/${correctedFileName}`, false)
-    ) {
+    if (this._fileHandler.existsSync(destination + `/${correctedFileName}`, false)) {
       return line.replace(fileName, correctedFileName);
     }
 
     correctedFileName = fileName.toUpperCase();
-    if (
-      this._fileHandler.existsSync(destination + `/${correctedFileName}`, false)
-    ) {
+    if (this._fileHandler.existsSync(destination + `/${correctedFileName}`, false)) {
       return line.replace(fileName, correctedFileName);
     }
 
@@ -117,11 +107,8 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
    * @param  {string} destination
    * @returns Promise<Game>
    */
-  public async install(
-    gameConfig: GameConfiguration,
-    destination: string
-  ): Promise<Game> {
-    this._logger.info(`${chalk.white("GOG.com")} installation file detected`);
+  public async install(gameConfig: GameConfiguration, destination: string): Promise<Game> {
+    this._logger.info(`${chalk.white('GOG.com')} installation file detected`);
 
     // Make sure we move all files that are in the app folder. Some games have required data there that
     // Inoextract does not copy.
@@ -140,23 +127,16 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
    * @param  {string} destination
    * @returns Promise<void>
    */
-  public async generateConfiguration(
-    gameConfig: GameConfiguration,
-    destination: string
-  ): Promise<void> {
+  public async generateConfiguration(gameConfig: GameConfiguration, destination: string): Promise<void> {
     // Try to find the GOG dosbox configuration files
-    const resultConfiguration = this._fileHandler.findFilesSync(
-      false,
-      destination,
-      "/**/*.conf"
-    );
+    const resultConfiguration = this._fileHandler.findFilesSync(false, destination, '/**/*.conf');
 
     const config = resultConfiguration.find((value) => {
-      return value.indexOf("single") < 0;
+      return value.indexOf('single') < 0;
     });
 
     const runConfig = resultConfiguration.find((value) => {
-      return value.indexOf("single") >= 0;
+      return value.indexOf('single') >= 0;
     });
 
     // If there is no GOG Dosbox configuration or a game config is available, continue with the default DosBox setup
@@ -173,9 +153,7 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
       this.convertRunConfiguration(runConfig, destination);
     }
 
-    this._logger.info(
-      "DosBox configuration file copied from GOG configuration and saved succesfully"
-    );
+    this._logger.info('DosBox configuration file copied from GOG configuration and saved succesfully');
   }
 
   /**
@@ -183,14 +161,8 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
    * @param  {string} destination
    * @returns void
    */
-  private convertRunConfiguration(
-    runConfiguration: string,
-    destination: string
-  ): void {
-    const gogRunConfiguration = this._fileHandler
-      .readSync(runConfiguration)
-      .toString()
-      .split("\r\n");
+  private convertRunConfiguration(runConfiguration: string, destination: string): void {
+    const gogRunConfiguration = this._fileHandler.readSync(runConfiguration).toString().split('\r\n');
     const convertedConfiguration = [];
 
     try {
@@ -198,10 +170,7 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
         let newLine = null;
 
         // First try to replace lines if needed
-        newLine =
-          this.replaceMountPath(line, destination) ||
-          this.replaceImageMountPath(line, destination) ||
-          line;
+        newLine = this.replaceMountPath(line, destination) || this.replaceImageMountPath(line, destination) || line;
 
         // Check if the line needs to be added to the configuration
         if (this.removeApplicationMenu(line) || this.removeCloudSaves(line)) {
@@ -210,19 +179,13 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
 
         if (newLine) {
           // Push only ASCII characters to new config.
-          convertedConfiguration.push(newLine.replace(/[^ -~]+/g, ""));
+          convertedConfiguration.push(newLine.replace(/[^ -~]+/g, ''));
         }
       });
 
-      this._fileHandler.writeSync(
-        `${destination}/dosbox.legaci.run.conf`,
-        convertedConfiguration.join("\n")
-      );
+      this._fileHandler.writeSync(`${destination}/dosbox.legaci.run.conf`, convertedConfiguration.join('\n'));
     } catch (error: unknown) {
-      this._logger.error(
-        "Unable to save DosBox run configuration file",
-        error as Error
-      );
+      this._logger.error('Unable to save DosBox run configuration file', error as Error);
 
       throw error;
     }

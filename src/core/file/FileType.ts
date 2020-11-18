@@ -1,5 +1,5 @@
 export enum FileType {
-  ZIP,
-  SH,
-  EXE,
+  ZIP = 0,
+  SH = 1,
+  EXE = 2,
 }

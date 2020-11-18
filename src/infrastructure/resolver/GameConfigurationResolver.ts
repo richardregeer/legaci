@@ -1,23 +1,22 @@
-import * as path from "path";
-import { ApplicationRunner } from "../../core/entity/ApplicationRunner";
-import { GameConfiguration } from "../../core/entity/GameConfiguration";
-import { GameFile } from "../../core/entity/GameFile";
-import { Runner } from "../../core/entity/Runner";
-import { SourcePort } from "../../core/entity/SourcePort";
-import { SourceType } from "../../core/entity/SourceType";
-import { Store } from "../../core/entity/Store";
-import { GameConfigurationNotFoundError } from "../../core/error/GameConfigurationNotFoundError";
-import { FileHandlerInterface } from "../../core/file/FileHandlerInterface";
-import { GameConfigurationResolverInterface } from "../../core/resolver/GameConfigurationResolverInterface";
+import * as path from 'path';
+import { ApplicationRunner } from '../../core/entity/ApplicationRunner';
+import { GameConfiguration } from '../../core/entity/GameConfiguration';
+import { GameFile } from '../../core/entity/GameFile';
+import { Runner } from '../../core/entity/Runner';
+import { SourcePort } from '../../core/entity/SourcePort';
+import { SourceType } from '../../core/entity/SourceType';
+import { Store } from '../../core/entity/Store';
+import { GameConfigurationNotFoundError } from '../../core/error/GameConfigurationNotFoundError';
+import { FileHandlerInterface } from '../../core/file/FileHandlerInterface';
+import { GameConfigurationResolverInterface } from '../../core/resolver/GameConfigurationResolverInterface';
 
-export class GameConfigurationResolver
-implements GameConfigurationResolverInterface {
+export class GameConfigurationResolver implements GameConfigurationResolverInterface {
   protected readonly _fileHandler: FileHandlerInterface;
 
   /**
    * @param  {FileHandlerInterface} fileHandler
    */
-  public constructor(fileHandler: FileHandlerInterface) {
+  constructor(fileHandler: FileHandlerInterface) {
     this._fileHandler = fileHandler;
   }
 
@@ -27,19 +26,10 @@ implements GameConfigurationResolverInterface {
    * @returns Promise<GameConfiguration>
    */
   public async resolveById(id: string): Promise<GameConfiguration> {
-    const source = path.join(
-      __dirname,
-      "../../../../",
-      "resources",
-      "games",
-      id,
-      "config.json"
-    );
+    const source = path.join(__dirname, '../../../../', 'resources', 'games', id, 'config.json');
 
     if (!this._fileHandler.existsSync(source, false)) {
-      throw new GameConfigurationNotFoundError(
-        `No game configuration found for ${id}`
-      );
+      throw new GameConfigurationNotFoundError(`No game configuration found for ${id}`);
     }
 
     return this.resolveBySource(source);
@@ -54,7 +44,7 @@ implements GameConfigurationResolverInterface {
    */
   protected parseRunners(
     dirName: string,
-    configRunners: Array<Record<string, unknown>>,
+    configRunners: Record<string, unknown>[],
     gameConfiguration: GameConfiguration
   ): void {
     configRunners.forEach(
@@ -71,23 +61,18 @@ implements GameConfigurationResolverInterface {
             i.application,
             i.version,
             this.parseConfigPath(
-              path.join(dirName, i.runConfiguration || ""),
+              path.join(dirName, i.runConfiguration || ''),
               i.runConfiguration,
-              "run.template.conf",
+              'run.template.conf',
               i.application
             ),
             this.parseConfigPath(
-              path.join(dirName, i.gameConfiguration || ""),
+              path.join(dirName, i.gameConfiguration || ''),
               i.gameConfiguration,
-              "configuration.template.conf",
+              'configuration.template.conf',
               i.application
             ),
-            this.parseConfigPath(
-              path.join(dirName, i.binFile || ""),
-              i.binFile,
-              "bin.template.sh",
-              i.application
-            ),
+            this.parseConfigPath(path.join(dirName, i.binFile || ''), i.binFile, 'bin.template.sh', i.application),
             i.id
           )
         );
@@ -102,22 +87,10 @@ implements GameConfigurationResolverInterface {
    * @param  {string} runner
    * @returns string
    */
-  private parseConfigPath(
-    source: string,
-    configuration: string,
-    fallbackFileName: string,
-    runner: string
-  ): string {
+  private parseConfigPath(source: string, configuration: string, fallbackFileName: string, runner: string): string {
     // Use fallback source when no configuration is given
-    if (!configuration || configuration === "") {
-      return path.join(
-        __dirname,
-        "../../../../",
-        "resources",
-        "runners",
-        runner.toLocaleLowerCase(),
-        fallbackFileName
-      );
+    if (!configuration || configuration === '') {
+      return path.join(__dirname, '../../../../', 'resources', 'runners', runner.toLocaleLowerCase(), fallbackFileName);
     }
 
     return source;
@@ -135,15 +108,12 @@ implements GameConfigurationResolverInterface {
    * @param  {string} destination
    * @returns Promise<GameConfiguration>
    */
-  public async resolveDefaultConfiguration(
-    sourceType: SourceType,
-    destination: string
-  ): Promise<GameConfiguration> {
-    const gameConfiguration = new GameConfiguration("Legaci game");
+  public async resolveDefaultConfiguration(sourceType: SourceType, destination: string): Promise<GameConfiguration> {
+    const gameConfiguration = new GameConfiguration('Legaci game');
 
     this.parseRunners(
       path.dirname(__dirname),
-      [{ application: ApplicationRunner.DOSBOX, version: "0.74" }],
+      [{ application: ApplicationRunner.DOSBOX, version: '0.74' }],
       gameConfiguration
     );
 
@@ -169,9 +139,7 @@ implements GameConfigurationResolverInterface {
     this.parseRunners(dirName, configuration.runners, gameConfiguration);
 
     configuration.gameFiles.forEach((i: { name: string; location: string }) => {
-      gameConfiguration.gameFiles.push(
-        new GameFile(i.name, path.join(dirName, i.location || ""))
-      );
+      gameConfiguration.gameFiles.push(new GameFile(i.name, path.join(dirName, i.location || '')));
     });
 
     // configuration.sourcePorts.forEach((i: { name: string; version: string; }) => {
