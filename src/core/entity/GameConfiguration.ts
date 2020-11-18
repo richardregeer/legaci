@@ -38,7 +38,10 @@ export class GameConfiguration {
   }
 
   public findByApplicationRunner(runner: ApplicationRunner): Runner | null {
-    const applicationRunner = this._runners.find((x: Runner) => x.application.toLowerCase() as string === runner.toLowerCase());
+    const applicationRunner = this._runners.find(
+      (x: Runner) =>
+        (x.application.toLowerCase() as string) === runner.toLowerCase()
+    );
 
     if (!applicationRunner) {
       return null;
@@ -76,8 +79,8 @@ export class GameConfiguration {
   }
 
   /**
-  * @returns string
-  */
+   * @returns string
+   */
   public get genre(): string {
     return this._genre;
   }

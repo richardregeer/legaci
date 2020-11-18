@@ -1,3 +1,1 @@
-export interface GameConfigurationRepositoryInterface {
-
-}
+export interface GameConfigurationRepositoryInterface {}

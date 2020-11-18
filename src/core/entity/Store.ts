@@ -8,7 +8,7 @@ export class Store {
    * @param  {string} id
    * @param  {string} url
    */
-  public constructor(name : string, id : string, url: string) {
+  public constructor(name: string, id: string, url: string) {
     this._name = name;
     this._id = id;
     this._url = url;

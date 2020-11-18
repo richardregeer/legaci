@@ -1,4 +1,4 @@
 export enum ApplicationRunner {
-  DOSBOX = 'dosbox',
-  SCUMMVM = 'scummvm'
+  DOSBOX = "dosbox",
+  SCUMMVM = "scummvm",
 }

@@ -5,5 +5,5 @@ export interface ExtractorFactoryInterface {
    * @param  {string} source
    * @returns ExtractorInterface
    */
-  create(source: string): ExtractorInterface
+  create(source: string): ExtractorInterface;
 }

@@ -12,9 +12,7 @@ export class CLICommandFactory {
    * @param  {InstallGameUseCase} installGameUseCase
    * @param  {LoggerInterface} logger
    */
-  constructor(
-    installGameUseCase: InstallGameUseCase,
-    logger: LoggerInterface) {
+  constructor(installGameUseCase: InstallGameUseCase, logger: LoggerInterface) {
     this._installGameUseCase = installGameUseCase;
     this._logger = logger;
   }

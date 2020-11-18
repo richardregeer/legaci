@@ -6,7 +6,7 @@ export class SourcePort {
    * @param  {string} name
    * @param  {string} version
    */
-  public constructor(name : string, version : string) {
+  public constructor(name: string, version: string) {
     this._name = name;
     this._version = version;
   }

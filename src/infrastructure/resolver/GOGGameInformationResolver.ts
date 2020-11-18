@@ -16,15 +16,20 @@ export class GOGGameInformationResolver {
    */
   public getGameName(destination: string): string | undefined {
     try {
-      const gameInfoFile = this._fileHandler.findFilesSync(false, destination, '/**/goggame*.info');
+      const gameInfoFile = this._fileHandler.findFilesSync(
+        false,
+        destination,
+        "/**/goggame*.info"
+      );
       if (gameInfoFile.length === 0) {
         return;
       }
 
-      const gameInfo = JSON.parse(this._fileHandler.readSync(gameInfoFile[0]).toString());
+      const gameInfo = JSON.parse(
+        this._fileHandler.readSync(gameInfoFile[0]).toString()
+      );
       return gameInfo.name;
-
-    } catch(error: unknown) {
+    } catch (error: unknown) {
       return;
     }
   }

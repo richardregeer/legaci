@@ -10,17 +10,46 @@ export class Runner {
   private readonly _id?: string;
 
   /**
-   * @param  {string} application
-   * @param  {string} version
-   * @param  {string} runConfigurationSource?
-   * @param  {string} configurationSource?
-   * @param  {string} binFile?
-   * @param  {string} id?
+   * @param {string} application
+   * @param {string} version
+   * @param {string} runConfigurationSource?
+   * @param {string} configurationSource?
+   * @param {string} binFile?
+   * @param {string} id?
+   * @param runConfigurationSource
+   * @param configurationSource
+   * @param binFile
+   * @param id
+   * @param runConfigurationSource
+   * @param configurationSource
+   * @param binFile
+   * @param id
+   * @param runConfigurationSource
+   * @param configurationSource
+   * @param binFile
+   * @param id
+   * @param runConfigurationSource
+   * @param configurationSource
+   * @param binFile
+   * @param id
    * @throws {UnsupportedApplicationRunnerError}
    */
-  public constructor(application : string, version : string, runConfigurationSource?: string, configurationSource?: string, binFile?: string, id?: string) {
-    if(!Object.values(ApplicationRunner).includes(application.toLowerCase() as ApplicationRunner)) {
-      throw new UnsupportedApplicationRunnerError(`Unsupported application runner ${application}`);
+  public constructor(
+    application: string,
+    version: string,
+    runConfigurationSource?: string,
+    configurationSource?: string,
+    binFile?: string,
+    id?: string
+  ) {
+    if (
+      !Object.values(ApplicationRunner).includes(
+        application.toLowerCase() as ApplicationRunner
+      )
+    ) {
+      throw new UnsupportedApplicationRunnerError(
+        `Unsupported application runner ${application}`
+      );
     }
 
     this._application = application as ApplicationRunner;

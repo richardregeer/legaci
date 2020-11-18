@@ -3,11 +3,12 @@ export class GameFile {
   private readonly _location: string;
 
   /**
-   * @param  {string} name
-   * @param  {string} locagion
-   * @param  {string} url
+   * @param {string} name
+   * @param {string} locagion
+   * @param {string} url
+   * @param location
    */
-  public constructor(name : string, location : string) {
+  public constructor(name: string, location: string) {
     this._name = name;
     this._location = location;
   }

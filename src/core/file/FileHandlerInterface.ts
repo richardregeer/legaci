@@ -7,7 +7,11 @@ export interface FileHandlerInterface {
    * @param  {string[]} ...glob
    * @returns Array<string>
    */
-  findFilesSync(ignoreCase: boolean, source: string, ...glob: string[]): Array<string>;
+  findFilesSync(
+    ignoreCase: boolean,
+    source: string,
+    ...glob: string[]
+  ): Array<string>;
 
   /**
    * @param  {string[]} ...glob
@@ -17,9 +21,9 @@ export interface FileHandlerInterface {
 
   /**
    * @param  {string} glob
-  * @param  {string} destination
-  * @returns void
-  */
+   * @param  {string} destination
+   * @returns void
+   */
   moveFilesSync(glob: string, destination: string): void;
 
   /**

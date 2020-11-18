@@ -6,13 +6,18 @@ import { SourceTypeResolverInterface } from "./SourceTypeResolverInterface";
 
 export class GameResolverService {
   private _sourceTypeResolvers: Array<SourceTypeResolverInterface>;
-  private _gameConfigurationResolvers: Array<GameConfigurationResolverInterface>;
+  private _gameConfigurationResolvers: Array<
+    GameConfigurationResolverInterface
+  >;
 
   /**
    * @param  {Array<SourceTypeResolverInterface>} sourceTypeResolvers
    * @param  {Array<GameConfigurationResolverInterface>} gameConfigurationResolvers
    */
-  public constructor(sourceTypeResolvers: Array<SourceTypeResolverInterface>, gameConfigurationResolvers: Array<GameConfigurationResolverInterface>) {
+  public constructor(
+    sourceTypeResolvers: Array<SourceTypeResolverInterface>,
+    gameConfigurationResolvers: Array<GameConfigurationResolverInterface>
+  ) {
     this._sourceTypeResolvers = sourceTypeResolvers;
     this._gameConfigurationResolvers = gameConfigurationResolvers;
   }
@@ -22,9 +27,8 @@ export class GameResolverService {
    * @returns SourceType
    */
   public determineSourceType(source: string): SourceType {
-
     for (const sourceTypeResolver of this._sourceTypeResolvers) {
-      if(sourceTypeResolver.isSourceType(source)) {
+      if (sourceTypeResolver.isSourceType(source)) {
         return sourceTypeResolver.getSourceType();
       }
     }
@@ -33,27 +37,39 @@ export class GameResolverService {
   }
 
   /**
-   * @param  {SourceType} sourceType
-   * @param  {String} destination
-   * @param  {string} gameId?
+   * @param {SourceType} sourceType
+   * @param {string} destination
+   * @param {string} gameId?
+   * @param gameId
    * @throws UnableToResolveError
    * @returns GameConfiguration
    */
-  public async resolveGameConfiguration(sourceType: SourceType, destination: string, gameId?: string): Promise<GameConfiguration> {
-    let configurationResolver =  this._gameConfigurationResolvers.find((x) => x.getSourceType() === sourceType);
+  public async resolveGameConfiguration(
+    sourceType: SourceType,
+    destination: string,
+    gameId?: string
+  ): Promise<GameConfiguration> {
+    let configurationResolver = this._gameConfigurationResolvers.find(
+      (x) => x.getSourceType() === sourceType
+    );
 
     if (!configurationResolver) {
-      configurationResolver = this._gameConfigurationResolvers.find((x) => x.getSourceType() === SourceType.UNKNOWN);
+      configurationResolver = this._gameConfigurationResolvers.find(
+        (x) => x.getSourceType() === SourceType.UNKNOWN
+      );
     }
 
     if (!configurationResolver) {
-      throw new UnableToResolveError('No game configuration resolver found');
+      throw new UnableToResolveError("No game configuration resolver found");
     }
 
     if (gameId) {
       return configurationResolver.resolveById(gameId);
     }
 
-    return await configurationResolver.resolveDefaultConfiguration(sourceType, destination);
+    return await configurationResolver.resolveDefaultConfiguration(
+      sourceType,
+      destination
+    );
   }
 }

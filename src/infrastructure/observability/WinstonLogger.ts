@@ -1,6 +1,6 @@
-import { Chalk } from 'chalk';
-import { Logger } from 'winston';
-import { LoggerInterface } from '../../core/observability/LoggerInterface';
+import { Chalk } from "chalk";
+import { Logger } from "winston";
+import { LoggerInterface } from "../../core/observability/LoggerInterface";
 
 export class WinstonLogger implements LoggerInterface {
   private _logger: Logger;
@@ -50,8 +50,7 @@ export class WinstonLogger implements LoggerInterface {
     if (this._debug) {
       this._logger.error(this._chalk.red(message));
       this._logger.error(error.stack);
-    }
-    else {
+    } else {
       this._logger.error(this._chalk.red(message));
     }
   }

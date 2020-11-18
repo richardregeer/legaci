@@ -7,12 +7,18 @@ export class Game {
   private readonly _binFilePath: string;
 
   /**
-   * @param  {string} name
-   * @param  {string} installationPath
-   * @param  {string} binFile
-   * @param  {GameConfiguration} gameConfig
+   * @param {string} name
+   * @param {string} installationPath
+   * @param {string} binFile
+   * @param binFilePath
+   * @param {GameConfiguration} gameConfig
    */
-  public constructor(name : string, installationPath: string, binFilePath: string, gameConfig : GameConfiguration) {
+  public constructor(
+    name: string,
+    installationPath: string,
+    binFilePath: string,
+    gameConfig: GameConfiguration
+  ) {
     this._name = name;
     this._installationPath = installationPath;
     this._binFilePath = binFilePath;

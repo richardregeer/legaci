@@ -8,5 +8,8 @@ export interface GameRunnerSetupFactoryInterface {
    * @param  {SourceType} sourceType
    * @returns GameRunnerSetupInterface
    */
-  create(gameConfig: GameConfiguration, sourceType: SourceType): GameRunnerSetupInterface
+  create(
+    gameConfig: GameConfiguration,
+    sourceType: SourceType
+  ): GameRunnerSetupInterface;
 }

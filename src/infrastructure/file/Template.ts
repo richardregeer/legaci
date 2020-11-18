@@ -20,7 +20,8 @@ export class Template implements TemplateInterface {
   }
 
   /**
-   * @param  {string} destination
+   * @param {string} destination
+   * @param content
    * @returns void
    */
   public save(destination: string, content: string): void {

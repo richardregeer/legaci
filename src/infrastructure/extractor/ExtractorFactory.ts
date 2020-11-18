@@ -18,7 +18,11 @@ export class ExtractorFactory implements ExtractorFactoryInterface {
    * @param  {LoggerInterface} logger
    * @param  {CommandInterface} shell
    */
-  constructor(fileHandler: FileHandlerInterface, logger: LoggerInterface, shell: CommandInterface) {
+  constructor(
+    fileHandler: FileHandlerInterface,
+    logger: LoggerInterface,
+    shell: CommandInterface
+  ) {
     this._fileHandler = fileHandler;
     this._shell = shell;
     this._logger = logger;
@@ -32,14 +36,18 @@ export class ExtractorFactory implements ExtractorFactoryInterface {
   public create(source: string): ExtractorInterface {
     const fileType = this._fileHandler.resolveFileTypeSync(source);
 
-    if(fileType === FileType.EXE) {
-      return new InnoExtractExtractor(this._fileHandler, this._logger, this._shell);
+    if (fileType === FileType.EXE) {
+      return new InnoExtractExtractor(
+        this._fileHandler,
+        this._logger,
+        this._shell
+      );
     }
 
     if (fileType === FileType.ZIP) {
       return new ZipExtractor(this._fileHandler, this._logger, this._shell);
     }
 
-    throw new UnknownFileTypeError('Filetype is not supported for install');
+    throw new UnknownFileTypeError("Filetype is not supported for install");
   }
 }
