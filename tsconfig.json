@@ -1,14 +1,15 @@
 {
-    "compilerOptions": {
-      "target": "ES2017",
-      "module": "commonjs",
-      "sourceMap": false,
-      "outDir": "dist",
-      "resolveJsonModule": true,
-      "preserveConstEnums": true
-    },
-    "exclude": [
-      "node_modules",
-      "dist"
-    ]
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "commonjs",
+    "sourceMap": false,
+    "outDir": "dist",
+    "resolveJsonModule": true,
+    "preserveConstEnums": true,
+    "esModuleInterop": true
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

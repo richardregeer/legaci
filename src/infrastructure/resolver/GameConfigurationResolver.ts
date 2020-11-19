@@ -106,7 +106,8 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
    * @param  {string} destination
    * @returns Promise<GameConfiguration>
    */
-  public async resolveDefaultConfiguration(): Promise<GameConfiguration> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public async resolveDefaultConfiguration(sourceType: SourceType, destination: string): Promise<GameConfiguration> {
     const gameConfiguration = new GameConfiguration('Legaci game');
 
     this.parseRunners(
