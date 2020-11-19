@@ -15,7 +15,7 @@ export class GOGDosboxSourceTypeResolver implements SourceTypeResolverInterface 
   /**
    * @returns SourceType
    */
-  getSourceType(): SourceType {
+  public getSourceType(): SourceType {
     return SourceType.GOG_DOSBOX;
   }
 

@@ -54,7 +54,7 @@ export class GOGScummVMInstaller extends ScummVMInstaller {
 
     // If there is no GOG ScummVM configuration or a game config is available, continue with the default ScummVM setup
     if (gameConfig.id || !config) {
-      super.generateConfiguration(gameConfig, destination);
+      await super.generateConfiguration(gameConfig, destination);
     } else {
       this._fileHandler.copySync(config, `${destination}/scummvm.legaci.ini`);
       this._logger.info('ScummVM configuration file copied from GOG configuration and saved succesfully');

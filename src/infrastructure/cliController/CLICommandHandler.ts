@@ -26,7 +26,6 @@ export class CLICommandHandler {
     const installController = this._cliCommandFactory.createInstallController();
 
     await installController.handleInstallCommand(file, destination, gameId);
-
-    return Promise.resolve();
+    return;
   }
 }

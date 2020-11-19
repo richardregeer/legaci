@@ -163,11 +163,11 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
    */
   private convertRunConfiguration(runConfiguration: string, destination: string): void {
     const gogRunConfiguration = this._fileHandler.readSync(runConfiguration).toString().split('\r\n');
-    const convertedConfiguration = [];
+    const convertedConfiguration: string[] = [];
 
     try {
       gogRunConfiguration.forEach((line: string) => {
-        let newLine = null;
+        let newLine: string = null;
 
         // First try to replace lines if needed
         newLine = this.replaceMountPath(line, destination) || this.replaceImageMountPath(line, destination) || line;

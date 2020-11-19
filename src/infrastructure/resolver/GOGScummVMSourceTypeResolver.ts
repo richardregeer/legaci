@@ -15,7 +15,7 @@ export class GOGScummVMSourceTypeResolver implements SourceTypeResolverInterface
   /**
    * @returns SourceType
    */
-  getSourceType(): SourceType {
+  public getSourceType(): SourceType {
     return SourceType.GOG_SCUMMVM;
   }
 

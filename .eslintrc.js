@@ -20,7 +20,7 @@ module.exports = {
   },
   rules: {
     'default-param-last': 'error',
-    "max-classes-per-file": ["error", 1],
+    'max-classes-per-file': ['error', 1],
     'no-constructor-return': 'error',
     'eol-last': ['error', 'always'],
     'prettier/prettier': [
@@ -30,8 +30,8 @@ module.exports = {
         printWidth: 120,
       },
     ],
-    "require-await": "off",
-    "@typescript-eslint/require-await": "off",
+    'require-await': 'off',
+    '@typescript-eslint/require-await': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-unused-vars': 'error',
     '@typescript-eslint/explicit-function-return-type': 'error',
@@ -60,33 +60,51 @@ module.exports = {
         checkMethodDeclarations: true,
       },
     ],
-    "@typescript-eslint/naming-convention": [
-      "error",
-      // {
-      //   "selector":  ['variable'],
-      //   "modifiers": ["private"],
-      //   "format": ["camelCase"],
-      //   "leadingUnderscore": "require"
-      // },
+    '@typescript-eslint/naming-convention': [
+      'error',
       {
-        "selector": "interface",
-        "format": ["PascalCase"],
-        "suffix": ['Interface']
-      }
-
+        selector: ['variableLike', 'memberLike'],
+        format: ['camelCase'],
+        leadingUnderscore: 'allow',
+      },
+      {
+        selector: ['typeLike'],
+        format: ['PascalCase'],
+      },
+      {
+        selector: 'interface',
+        format: ['PascalCase'],
+        suffix: ['Interface'],
+      },
+      {
+        selector: ['enumMember'],
+        format: ['UPPER_CASE'],
+      },
+      {
+        selector: ['property'],
+        modifiers: ['private'],
+        format: ['camelCase'],
+        leadingUnderscore: 'require',
+      },
+      {
+        selector: ['property'],
+        modifiers: ['protected'],
+        format: ['camelCase'],
+        leadingUnderscore: 'require',
+      },
     ],
-    "promise/always-return": "error",
-    "promise/no-return-wrap": "error",
-    "promise/param-names": "error",
-    "promise/catch-or-return": "error",
-    "promise/no-native": "off",
-    "promise/no-nesting": "error",
-    "promise/no-promise-in-callback": "error",
-    "promise/no-callback-in-promise": "error",
-    "promise/avoid-new": "error",
-    "promise/no-new-statics": "error",
-    "promise/no-return-in-finally": "error",
-    "promise/valid-params": "error",
-    "promise/prefer-await-to-then": 'error'
+    'promise/always-return': 'error',
+    'promise/no-return-wrap': 'error',
+    'promise/param-names': 'error',
+    'promise/catch-or-return': 'error',
+    'promise/no-native': 'off',
+    'promise/no-nesting': 'error',
+    'promise/no-promise-in-callback': 'error',
+    'promise/no-callback-in-promise': 'error',
+    'promise/avoid-new': 'error',
+    'promise/no-new-statics': 'error',
+    'promise/no-return-in-finally': 'error',
+    'promise/valid-params': 'error',
+    'promise/prefer-await-to-then': 'error',
   },
 };

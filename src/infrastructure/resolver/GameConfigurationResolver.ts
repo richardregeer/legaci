@@ -3,9 +3,7 @@ import { ApplicationRunner } from '../../core/entity/ApplicationRunner';
 import { GameConfiguration } from '../../core/entity/GameConfiguration';
 import { GameFile } from '../../core/entity/GameFile';
 import { Runner } from '../../core/entity/Runner';
-import { SourcePort } from '../../core/entity/SourcePort';
 import { SourceType } from '../../core/entity/SourceType';
-import { Store } from '../../core/entity/Store';
 import { GameConfigurationNotFoundError } from '../../core/error/GameConfigurationNotFoundError';
 import { FileHandlerInterface } from '../../core/file/FileHandlerInterface';
 import { GameConfigurationResolverInterface } from '../../core/resolver/GameConfigurationResolverInterface';
@@ -99,7 +97,7 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
   /**
    * @returns SourceType
    */
-  getSourceType(): SourceType {
+  public getSourceType(): SourceType {
     return SourceType.UNKNOWN;
   }
 
@@ -108,7 +106,7 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
    * @param  {string} destination
    * @returns Promise<GameConfiguration>
    */
-  public async resolveDefaultConfiguration(sourceType: SourceType, destination: string): Promise<GameConfiguration> {
+  public async resolveDefaultConfiguration(): Promise<GameConfiguration> {
     const gameConfiguration = new GameConfiguration('Legaci game');
 
     this.parseRunners(
@@ -126,19 +124,20 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
    */
   private async resolveBySource(source: string): Promise<GameConfiguration> {
     const content = this._fileHandler.readSync(source);
-    const configuration = JSON.parse(content);
+    const configuration = JSON.parse(content) as Record<string, unknown>;
     const dirName = path.dirname(source);
 
     // Map fields to configuration object
-    const gameConfiguration = new GameConfiguration(configuration.name);
-    gameConfiguration.genre = configuration.genre;
-    gameConfiguration.releaseStatus = configuration.releaseStatus;
-    gameConfiguration.released = configuration.released;
-    gameConfiguration.id = configuration.id;
+    const gameConfiguration = new GameConfiguration(configuration.name as string);
+    gameConfiguration.genre = configuration.genre as string;
+    gameConfiguration.releaseStatus = configuration.releaseStatus as string;
+    gameConfiguration.released = configuration.released as Date;
+    gameConfiguration.id = configuration.id as string;
 
-    this.parseRunners(dirName, configuration.runners, gameConfiguration);
+    this.parseRunners(dirName, configuration.runners as Record<string, unknown>[], gameConfiguration);
 
-    configuration.gameFiles.forEach((i: { name: string; location: string }) => {
+    const gameFiles = configuration.gameFiles as Record<string, string>[];
+    gameFiles.forEach((i: { name: string; location: string }) => {
       gameConfiguration.gameFiles.push(new GameFile(i.name, path.join(dirName, i.location || '')));
     });
 
@@ -161,6 +160,6 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
     // gameConfiguration.reviews.push(configuration.reviews.map((i: string) => i));
     // gameConfiguration.downloadLocations.push(configuration.downloadLocations.map((i: string) => i));
 
-    return Promise.resolve(gameConfiguration);
+    return gameConfiguration;
   }
 }
