@@ -23,12 +23,15 @@ export class Container {
   private readonly _container: Map<string, unknown>;
 
   /**
+   * Creates a new dependency container
    */
   constructor() {
     this._container = new Map<string, unknown>();
   }
 
   /**
+   * Setup all dependencies of the container
+   *
    * @returns void
    */
   public setup(): void {
@@ -87,7 +90,7 @@ export class Container {
   }
 
   /**
-   * @param  {string} name
+   * @param name - {String}
    * @returns T
    */
   public resolve<T>(name: string): T {

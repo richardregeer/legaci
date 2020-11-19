@@ -4,9 +4,9 @@ export class Store {
   private readonly _url: string;
 
   /**
-   * @param  {string} name
-   * @param  {string} id
-   * @param  {string} url
+   * @param name
+   * @param id
+   * @param url
    */
   constructor(name: string, id: string, url: string) {
     this._name = name;

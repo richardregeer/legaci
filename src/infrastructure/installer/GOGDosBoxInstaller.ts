@@ -7,8 +7,8 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
   // TODO move convert configuration to a separate class
 
   /**
-   * @param  {string} line
-   * @param  {string} destination
+   * @param line
+   * @param destination
    * @returns string
    */
   private replaceMountPath(line: string, destination: string): string | null {
@@ -20,7 +20,7 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
   }
 
   /**
-   * @param  {string} line
+   * @param line
    * @returns boolean
    */
   private removeCloudSaves(line: string): boolean {
@@ -32,8 +32,8 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
   }
 
   /**
-   * @param  {string} line
-   * @param  {string} destination
+   * @param line
+   * @param destination
    * @returns string
    */
   private replaceImageMountPath(line: string, destination: string): string | null {
@@ -46,7 +46,7 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
   }
 
   /**
-   * @param  {string} line
+   * @param line
    * @returns boolean
    */
   private removeApplicationMenu(line: string): boolean {
@@ -58,8 +58,8 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
   }
 
   /**
-   * @param  {string} line
-   * @param  {string} destination
+   * @param line
+   * @param destination
    * @returns string
    */
   private correctFilenameCase(line: string, destination: string): string {
@@ -85,7 +85,7 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
   }
 
   /**
-   * @param  {string} destination
+   * @param destination
    * @returns void
    */
   private cleanup(destination: string): void {
@@ -103,8 +103,8 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
   }
 
   /**
-   * @param  {GameConfiguration} gameConfig
-   * @param  {string} destination
+   * @param gameConfig
+   * @param destination
    * @returns Promise<Game>
    */
   public async install(gameConfig: GameConfiguration, destination: string): Promise<Game> {
@@ -123,8 +123,8 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
   }
 
   /**
-   * @param  {GameConfiguration} gameConfig
-   * @param  {string} destination
+   * @param gameConfig
+   * @param destination
    * @returns Promise<void>
    */
   public async generateConfiguration(gameConfig: GameConfiguration, destination: string): Promise<void> {
@@ -157,8 +157,8 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
   }
 
   /**
-   * @param  {string} runConfiguration
-   * @param  {string} destination
+   * @param runConfiguration
+   * @param destination
    * @returns void
    */
   private convertRunConfiguration(runConfiguration: string, destination: string): void {

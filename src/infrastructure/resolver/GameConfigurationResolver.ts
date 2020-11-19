@@ -12,14 +12,16 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
   protected readonly _fileHandler: FileHandlerInterface;
 
   /**
-   * @param  {FileHandlerInterface} fileHandler
+   * The game configuration resolver will
+   *
+   * @param fileHandler
    */
   constructor(fileHandler: FileHandlerInterface) {
     this._fileHandler = fileHandler;
   }
 
   /**
-   * @param  {string} id
+   * @param id
    * @throws GameConfigurationNotFoundError
    * @returns Promise<GameConfiguration>
    */
@@ -34,10 +36,10 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
   }
 
   /**
-   * @param {string} dirname
+   * @param dirname
    * @param dirName
-   * @param {Array<Record<string, unknown>>} configRunners
-   * @param {GameConfiguration} gameConfiguration
+   * @param configRunners
+   * @param gameConfiguration
    * @returns void
    */
   protected parseRunners(
@@ -79,10 +81,10 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
   }
 
   /**
-   * @param  {string} source
-   * @param  {string} configuration
-   * @param  {string} fallbackFileName
-   * @param  {string} runner
+   * @param source
+   * @param configuration
+   * @param fallbackFileName
+   * @param runner
    * @returns string
    */
   private parseConfigPath(source: string, configuration: string, fallbackFileName: string, runner: string): string {
@@ -102,8 +104,8 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
   }
 
   /**
-   * @param  {SourceType} sourceType
-   * @param  {string} destination
+   * @param sourceType
+   * @param destination
    * @returns Promise<GameConfiguration>
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -120,7 +122,7 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
   }
 
   /**
-   * @param  {string} source
+   * @param source
    * @returns Promise<GameConfiguration>
    */
   private async resolveBySource(source: string): Promise<GameConfiguration> {

@@ -11,9 +11,9 @@ export class ZipExtractor implements ExtractorInterface {
   private readonly _shell: CommandInterface;
 
   /**
-   * @param  {FileHandlerInterface} fileHandler
-   * @param  {LoggerInterface} logger
-   * @param  {ShellInterface} shell
+   * @param fileHandler
+   * @param logger
+   * @param shell
    */
   constructor(fileHandler: FileHandlerInterface, logger: LoggerInterface, shell: CommandInterface) {
     this._logger = logger;
@@ -22,8 +22,8 @@ export class ZipExtractor implements ExtractorInterface {
   }
 
   /**
-   * @param  {string} source
-   * @param  {string} destination
+   * @param source
+   * @param destination
    * @throws {FileDoesNotExistsError}
    * @returns Promise<void>
    */

@@ -4,14 +4,14 @@ export class GOGGameInformationResolver {
   protected readonly _fileHandler: FileHandlerInterface;
 
   /**
-   * @param  {FileHandlerInterface} fileHandler
+   * @param fileHandler
    */
   constructor(fileHandler: FileHandlerInterface) {
     this._fileHandler = fileHandler;
   }
 
   /**
-   * @param  {string} destination
+   * @param destination
    * @returns string
    */
   public getGameName(destination: string): string | undefined {

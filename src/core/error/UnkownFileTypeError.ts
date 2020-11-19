@@ -1,6 +1,6 @@
 export class UnknownFileTypeError extends Error {
   /**
-   * @param  {string} message
+   * @param message
    */
   constructor(message: string) {
     super(message);

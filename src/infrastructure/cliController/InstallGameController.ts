@@ -12,9 +12,9 @@ export class InstallGameController {
   private readonly _logger: LoggerInterface;
 
   /**
-   * @param  {InstallGameUseCase} installGameUseCase
-   * @param  {GameConfigurationResolverInterface} gameConfigurationResolver
-   * @param  {LoggerInterface} logger
+   * @param installGameUseCase
+   * @param gameConfigurationResolver
+   * @param logger
    */
   constructor(installGameUseCase: InstallGameUseCase, logger: LoggerInterface) {
     this._installGameUseCase = installGameUseCase;
@@ -22,9 +22,9 @@ export class InstallGameController {
   }
 
   /**
-   * @param {string} gameSource
-   * @param {string} gameDestination
-   * @param {string} gameId?
+   * @param gameSource
+   * @param gameDestination
+   * @param gameId?
    * @param gameId
    * @returns Promise<Game | null>
    */

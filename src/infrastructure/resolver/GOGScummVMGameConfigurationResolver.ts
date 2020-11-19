@@ -10,8 +10,8 @@ export class GOGScummVMGameConfigurationResolver extends GameConfigurationResolv
   private readonly _gogGameInformationResolver: GOGGameInformationResolver;
 
   /**
-   * @param  {FileHandlerInterface} fileHandler
-   * @param  {GOGGameInformationResolver} gogGameInformationResolver
+   * @param fileHandler
+   * @param gogGameInformationResolver
    */
   constructor(fileHandler: FileHandlerInterface, gogGameInformationResolver: GOGGameInformationResolver) {
     super(fileHandler);
@@ -26,8 +26,8 @@ export class GOGScummVMGameConfigurationResolver extends GameConfigurationResolv
   }
 
   /**
-   * @param  {SourceType} sourceType
-   * @param  {string} destination
+   * @param sourceType
+   * @param destination
    * @returns Promise<GameConfiguration>
    */
   public async resolveDefaultConfiguration(sourceType: SourceType, destination: string): Promise<GameConfiguration> {
@@ -50,7 +50,7 @@ export class GOGScummVMGameConfigurationResolver extends GameConfigurationResolv
   }
 
   /**
-   * @param  {string} destination
+   * @param destination
    * @returns string
    */
   private getScummVMGameId(destination: string): string {

@@ -18,9 +18,9 @@ export class GameRunnerSetupFactory implements GameRunnerSetupFactoryInterface {
   private readonly _fileHandler: FileHandlerInterface;
 
   /**
-   * @param {TemplateInterface} template
+   * @param template
    * @param fileHandler
-   * @param {LoggerInterface} logger
+   * @param logger
    */
   constructor(template: TemplateInterface, fileHandler: FileHandlerInterface, logger: LoggerInterface) {
     this._template = template;
@@ -29,8 +29,8 @@ export class GameRunnerSetupFactory implements GameRunnerSetupFactoryInterface {
   }
 
   /**
-   * @param  {GameConfiguration} gameConfig
-   * @param  {SourceType} sourceType
+   * @param gameConfig
+   * @param sourceType
    * @returns GameRunnerSetupInterface
    */
   public create(gameConfig: GameConfiguration, sourceType: SourceType): GameRunnerSetupInterface {

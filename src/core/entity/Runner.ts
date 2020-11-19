@@ -10,12 +10,10 @@ export class Runner {
   private readonly _id?: string;
 
   /**
-   * @param {string} application
-   * @param {string} version
-   * @param {string} runConfigurationSource?
-   * @param {string} configurationSource?
-   * @param {string} binFile?
-   * @param {string} id?
+   * @param application
+   * @param version
+   * @param runConfigurationSource?
+   * @param configurationSource?
    * @param runConfigurationSource
    * @param configurationSource
    * @param binFile
@@ -32,7 +30,7 @@ export class Runner {
    * @param configurationSource
    * @param binFile
    * @param id
-   * @throws {UnsupportedApplicationRunnerError}
+   * @returns string
    */
   constructor(
     application: string,

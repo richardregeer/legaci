@@ -10,8 +10,8 @@ export class GameFilesInstaller implements GameFilesInstallerInterface {
   private readonly _fileHandler: FileHandlerInterface;
 
   /**
-   * @param  {FileHandlerInterface} fileHandler
-   * @param  {LoggerInterface} logger
+   * @param fileHandler
+   * @param logger
    */
   constructor(fileHandler: FileHandlerInterface, logger: LoggerInterface) {
     this._logger = logger;
@@ -19,8 +19,8 @@ export class GameFilesInstaller implements GameFilesInstallerInterface {
   }
 
   /**
-   * @param  {GameConfiguration} gameConfig
-   * @param  {string} destination
+   * @param gameConfig
+   * @param destination
    * @returns Promise
    */
   public async install(gameConfig: GameConfiguration, destination: string): Promise<void> {

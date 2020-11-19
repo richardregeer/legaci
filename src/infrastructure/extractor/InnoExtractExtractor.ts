@@ -11,9 +11,9 @@ export class InnoExtractExtractor implements ExtractorInterface {
   private readonly _shell: CommandInterface;
 
   /**
-   * @param  {FileHandlerInterface} fileHandler
-   * @param  {LoggerInterface} logger
-   * @param  {CommandInterface} shell
+   * @param fileHandler
+   * @param logger
+   * @param shell
    */
   constructor(fileHandler: FileHandlerInterface, logger: LoggerInterface, shell: CommandInterface) {
     this._logger = logger;
@@ -22,9 +22,10 @@ export class InnoExtractExtractor implements ExtractorInterface {
   }
 
   /**
-   * @param  {string} source
-   * @param  {string} destination
-   * @throws {FileDoesNotExistsError}
+   * Extract the given source file to the given destination with InnoExtract
+   *
+   * @param source - The source of the file to extract
+   * @param destination - The destination folder of the extracted files
    * @returns Promise<void>
    */
   public async extract(source: string, destination: string): Promise<void> {

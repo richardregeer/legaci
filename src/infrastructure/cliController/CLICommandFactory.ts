@@ -9,8 +9,8 @@ export class CLICommandFactory {
   private readonly _logger: LoggerInterface;
 
   /**
-   * @param  {InstallGameUseCase} installGameUseCase
-   * @param  {LoggerInterface} logger
+   * @param installGameUseCase
+   * @param logger
    */
   constructor(installGameUseCase: InstallGameUseCase, logger: LoggerInterface) {
     this._installGameUseCase = installGameUseCase;

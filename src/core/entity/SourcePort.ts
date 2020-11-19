@@ -3,13 +3,14 @@ export class SourcePort {
   private readonly _version: string;
 
   /**
-   * @param  {string} name
-   * @param  {string} version
+   * @param name
+   * @param version
    */
   constructor(name: string, version: string) {
     this._name = name;
     this._version = version;
   }
+
   /**
    * @returns string
    */

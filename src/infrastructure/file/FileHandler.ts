@@ -10,15 +10,15 @@ export class FileHandler implements FileHandlerInterface {
   private readonly _shellConfig: ShellConfig;
 
   /**
-   * @param  {ShellConfig} shellConfig
+   * @param shellConfig
    */
   constructor(shellConfig: ShellConfig) {
     this._shellConfig = shellConfig;
   }
 
   /**
-   * @param {string[]} ...glob
-   * @param {...any} glob
+   * @param ...glob
+   * @param glob
    * @returns void
    */
   public removeFilesSync(...glob: string[]): void {
@@ -26,10 +26,10 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param {boolean} ignoreCase
-   * @param {string} source
-   * @param {string[]} ...glob
-   * @param {...any} glob
+   * @param ignoreCase
+   * @param source
+   * @param ...glob
+   * @param glob
    * @returns Array
    */
   public findFilesSync(ignoreCase: boolean, source: string, ...glob: string[]): string[] {
@@ -48,8 +48,8 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param  {string} glob
-   * @param  {string} destination
+   * @param glob
+   * @param destination
    * @returns void
    */
   public moveFilesSync(glob: string, destination: string): void {
@@ -58,7 +58,7 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param  {string} destination
+   * @param destination
    * @returns string
    */
   public createTempFolderSync(destination: string): string {
@@ -71,7 +71,7 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param {string} source
+   * @param source
    * @param ignoreCase=false
    * @param ignoreCase
    * @returns boolean
@@ -100,7 +100,7 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param  {string} source
+   * @param source
    * @returns boolean
    */
   public createDirWhenNotExistsSync(source: string): boolean {
@@ -115,8 +115,8 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param  {string} destination
-   * @param  {string} contents
+   * @param destination
+   * @param contents
    * @returns void
    */
   public writeSync(destination: string, contents: string): void {
@@ -125,8 +125,8 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param  {string} source
-   * @param  {string} destination
+   * @param source
+   * @param destination
    * @throws FileDoesNotExistsError
    * @returns void
    */
@@ -143,8 +143,8 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param  {string} glob
-   * @param  {string} destination
+   * @param glob
+   * @param destination
    * @returns boolean
    */
   public copyFilesSync(glob: string, destination: string): void {
@@ -153,7 +153,7 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param  {string} source
+   * @param source
    * @throws FileDoesNotExistsError
    * @returns string
    */
@@ -168,7 +168,7 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param  {string} source
+   * @param source
    * @throws UnknownFileTypeError
    * @returns FileType
    */
@@ -188,7 +188,7 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param  {string} source
+   * @param source
    * @returns string
    */
   public resolveFileName(source: string): string {
@@ -198,7 +198,7 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param  {string} source
+   * @param source
    * @returns void
    * @throws FileDoesNotExistsError
    */

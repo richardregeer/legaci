@@ -1,8 +1,8 @@
 export interface CommandInterface {
   /**
-   * @param  {string} command
-   * @param  {boolean} silent
-   * @returns Promise
+   * @param command - The command that will be executed
+   * @param silent - Weather the command output is suppressed
+   * @returns Promise<number>
    */
   execute(command: string, silent: boolean): Promise<number>;
 }

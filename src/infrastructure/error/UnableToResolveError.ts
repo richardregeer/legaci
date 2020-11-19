@@ -1,6 +1,6 @@
 export class UnableToResolveError extends Error {
   /**
-   * @param  {string} message
+   * @param message
    */
   constructor(message: string) {
     super(message);

@@ -6,8 +6,8 @@ export class ShellCommand implements CommandInterface {
   private readonly _shellConfig: ShellConfig;
 
   /**
-   * @param  {ExecFunction} shellExecute
-   * @param  {ShellConfig} shellConfig
+   * @param shellExecute
+   * @param shellConfig
    */
   constructor(shellExecute: ExecFunction, shellConfig: ShellConfig) {
     this._execute = shellExecute;
@@ -15,8 +15,8 @@ export class ShellCommand implements CommandInterface {
   }
 
   /**
-   * @param  {string} command
-   * @param  {boolean} silent
+   * @param command
+   * @param silent
    * @returns Promise
    */
   public async execute(command: string, silent: boolean): Promise<number> {

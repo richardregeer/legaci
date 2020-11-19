@@ -14,9 +14,9 @@ export class ExtractorFactory implements ExtractorFactoryInterface {
   private readonly _logger: LoggerInterface;
 
   /**
-   * @param  {FileHandlerInterface} fileHandler
-   * @param  {LoggerInterface} logger
-   * @param  {CommandInterface} shell
+   * @param fileHandler
+   * @param logger
+   * @param shell
    */
   constructor(fileHandler: FileHandlerInterface, logger: LoggerInterface, shell: CommandInterface) {
     this._fileHandler = fileHandler;
@@ -25,7 +25,7 @@ export class ExtractorFactory implements ExtractorFactoryInterface {
   }
 
   /**
-   * @param  {string} source
+   * @param source
    * @throws UnknownFileTypeError
    * @returns ExtractorInterface
    */

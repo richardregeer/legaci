@@ -14,11 +14,11 @@ export class InstallGameUseCase {
   private readonly _gameResolverService: GameResolverService;
 
   /**
-   * @param {GameRunnerSetupFactoryInterface} gameRunnerSetupFactory
-   * @param {LoggerInterface} logger
-   * @param {ExtractorFactoryInterface} extractorFactory
-   * @param {GameFilesInstallerInterface} gameFilesInstaller
-   * @param {SourceTypeService} sourceTypeService
+   * @param gameRunnerSetupFactory
+   * @param logger
+   * @param extractorFactory
+   * @param gameFilesInstaller
+   * @param sourceTypeService
    * @param gameResolverService
    */
   constructor(
@@ -36,9 +36,9 @@ export class InstallGameUseCase {
   }
 
   /**
-   * @param {string} source
-   * @param {string} destination
-   * @param {string} gameId?
+   * @param source
+   * @param destination
+   * @param gameId?
    * @param gameId
    * @returns Promise<Game>
    */

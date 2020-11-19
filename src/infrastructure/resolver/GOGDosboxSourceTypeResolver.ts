@@ -6,7 +6,7 @@ export class GOGDosboxSourceTypeResolver implements SourceTypeResolverInterface 
   private readonly _fileHandler: FileHandlerInterface;
 
   /**
-   * @param  {FileHandlerInterface} fileHandler
+   * @param fileHandler
    */
   constructor(fileHandler: FileHandlerInterface) {
     this._fileHandler = fileHandler;
@@ -20,7 +20,7 @@ export class GOGDosboxSourceTypeResolver implements SourceTypeResolverInterface 
   }
 
   /**
-   * @param  {string} source
+   * @param source
    * @returns boolean
    */
   public isSourceType(source: string): boolean {

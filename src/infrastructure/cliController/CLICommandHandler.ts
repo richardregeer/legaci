@@ -6,9 +6,9 @@ export class CLICommandHandler {
   private readonly _logger: LoggerInterface;
 
   /**
-   * @param {InstallCommandHandler} installCommandHandler
+   * @param installCommandHandler
    * @param cliCommandFactory
-   * @param {LoggerInterface} logger
+   * @param logger
    */
   constructor(cliCommandFactory: CLICommandFactory, logger: LoggerInterface) {
     this._logger = logger;
@@ -16,9 +16,9 @@ export class CLICommandHandler {
   }
 
   /**
-   * @param {string} file
-   * @param {string} destination
-   * @param {string} gameId?
+   * @param file
+   * @param destination
+   * @param gameId?
    * @param gameId
    * @returns Promise<void>
    */

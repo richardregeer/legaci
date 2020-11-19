@@ -5,7 +5,7 @@ import { ScummVMInstaller } from './ScummVMInstaller';
 
 export class GOGScummVMInstaller extends ScummVMInstaller {
   /**
-   * @param  {string} destination
+   * @param destination
    * @returns void
    */
   private cleanup(destination: string): void {
@@ -23,8 +23,8 @@ export class GOGScummVMInstaller extends ScummVMInstaller {
   }
 
   /**
-   * @param  {GameConfiguration} gameConfig
-   * @param  {string} destination
+   * @param gameConfig
+   * @param destination
    * @returns Promise<Game>
    */
   public async install(gameConfig: GameConfiguration, destination: string): Promise<Game> {
@@ -43,8 +43,8 @@ export class GOGScummVMInstaller extends ScummVMInstaller {
   }
 
   /**
-   * @param  {GameConfiguration} gameConfig
-   * @param  {string} destination
+   * @param gameConfig
+   * @param destination
    * @returns Promise<void>
    */
   public async generateConfiguration(gameConfig: GameConfiguration, destination: string): Promise<void> {

@@ -12,7 +12,7 @@ export class Template implements TemplateInterface {
   }
 
   /**
-   * @param  {string} source
+   * @param source
    * @returns string
    */
   public load(source: string): string {
@@ -20,7 +20,7 @@ export class Template implements TemplateInterface {
   }
 
   /**
-   * @param {string} destination
+   * @param destination
    * @param content
    * @returns void
    */
@@ -29,9 +29,9 @@ export class Template implements TemplateInterface {
   }
 
   /**
-   * @param  {string} name
-   * @param  {string} value
-   * @param  {string} content
+   * @param name
+   * @param value
+   * @param content
    * @returns string
    */
   public replaceVariable(name: string, value: string, content: string): string {

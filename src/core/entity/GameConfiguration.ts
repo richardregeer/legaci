@@ -20,7 +20,9 @@ export class GameConfiguration {
   private _id: string;
 
   /**
-   * @param  {string} name
+   * The configuration of the game to install
+   *
+   * @param name - The name of the game to install
    */
   constructor(name: string) {
     this._name = name;
@@ -32,11 +34,21 @@ export class GameConfiguration {
     this._downloadLocations = [];
     this._gameFiles = [];
   }
-
+  /**
+   * Waeather the game configuration has any runners to play the game
+   *
+   * @returns boolean
+   */
   public hasRunners(): boolean {
     return this._runners.length !== 0;
   }
 
+  /**
+   * Find if the game configuration has the requested application runner
+   *
+   * @param runner - The application runner to find
+   * @returns Runner
+   */
   public findByApplicationRunner(runner: ApplicationRunner): Runner | null {
     const applicationRunner = this._runners.find((x: Runner) => x.application.toLowerCase() === runner.toLowerCase());
 
@@ -48,6 +60,8 @@ export class GameConfiguration {
   }
 
   /**
+   * Get the name of the game to install
+   *
    * @returns string
    */
   public get name(): string {
@@ -55,13 +69,17 @@ export class GameConfiguration {
   }
 
   /**
-   * @param  {string} value
+   * Set the name of the game to install
+   *
+   * @param value - The name of the game to install
    */
   public set name(value: string) {
     this._name = value;
   }
 
   /**
+   * Get the release status of the game to install
+   *
    * @returns string
    */
   public get releaseStatus(): string {
@@ -69,13 +87,17 @@ export class GameConfiguration {
   }
 
   /**
-   * @param  {string} value
+   * Set the release status of the game to install
+   *
+   * @param value - The release date of the game to install
    */
   public set releaseStatus(value: string) {
     this._releaseStatus = value;
   }
 
   /**
+   *Get the genre of the game to install
+   *
    * @returns string
    */
   public get genre(): string {
@@ -83,13 +105,17 @@ export class GameConfiguration {
   }
 
   /**
-   * @param  {string} value
+   * Set the genre of the game to install
+   *
+   * @param value - The genre of the game to install
    */
   public set genre(value: string) {
     this._genre = value;
   }
 
   /**
+   * Get the release date of the game to install
+   *
    * @returns Date
    */
   public get released(): Date {
@@ -97,13 +123,17 @@ export class GameConfiguration {
   }
 
   /**
-   * @param  {Date} value
+   * Set the release date of the game to install
+   *
+   * @param value - the release date of the game to install
    */
   public set released(value: Date) {
     this._released = value;
   }
 
   /**
+   * Get the Legaci game id of the game to install
+   *
    * @returns string
    */
   public get id(): string {
@@ -111,62 +141,80 @@ export class GameConfiguration {
   }
 
   /**
-   * @param  {string} value
+   * Set the Legaci game id of the game to install
+   *
+   * @param value - The Legaci game id of the game to install
    */
   public set id(value: string) {
     this._id = value;
   }
 
   /**
-   * @returns Array<Runner>
+   * Get the application runners of the game to install
+   *
+   * @returns Runner[]
    */
   public get runners(): Runner[] {
     return this._runners;
   }
 
   /**
-   * @returns Array<SourcePort>
+   * Get available sourceports of the game to install
+   *
+   * @returns SourcePort[]
    */
   public get sourcePorts(): SourcePort[] {
     return this._sourcePorts;
   }
 
   /**
-   * @returns Array<string>
+   * Get available game references of the game to install
+   *
+   * @returns string[]
    */
   public get references(): string[] {
     return this._references;
   }
 
   /**
-   * @returns Array<string>
+   * Get available reviews of the game to install
+   *
+   * @returns string[]
    */
   public get reviews(): string[] {
     return this._reviews;
   }
 
   /**
-   * @returns Array<Store>
+   * Get the available stores where the game to install can be bought
+   *
+   * @returns Store[]
    */
   public get stores(): Store[] {
     return this._stores;
   }
 
   /**
-   * @returns Array<string>
+   * Get the available locations where the game to install can be downloaded
+   *
+   * @returns string[]
    */
   public get downloadLocations(): string[] {
     return this._downloadLocations;
   }
 
   /**
-   * @returns Array<string>
+   * Get additonal files that can be installed for the game to install
+   *
+   * @returns GameFile[]
    */
   public get gameFiles(): GameFile[] {
     return this._gameFiles;
   }
 
   /**
+   * Get weather the game to install should be download
+   *
    * @returns boolean
    */
   public get downloadRequired(): boolean {

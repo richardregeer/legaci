@@ -13,9 +13,9 @@ export class DosBoxInstaller implements GameRunnerSetupInterface {
   protected readonly _fileHandler: FileHandlerInterface;
 
   /**
-   * @param {TemplateInterface} template
+   * @param template
    * @param fileHandler
-   * @param {LoggerInterface} logger
+   * @param logger
    */
   constructor(template: TemplateInterface, fileHandler: FileHandlerInterface, logger: LoggerInterface) {
     this._template = template;
@@ -24,8 +24,8 @@ export class DosBoxInstaller implements GameRunnerSetupInterface {
   }
 
   /**
-   * @param  {GameConfiguration} gameConfig
-   * @param  {string} destination
+   * @param gameConfig
+   * @param destination
    * @returns Promise<Game>
    */
   public async install(gameConfig: GameConfiguration, destination: string): Promise<Game> {
@@ -40,8 +40,8 @@ export class DosBoxInstaller implements GameRunnerSetupInterface {
   }
 
   /**
-   * @param  {GameConfiguration} gameConfig
-   * @param  {string} destination
+   * @param gameConfig
+   * @param destination
    * @returns void
    */
   protected saveDosBoxConfiguration(gameConfig: GameConfiguration, destination: string): void {
@@ -56,8 +56,8 @@ export class DosBoxInstaller implements GameRunnerSetupInterface {
   }
 
   /**
-   * @param  {GameConfiguration} gameConfig
-   * @param  {string} destination
+   * @param gameConfig
+   * @param destination
    * @returns void
    */
   protected saveDosBoxRunConfiguration(gameConfig: GameConfiguration, destination: string): void {
@@ -71,8 +71,8 @@ export class DosBoxInstaller implements GameRunnerSetupInterface {
   }
 
   /**
-   * @param  {GameConfiguration} gameConfig
-   * @param  {string} destination
+   * @param gameConfig
+   * @param destination
    * @returns Promise<void>
    */
   public async generateConfiguration(gameConfig: GameConfiguration, destination: string): Promise<void> {
@@ -83,8 +83,8 @@ export class DosBoxInstaller implements GameRunnerSetupInterface {
   }
 
   /**
-   * @param  {GameConfiguration} gameConfig
-   * @param  {string} destination
+   * @param gameConfig
+   * @param destination
    * @returns Promise<string>
    */
   public async generateRunner(gameConfig: GameConfiguration, destination: string): Promise<string> {

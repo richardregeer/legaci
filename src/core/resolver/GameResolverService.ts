@@ -9,8 +9,10 @@ export class GameResolverService {
   private readonly _gameConfigurationResolvers: GameConfigurationResolverInterface[];
 
   /**
-   * @param  {Array<SourceTypeResolverInterface>} sourceTypeResolvers
-   * @param  {Array<GameConfigurationResolverInterface>} gameConfigurationResolvers
+   * Bla die bla
+   *
+   * @param sourceTypeResolvers
+   * @param gameConfigurationResolvers
    */
   constructor(
     sourceTypeResolvers: SourceTypeResolverInterface[],
@@ -21,7 +23,7 @@ export class GameResolverService {
   }
 
   /**
-   * @param  {string} source
+   * @param source
    * @returns SourceType
    */
   public determineSourceType(source: string): SourceType {
@@ -35,9 +37,9 @@ export class GameResolverService {
   }
 
   /**
-   * @param {SourceType} sourceType
-   * @param {string} destination
-   * @param {string} gameId?
+   * @param sourceType
+   * @param destination
+   * @param gameId?
    * @param gameId
    * @throws UnableToResolveError
    * @returns GameConfiguration

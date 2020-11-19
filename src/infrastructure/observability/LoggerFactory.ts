@@ -9,7 +9,7 @@ export class LoggerFactory {
   private readonly _chalk: Chalk;
 
   /**
-   * @param  {Chalk} chalk
+   * @param chalk
    */
   constructor(chalk: Chalk) {
     this._chalk = chalk;
