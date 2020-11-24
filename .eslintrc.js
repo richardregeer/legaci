@@ -145,4 +145,50 @@ module.exports = {
     'jsdoc/require-returns-type': 'off',
     'jsdoc/valid-types': 'off',
   },
+  overrides: [
+    {
+      "files": ["*Test.ts"],
+      "rules": {
+        'prettier/prettier': [
+          'error',
+          {
+            singleQuote: true,
+            printWidth: 150,
+          },
+        ],
+        '@typescript-eslint/naming-convention': [
+          'error',
+          {
+            selector: ['variableLike', 'memberLike'],
+            format: ['camelCase'],
+            leadingUnderscore: 'allow',
+          },
+          {
+            selector: ['typeLike'],
+            format: ['PascalCase'],
+          },
+          {
+            selector: 'interface',
+            format: ['PascalCase'],
+          },
+          {
+            selector: ['enumMember'],
+            format: ['UPPER_CASE'],
+          },
+          {
+            selector: ['property'],
+            modifiers: ['private'],
+            format: ['camelCase'],
+            leadingUnderscore: 'require',
+          },
+          {
+            selector: ['property'],
+            modifiers: ['protected'],
+            format: ['camelCase'],
+            leadingUnderscore: 'require',
+          },
+        ]
+      }
+    }
+  ]
 };
