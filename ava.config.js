@@ -1,6 +1,6 @@
 export default {
   files: ['tests/unit/**/*'],
-  failWithoutAssertions: true,
+  failWithoutAssertions: false,
   verbose: true,
   typescript: {
     rewritePaths: {

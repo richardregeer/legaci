@@ -2,6 +2,7 @@ import anyTest, { ExecutionContext, TestInterface } from 'ava';
 import { ApplicationRunner } from '../../../../src/core/entity/ApplicationRunner';
 import { GameConfiguration } from '../../../../src/core/entity/GameConfiguration';
 import { Runner } from '../../../../src/core/entity/Runner';
+import { assert } from 'chai';
 
 interface Context {
   sut: GameConfiguration;
@@ -17,7 +18,24 @@ test('hasRunners should return true when there are configured applications runne
   const { sut } = t.context;
   const runner = new Runner(ApplicationRunner.DOSBOX, '1', 'source', 'configSource', 'binFile');
 
-  t.false(sut.hasRunners());
+  assert.isFalse(sut.hasRunners());
   sut.runners.push(runner);
-  t.true(sut.hasRunners());
+  assert.isTrue(sut.hasRunners());
+});
+
+test('findByApplicationRunner should return the requested runner when available', async (t: ExecutionContext<Context>) => {
+  const { sut } = t.context;
+  const runner = new Runner(ApplicationRunner.DOSBOX, '1', 'source', 'configSource', 'binFile');
+  sut.runners.push(runner);
+
+  const result = sut.findByApplicationRunner(ApplicationRunner.DOSBOX);
+  assert.strictEqual(result.application, ApplicationRunner.DOSBOX);
+});
+
+test('findByApplicationRunner should return null when the requested runner is not available', async (t: ExecutionContext<Context>) => {
+  const { sut } = t.context;
+
+  const result = sut.findByApplicationRunner(ApplicationRunner.DOSBOX);
+
+  assert.isNull(result);
 });

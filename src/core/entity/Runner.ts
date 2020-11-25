@@ -10,26 +10,12 @@ export class Runner {
   private readonly _id?: string;
 
   /**
-   * @param application
-   * @param version
-   * @param runConfigurationSource?
-   * @param configurationSource?
-   * @param runConfigurationSource
-   * @param configurationSource
-   * @param binFile
-   * @param id
-   * @param runConfigurationSource
-   * @param configurationSource
-   * @param binFile
-   * @param id
-   * @param runConfigurationSource
-   * @param configurationSource
-   * @param binFile
-   * @param id
-   * @param runConfigurationSource
-   * @param configurationSource
-   * @param binFile
-   * @param id
+   * @param  {string} application
+   * @param  {string} version
+   * @param  {string} runConfigurationSource?
+   * @param  {string} configurationSource?
+   * @param  {string} binFile?
+   * @param  {string} id?
    * @returns string
    */
   constructor(
@@ -52,26 +38,44 @@ export class Runner {
     this._id = id;
   }
 
+  /**
+   * @returns string
+   */
   public get configurationPath(): string | undefined {
     return this._configurationPath;
   }
 
+  /**
+   * @returns string
+   */
   public get runConfigurationPath(): string | undefined {
     return this._runConfigurationPath;
   }
 
+  /**
+   * @returns string
+   */
   public get version(): string {
     return this._version;
   }
 
+  /**
+   * @returns ApplicationRunner
+   */
   public get application(): ApplicationRunner {
     return this._application;
   }
 
+  /**
+   * @returns string
+   */
   public get binFile(): string | undefined {
     return this._binFile;
   }
 
+  /**
+   * @returns string
+   */
   public get id(): string | undefined {
     return this._id;
   }
