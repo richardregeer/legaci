@@ -3,8 +3,10 @@ export class SourcePort {
   private readonly _version: string;
 
   /**
-   * @param name
-   * @param version
+   * Available Sourceport for the game to install
+   *
+   * @param name The name of the sourceport
+   * @param version The version of the sourceport
    */
   constructor(name: string, version: string) {
     this._name = name;
@@ -12,6 +14,7 @@ export class SourcePort {
   }
 
   /**
+   * Get the version of the sourceport
    * @returns string
    */
   public get version(): string {
@@ -19,6 +22,7 @@ export class SourcePort {
   }
 
   /**
+   * Get the name of the sourceport
    * @returns string
    */
   public get name(): string {

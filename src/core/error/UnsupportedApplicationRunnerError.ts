@@ -1,6 +1,8 @@
 export class UnsupportedApplicationRunnerError extends Error {
   /**
-   * @param message
+   * Error when the given application runner is not supporting the game
+   *
+   * @param message The message of the error
    */
   constructor(message: string) {
     super(message);

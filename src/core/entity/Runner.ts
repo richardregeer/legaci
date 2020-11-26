@@ -10,12 +10,14 @@ export class Runner {
   private readonly _id?: string;
 
   /**
-   * @param  {string} application
-   * @param  {string} version
-   * @param  {string} runConfigurationSource?
-   * @param  {string} configurationSource?
-   * @param  {string} binFile?
-   * @param  {string} id?
+   * The application runner that will be used to run the game
+   *
+   * @param  {string} application The application that will run the game
+   * @param  {string} version The version of the application
+   * @param  {string} runConfigurationSource? The configuration that contains startup configuration
+   * @param  {string} configurationSource? The main configuration file of the application
+   * @param  {string} binFile? The bin script file to start the application
+   * @param  {string} id? The game id that will be used the directly launch the game. This is the id used by the application
    * @returns string
    */
   constructor(
@@ -39,6 +41,7 @@ export class Runner {
   }
 
   /**
+   * Get the main configuration file of the application
    * @returns string
    */
   public get configurationPath(): string | undefined {
@@ -46,6 +49,7 @@ export class Runner {
   }
 
   /**
+   * Get the configuration that contains startup configuration
    * @returns string
    */
   public get runConfigurationPath(): string | undefined {
@@ -53,6 +57,7 @@ export class Runner {
   }
 
   /**
+   * Get the version of the application
    * @returns string
    */
   public get version(): string {
@@ -60,6 +65,8 @@ export class Runner {
   }
 
   /**
+   * Get the application runner that will run the game
+   *
    * @returns ApplicationRunner
    */
   public get application(): ApplicationRunner {
@@ -67,6 +74,7 @@ export class Runner {
   }
 
   /**
+   * Get the bin script file to start the application
    * @returns string
    */
   public get binFile(): string | undefined {
@@ -74,6 +82,8 @@ export class Runner {
   }
 
   /**
+   * The game id that will be used the directly launch the game. This is the id used by the application
+   *
    * @returns string
    */
   public get id(): string | undefined {

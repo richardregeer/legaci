@@ -90,7 +90,9 @@ export class Container {
   }
 
   /**
-   * @param name - {String}
+   * Resolve a depenency from the container by name
+   *
+   * @param name - The name of the dependency to resolve
    * @returns T
    */
   public resolve<T>(name: string): T {
