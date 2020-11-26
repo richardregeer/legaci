@@ -9,10 +9,10 @@ export class GameResolverService {
   private readonly _gameConfigurationResolvers: GameConfigurationResolverInterface[];
 
   /**
-   * Bla die bla
+   * Service to resover the game configuration based on the installation files or installation configuration
    *
-   * @param sourceTypeResolvers
-   * @param gameConfigurationResolvers
+   * @param sourceTypeResolvers Resolvers that determine the type of the source
+   * @param gameConfigurationResolvers Resolvers that resolve the of the game that will be installed
    */
   constructor(
     sourceTypeResolvers: SourceTypeResolverInterface[],
@@ -23,7 +23,8 @@ export class GameResolverService {
   }
 
   /**
-   * @param source
+   * Determine the type of the source, based on the installation files
+   * @param source The path where the game is installed
    * @returns SourceType
    */
   public determineSourceType(source: string): SourceType {
@@ -37,10 +38,11 @@ export class GameResolverService {
   }
 
   /**
-   * @param sourceType
-   * @param destination
-   * @param gameId?
-   * @param gameId
+   * Resolve the configuration for the game that will be installed
+   *
+   * @param sourceType The type of the source installation files
+   * @param destination The destination path where the game will be installed
+   * @param gameId? The Legaci id of the game that will be installed
    * @throws UnableToResolveError
    * @returns GameConfiguration
    */
