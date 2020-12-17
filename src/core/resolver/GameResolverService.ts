@@ -44,7 +44,7 @@ export class GameResolverService {
    * @param destination The destination path where the game will be installed
    * @param gameId? The Legaci id of the game that will be installed
    * @throws UnableToResolveError
-   * @returns GameConfiguration
+   * @returns Promise<GameConfiguration>
    */
   public async resolveGameConfiguration(
     sourceType: SourceType,
@@ -65,6 +65,6 @@ export class GameResolverService {
       return configurationResolver.resolveById(gameId);
     }
 
-    return await configurationResolver.resolveDefaultConfiguration(sourceType, destination);
+    return configurationResolver.resolveDefaultConfiguration(sourceType, destination);
   }
 }

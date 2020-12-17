@@ -9,8 +9,10 @@ export class CLICommandFactory {
   private readonly _logger: LoggerInterface;
 
   /**
-   * @param installGameUseCase
-   * @param logger
+   * Factory to create the install controller
+   *
+   * @param installGameUseCase The use case that will be executed by the controller
+   * @param logger Logger
    */
   constructor(installGameUseCase: InstallGameUseCase, logger: LoggerInterface) {
     this._installGameUseCase = installGameUseCase;
@@ -18,6 +20,8 @@ export class CLICommandFactory {
   }
 
   /**
+   * Create a new install game controller
+   *
    * @returns InstallGameController
    */
   public createInstallController(): InstallGameController {

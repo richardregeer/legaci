@@ -14,12 +14,13 @@ export class InstallGameUseCase {
   private readonly _gameResolverService: GameResolverService;
 
   /**
-   * @param gameRunnerSetupFactory
-   * @param logger
-   * @param extractorFactory
-   * @param gameFilesInstaller
-   * @param sourceTypeService
-   * @param gameResolverService
+   * Usecase to install a new legaci game
+   *
+   * @param gameRunnerSetupFactory Factory the create a new game runner
+   * @param logger Logger
+   * @param extractorFactory Factory to create an extractor to extract the game files
+   * @param gameFilesInstaller Installer to install specific game files
+   * @param gameResolverService Service to determine the source type and configuration of the game
    */
   constructor(
     gameRunnerSetupFactory: GameRunnerSetupFactoryInterface,
@@ -36,10 +37,11 @@ export class InstallGameUseCase {
   }
 
   /**
-   * @param source
-   * @param destination
-   * @param gameId?
-   * @param gameId
+   * Install the legaci game from the given source to the given destination
+   *
+   * @param source The source path of the game to install
+   * @param destination The destinatom where to install the game
+   * @param gameId The unique legaci game id
    * @returns Promise<Game>
    */
   public async installGame(source: string, destination: string, gameId?: string): Promise<Game> {

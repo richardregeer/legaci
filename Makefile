@@ -12,9 +12,9 @@ PROJECT_ROOT := $(shell pwd)
 NODE_MODULES := ./node_modules/.bin
 
 ifeq ($(DOCKER),true)
-	START_COMMAND := docker run --rm -it --init -v ${PROJECT_ROOT}:/development legaci:development 
-else 
-	START_COMMAND := 
+	START_COMMAND := docker run --rm -it --init -v ${PROJECT_ROOT}:/development legaci:development
+else
+	START_COMMAND :=
 endif
 
 .PHONY: help
@@ -55,7 +55,7 @@ compile: ## Compile the Typescript code.
 
 .PHONY: compile_watch
 compile_watch: ## Compile the Typescript code in watch mode.
-	${START_COMMAND} ${NODE_MODULES}/tsc -w	
+	${START_COMMAND} ${NODE_MODULES}/tsc -w
 
 .PHONY: lint
 lint: ## Check the codestyle of the complete project.
@@ -70,13 +70,12 @@ test: test_unit test_integration## Run all the tests of the complete project.
 
 .PHONY: test_unit
 test_unit: ## Run all the unit tests of the complete project.
-	${START_COMMAND} ${NODE_MODULES}/ava --verbose **/unit/**/*.js **/unit/**/**/*.js
+	${START_COMMAND} ${NODE_MODULES}/ava --verbose
 
 .PHONY: test_coverage
 test_coverage: ## Calculate the unit test coverage of the complete project.
 	${START_COMMAND} ${NODE_MODULES}/nyc -reporter=text-lcov --reporter=text --reporter=text-summary --reporter=html \
-	${NODE_MODULES}/ava --verbose **/unit/**/*.js **/unit/**/**/*.js \
-	**/integration/**/*.js **/integration/**/**/*.js
+	${NODE_MODULES}/ava --verbose
 
 .PHONY: test_integration
 test_integration: ## Run all the integration tests of the complete project.

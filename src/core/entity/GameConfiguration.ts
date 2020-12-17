@@ -34,8 +34,9 @@ export class GameConfiguration {
     this._downloadLocations = [];
     this._gameFiles = [];
   }
+
   /**
-   * Waeather the game configuration has any runners to play the game
+   * Weather the game configuration has any runners to play the game
    *
    * @returns boolean
    */
