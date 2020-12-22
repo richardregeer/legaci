@@ -12,9 +12,10 @@ export class InstallGameController {
   private readonly _logger: LoggerInterface;
 
   /**
-   * @param installGameUseCase
-   * @param gameConfigurationResolver
-   * @param logger
+   * Controller that will install the given game
+   *
+   * @param installGameUseCase The install game use case
+   * @param logger Logger
    */
   constructor(installGameUseCase: InstallGameUseCase, logger: LoggerInterface) {
     this._installGameUseCase = installGameUseCase;
@@ -22,10 +23,11 @@ export class InstallGameController {
   }
 
   /**
-   * @param gameSource
-   * @param gameDestination
-   * @param gameId?
-   * @param gameId
+   * Handle the game installation request
+   *
+   * @param gameSource The source game file to install
+   * @param gameDestination The destination to install the game to
+   * @param gameId Optional Legaci game identifier
    * @returns Promise<Game | null>
    */
   public async handleInstallCommand(

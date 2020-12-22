@@ -14,9 +14,11 @@ export class ExtractorFactory implements ExtractorFactoryInterface {
   private readonly _logger: LoggerInterface;
 
   /**
-   * @param fileHandler
-   * @param logger
-   * @param shell
+   * Create a new extractor to extract the game files
+   *
+   * @param fileHandler The handler to handle the game files
+   * @param logger Logger
+   * @param shell the command shell
    */
   constructor(fileHandler: FileHandlerInterface, logger: LoggerInterface, shell: CommandInterface) {
     this._fileHandler = fileHandler;
@@ -25,7 +27,9 @@ export class ExtractorFactory implements ExtractorFactoryInterface {
   }
 
   /**
-   * @param source
+   * Create a new extractor based on the given source file
+   *
+   * @param source The source file containing the game to install
    * @throws UnknownFileTypeError
    * @returns ExtractorInterface
    */

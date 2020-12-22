@@ -39,7 +39,7 @@ test.beforeEach((t: ExecutionContext<Context>) => {
 
   t.context.extractorFactoryStub.create.returns(t.context.extractorStub);
   t.context.gameRunnerSetupFactoryStub.create.returns(t.context.gameRunnerStub);
-  t.context.gameRunnerStub.install.returns(Promise.resolve(new Game('test', 'path', 'binPath', new GameConfiguration('test'))));
+  t.context.gameRunnerStub.install.resolves(new Game('test', 'path', 'binPath', new GameConfiguration('test')));
 
   t.context.sut = new InstallGameUseCase(
     t.context.gameRunnerSetupFactoryStub,

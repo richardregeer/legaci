@@ -70,16 +70,16 @@ test: test_unit test_integration## Run all the tests of the complete project.
 
 .PHONY: test_unit
 test_unit: ## Run all the unit tests of the complete project.
-	${START_COMMAND} ${NODE_MODULES}/ava --verbose
+	${START_COMMAND} ${NODE_MODULES}/ava --config ava.config.unit.js
 
 .PHONY: test_coverage
 test_coverage: ## Calculate the unit test coverage of the complete project.
 	${START_COMMAND} ${NODE_MODULES}/nyc -reporter=text-lcov --reporter=text --reporter=text-summary --reporter=html \
-	${NODE_MODULES}/ava --verbose
+	${NODE_MODULES}/ava --config ava.config.unit.js
 
 .PHONY: test_integration
 test_integration: ## Run all the integration tests of the complete project.
-	${START_COMMAND} ${NODE_MODULES}/ava --verbose **/integration/**/*.js **/integration/**/**/*.js
+	${START_COMMAND} ${NODE_MODULES}/ava --config ava.config.integration.js
 
 .PHONY: test_acceptance
 test_acceptance: ## Run all the acceptance tests of the complete project.
