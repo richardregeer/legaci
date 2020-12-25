@@ -1,6 +1,8 @@
 export class ConfigurationNotFoundError extends Error {
   /**
-   * @param message
+   * Error when configuration can't be found
+   *
+   * @param message The message of the error
    */
   constructor(message: string) {
     super(message);

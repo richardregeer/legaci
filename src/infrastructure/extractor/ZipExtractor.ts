@@ -11,9 +11,11 @@ export class ZipExtractor implements ExtractorInterface {
   private readonly _shell: CommandInterface;
 
   /**
-   * @param fileHandler
-   * @param logger
-   * @param shell
+   * Extractor that uses Unzip to extract the file
+   *
+   * @param fileHandler Handler to manipulate files
+   * @param logger The logger
+   * @param shell The command shell
    */
   constructor(fileHandler: FileHandlerInterface, logger: LoggerInterface, shell: CommandInterface) {
     this._logger = logger;
@@ -22,9 +24,11 @@ export class ZipExtractor implements ExtractorInterface {
   }
 
   /**
-   * @param source
-   * @param destination
-   * @throws {FileDoesNotExistsError}
+   * Extract the given source file to the given destination with Unzip
+   *
+   * @param source - The source of the file to extract
+   * @param destination - The destination folder of the extracted files
+   * @throws FileDoesNotExistsError When the given source does not exists
    * @returns Promise<void>
    */
   public async extract(source: string, destination: string): Promise<void> {
