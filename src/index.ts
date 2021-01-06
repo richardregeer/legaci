@@ -1,7 +1,7 @@
 import { version } from '../package.json';
 import chalk from 'chalk';
 import * as shell from 'shelljs';
-import * as program from 'commander';
+import program, { Command } from 'commander';
 import { Container } from './Container';
 import { CLICommandHandler } from './infrastructure/cliController/CLICommandHandler';
 import { LoggerInterface } from './core/observability/LoggerInterface';
@@ -20,10 +20,13 @@ try {
     .version(version, '-v, --version')
     .command('legaci <file> <destination>', 'The game file to install on the given destination')
     .option('-g, --game-id <gameId>', 'The legaci game identifier of the game to install')
-    .action(
-      void (async (file: string, destination: string): Promise<void> =>
-        await cliCommandHandler.handleCLICommand(file, destination, program.gameId))
-    );
+    .action((command: Command, [file, destination]: string) => {
+      void Promise.resolve(cliCommandHandler.handleCLICommand(file, destination, program.gameId)).catch(
+        (error: Error) => {
+          logger.error(`Error while installing game: ${error.message}`, error);
+        }
+      );
+    });
 
   program.parse(process.argv);
 } catch (error: unknown) {

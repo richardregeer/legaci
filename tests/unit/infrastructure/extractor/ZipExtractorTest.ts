@@ -25,8 +25,8 @@ test.beforeEach((t: ExecutionContext<Context>) => {
   t.context.commandStub = stubInterface<CommandInterface>();
   t.context.loggerStub = stubInterface<LoggerInterface>();
 
+  t.context.fileHandlerStub.resolveFileName.returns('testName');
   t.context.fileHandlerStub.existsSync.returns(true);
-  t.context.fileHandlerStub.existsSync.returns(false).onSecondCall();
 
   t.context.sut = new ZipExtractor(t.context.fileHandlerStub, t.context.loggerStub, t.context.commandStub);
 });
@@ -38,6 +38,8 @@ test.afterEach((t: ExecutionContext<Context>) => {
 test('Should use ZipExtractor to extract the given source file', async (t: ExecutionContext<Context>) => {
   const { sut, commandStub, fileHandlerStub } = t.context;
 
+  fileHandlerStub.existsSync.onSecondCall().returns(false);
+
   await sut.extract('source', 'destination');
 
   assert.isTrue(commandStub.execute.calledOnce);
@@ -46,8 +48,6 @@ test('Should use ZipExtractor to extract the given source file', async (t: Execu
 
 test('Should copy source folder name to destination root if found', async (t: ExecutionContext<Context>) => {
   const { sut, fileHandlerStub } = t.context;
-
-  fileHandlerStub.existsSync.returns(true).onSecondCall();
 
   await sut.extract('source', 'destination');
 
@@ -63,7 +63,7 @@ test('Should re-throw the error when extracting the file failed', async (t: Exec
     instanceOf: Error,
   });
 
-  assert.isTrue(loggerStub.error.calledOnce);
+  assert.isTrue(loggerStub.error.called);
 });
 
 test('Should throw an FileDoesNotExistsError when the given source file does not exist', async (t: ExecutionContext<Context>) => {

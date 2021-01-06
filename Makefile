@@ -79,7 +79,7 @@ test_coverage: ## Calculate the unit test coverage of the complete project.
 
 .PHONY: test_integration
 test_integration: ## Run all the integration tests of the complete project.
-	${START_COMMAND} ${NODE_MODULES}/ava --config ava.config.integration.js
+	${START_COMMAND} ${NODE_MODULES}/ava --serial --config ava.config.integration.js
 
 .PHONY: test_acceptance
 test_acceptance: ## Run all the acceptance tests of the complete project.

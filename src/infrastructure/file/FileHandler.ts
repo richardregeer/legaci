@@ -10,15 +10,18 @@ export class FileHandler implements FileHandlerInterface {
   private readonly _shellConfig: ShellConfig;
 
   /**
-   * @param shellConfig
+   * Utility class for file handling
+   *
+   * @param shellConfig Shell configuration
    */
   constructor(shellConfig: ShellConfig) {
     this._shellConfig = shellConfig;
   }
 
   /**
-   * @param ...glob
-   * @param glob
+   * Remove files
+   *
+   * @param glob[] Remove all given files
    * @returns void
    */
   public removeFilesSync(...glob: string[]): void {
@@ -26,30 +29,40 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param ignoreCase
-   * @param source
-   * @param ...glob
-   * @param glob
-   * @returns Array
+   * Find files in source folder
+   *
+   * @param ignoreCase Ignore file casing
+   * @param source The source folder to find the files
+   * @param glob The glob pattern to search fore
+   * @returns string[]
    */
   public findFilesSync(ignoreCase: boolean, source: string, ...glob: string[]): string[] {
     this._shellConfig.silent = true;
     let files = find(`${source}/${glob.toString()}`);
 
     if (files.length === 0 && ignoreCase) {
-      files = find(glob.map((x) => `${source}/${x.toLocaleUpperCase()}`));
+      files = find(glob.map((x) => `${source}/${x.toUpperCase()}`));
     }
 
     if (files.length === 0 && ignoreCase) {
       files = find(glob.map((x) => `${source}/${x.toLowerCase()}`));
     }
 
+    // if (ignoreCase) {
+    //   const upperCase = [...files, find(glob.map((x) => `${source}/${x.toUpperCase()}`))];
+    //   const lowerCase = find(glob.map((x) => `${source}/${x.toLowerCase()}`));
+
+    //   return [...(upperCase as string[]), ...(lowerCase as string[]), ...(files as string[])];
+    // }
+
     return files as string[];
   }
 
   /**
-   * @param glob
-   * @param destination
+   * Move files to destination
+   *
+   * @param glob The search pattern to move.
+   * @param destination The destinaton to move to files to
    * @returns void
    */
   public moveFilesSync(glob: string, destination: string): void {
@@ -58,7 +71,9 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param destination
+   * Create a tempory folder
+   *
+   * @param destination The path to cretea the folder in
    * @returns string
    */
   public createTempFolderSync(destination: string): string {
@@ -71,9 +86,10 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param source
-   * @param ignoreCase=false
-   * @param ignoreCase
+   * Validate if the given file exists
+   *
+   * @param source The file to validate if it exists
+   * @param ignoreCase Ignore the file casing. Default false
    * @returns boolean
    */
   public existsSync(source: string, ignoreCase = false): boolean {
@@ -100,7 +116,9 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param source
+   * Create the directory if it does not exists
+   *
+   * @param source The directory name
    * @returns boolean
    */
   public createDirWhenNotExistsSync(source: string): boolean {
@@ -115,8 +133,10 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param destination
-   * @param contents
+   * Write a string to a file
+   *
+   *  @param destination The location where to write the string
+   * @param contentsThe contents to write
    * @returns void
    */
   public writeSync(destination: string, contents: string): void {
@@ -125,9 +145,11 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param source
-   * @param destination
-   * @throws FileDoesNotExistsError
+   * Copy a file to a given destination folder
+   *
+   * @param source The file to copy
+   * @param destination The location to copy the file to
+   * @throws FileDoesNotExistsError Will be thrown if the source file not exist
    * @returns void
    */
   public copySync(source: string, destination: string): void {
@@ -143,8 +165,10 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param glob
-   * @param destination
+   * Copy all files that match the given pattern
+   *
+   * @param glob The files to copy the matching pattern
+   * @param destination The destination
    * @returns boolean
    */
   public copyFilesSync(glob: string, destination: string): void {
@@ -153,8 +177,10 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param source
-   * @throws FileDoesNotExistsError
+   * Read a text file
+   *
+   * @param source The file to read
+   * @throws FileDoesNotExistsError Will be thrown when the given file does not exists
    * @returns string
    */
   public readSync(source: string): string {
@@ -168,8 +194,10 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param source
-   * @throws UnknownFileTypeError
+   * Resolve the file extension
+   *
+   * @param source The file to resolve the extension of
+   * @throws UnknownFileTypeError Will be thrown when the extension is unknown
    * @returns FileType
    */
   public resolveFileTypeSync(source: string): FileType {
@@ -188,7 +216,9 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param source
+   * Resolves the name of the file
+   *
+   * @param source The file to resolve the name of
    * @returns string
    */
   public resolveFileName(source: string): string {
@@ -198,9 +228,11 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * @param source
+   * Make the given file executable
+   *
+   * @param source The file to make executable
    * @returns void
-   * @throws FileDoesNotExistsError
+   * @throws FileDoesNotExistsError Will be thrown if the file does not exists
    */
   public makeFileExecutabeSync(source: string): void {
     const fileName = path.basename(source);
