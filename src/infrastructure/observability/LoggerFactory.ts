@@ -9,13 +9,17 @@ export class LoggerFactory {
   private readonly _chalk: Chalk;
 
   /**
-   * @param chalk
+   * Create logger instances
+   *
+   * @param chalk The console collor library
    */
   constructor(chalk: Chalk) {
     this._chalk = chalk;
   }
 
   /**
+   * Create new logger instance
+   *
    * @returns LoggerInterface
    */
   public createLogger(): LoggerInterface {
@@ -29,6 +33,6 @@ export class LoggerFactory {
       transports: [new transports.Console()],
     });
 
-    return new WinstonLogger(winstonLogger, this._chalk);
+    return new WinstonLogger(winstonLogger, this._chalk, true);
   }
 }

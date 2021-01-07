@@ -8,17 +8,22 @@ export class WinstonLogger implements LoggerInterface {
   private readonly _debug: boolean;
 
   /**
-   * @param logger
-   * @param chalk
+   * Create Winstong logger adapter
+   *
+   * @param logger The Winston logger
+   * @param chalk Chalk color library
+   * @param debug If the logger is in debug mode
    */
-  constructor(logger: Logger, chalk: Chalk) {
+  constructor(logger: Logger, chalk: Chalk, debug: boolean) {
     this._logger = logger;
     this._chalk = chalk;
-    this._debug = true;
+    this._debug = debug;
   }
 
   /**
-   * @param message
+   * Create a debug log message
+   *
+   * @param message The message to log
    * @returns void
    */
   public debug(message: string): void {
@@ -26,7 +31,9 @@ export class WinstonLogger implements LoggerInterface {
   }
 
   /**
-   * @param message
+   * Create a information log message
+   *
+   * @param message The message to log
    * @returns void
    */
   public info(message: string): void {
@@ -34,7 +41,9 @@ export class WinstonLogger implements LoggerInterface {
   }
 
   /**
-   * @param message
+   * Create a warning log message
+   *
+   * @param message The message to log
    * @returns void
    */
   public warning(message: string): void {
@@ -42,8 +51,10 @@ export class WinstonLogger implements LoggerInterface {
   }
 
   /**
-   * @param message
-   * @param error
+   * Create an error log message
+   *
+   * @param message The message to log
+   * @param error The error to log
    * @returns void
    */
   public error(message: string, error: Error): void {
