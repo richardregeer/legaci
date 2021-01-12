@@ -58,7 +58,7 @@ test('error should log an error message with stack trace', async (t: ExecutionCo
 });
 
 test('error should log an error message without a stack trace', async (t: ExecutionContext<Context>) => {
-  const sut = new WinstonLogger(t.context.loggerStub, chalk, false);
+  const sut = new WinstonLogger(t.context.loggerStub, chalk, true);
   const { loggerStub } = t.context;
 
   sut.error('error', new Error());

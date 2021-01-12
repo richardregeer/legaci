@@ -21,7 +21,7 @@ export class GameFilesInstaller implements GameFilesInstallerInterface {
   /**
    * @param gameConfig
    * @param destination
-   * @returns Promise
+   * @returns Promise<void>
    */
   public async install(gameConfig: GameConfiguration, destination: string): Promise<void> {
     if (gameConfig.gameFiles.length === 0) {

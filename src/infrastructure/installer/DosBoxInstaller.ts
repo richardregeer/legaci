@@ -100,9 +100,7 @@ export class DosBoxInstaller implements GameRunnerSetupInterface {
     const content = this._template.load(binFileConfigPath);
     const binFileDestination = `${destination}/legaci-run.sh`;
     this._template.save(binFileDestination, content);
-
     this._fileHandler.makeFileExecutabeSync(binFileDestination);
-
     this._logger.info(`${chalk.white(gameConfig.name)} bin file created and saved succesfully`);
 
     return binFileDestination;
