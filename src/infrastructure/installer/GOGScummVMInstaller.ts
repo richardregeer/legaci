@@ -5,7 +5,9 @@ import { ScummVMInstaller } from './ScummVMInstaller';
 
 export class GOGScummVMInstaller extends ScummVMInstaller {
   /**
-   * @param destination
+   * Cleanup unused GOG files
+   *
+   * @param destination The destination where the game will be installed
    * @returns void
    */
   private cleanup(destination: string): void {
@@ -23,8 +25,10 @@ export class GOGScummVMInstaller extends ScummVMInstaller {
   }
 
   /**
-   * @param gameConfig
-   * @param destination
+   * Install the GOG game for ScummVM
+   *
+   * @param gameConfig The legaci game installation configuration
+   * @param destination The destination where the game will be installed
    * @returns Promise<Game>
    */
   public async install(gameConfig: GameConfiguration, destination: string): Promise<Game> {
@@ -43,8 +47,10 @@ export class GOGScummVMInstaller extends ScummVMInstaller {
   }
 
   /**
-   * @param gameConfig
-   * @param destination
+   * Copy the GOG ScummVM configuration that will be used to run the game. If not available generate the default.
+   *
+   * @param gameConfig The legaci game installation configuration
+   * @param destination The destination where the game will be installed
    * @returns Promise<void>
    */
   public async generateConfiguration(gameConfig: GameConfiguration, destination: string): Promise<void> {

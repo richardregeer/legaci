@@ -15,7 +15,7 @@ export class GameConfiguration {
   private readonly _reviews: string[];
   private readonly _stores: Store[];
   private readonly _downloadLocations: string[];
-  private readonly _gameFiles: GameFile[];
+  private _gameFiles: GameFile[];
   private readonly _downloadRequired: boolean;
   private _id: string;
 
@@ -211,6 +211,15 @@ export class GameConfiguration {
    */
   public get gameFiles(): GameFile[] {
     return this._gameFiles;
+  }
+
+  /**
+   * Set additonal files that can be installed for the game to install
+   *
+   * @returns GameFile[]
+   */
+  public set gameFiles(value: GameFile[]) {
+    this._gameFiles = value;
   }
 
   /**

@@ -26,7 +26,7 @@ export class ScummVMInstaller implements GameRunnerSetupInterface {
   }
 
   /**
-   * Install the game
+   * Install the game for ScummVM
    *
    * @param gameConfig The legaci game installation configuration
    * @param destination The destination where the game will be installed
@@ -44,7 +44,7 @@ export class ScummVMInstaller implements GameRunnerSetupInterface {
   }
 
   /**
-   *Generate the ScummVM configuration that will be used to run the game
+   * Generate the ScummVM configuration that will be used to run the game
    *
    * @param gameConfig The legaci game installation configuration
    * @param destination The destination where the game will be installed
