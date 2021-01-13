@@ -13,9 +13,11 @@ export class DosBoxInstaller implements GameRunnerSetupInterface {
   protected readonly _fileHandler: FileHandlerInterface;
 
   /**
-   * @param template
-   * @param fileHandler
-   * @param logger
+   * Installer to install games that can run with DosBox
+   *
+   * @param template String template utility
+   * @param fileHandler File handler utility
+   * @param logger Logger
    */
   constructor(template: TemplateInterface, fileHandler: FileHandlerInterface, logger: LoggerInterface) {
     this._template = template;
@@ -24,8 +26,10 @@ export class DosBoxInstaller implements GameRunnerSetupInterface {
   }
 
   /**
-   * @param gameConfig
-   * @param destination
+   * Install the game for DosBox
+   *
+   * @param gameConfig The legaci game installation configuration
+   * @param destination The destination where the game will be installed
    * @returns Promise<Game>
    */
   public async install(gameConfig: GameConfiguration, destination: string): Promise<Game> {
@@ -40,8 +44,10 @@ export class DosBoxInstaller implements GameRunnerSetupInterface {
   }
 
   /**
-   * @param gameConfig
-   * @param destination
+   * Generate the DosBox configuration file
+   *
+   * @param gameConfig The legaci game installation configuration
+   * @param destination The destination where the game will be installed
    * @returns void
    */
   protected saveDosBoxConfiguration(gameConfig: GameConfiguration, destination: string): void {
@@ -56,8 +62,10 @@ export class DosBoxInstaller implements GameRunnerSetupInterface {
   }
 
   /**
-   * @param gameConfig
-   * @param destination
+   * Generate the DosBox run configuration file
+   *
+   * @param gameConfig The legaci game installation configuration
+   * @param destination The destination where the game will be installed
    * @returns void
    */
   protected saveDosBoxRunConfiguration(gameConfig: GameConfiguration, destination: string): void {
@@ -71,8 +79,10 @@ export class DosBoxInstaller implements GameRunnerSetupInterface {
   }
 
   /**
-   * @param gameConfig
-   * @param destination
+   * Generate the DosBox configuration files that will be used to run the game
+   *
+   * @param gameConfig The legaci game installation configuration
+   * @param destination The destination where the game will be installed
    * @returns Promise<void>
    */
   public async generateConfiguration(gameConfig: GameConfiguration, destination: string): Promise<void> {
@@ -83,8 +93,10 @@ export class DosBoxInstaller implements GameRunnerSetupInterface {
   }
 
   /**
-   * @param gameConfig
-   * @param destination
+   * Generate the binary file to run the game
+   *
+   * @param gameConfig The legaci game installation configuration
+   * @param destination The destination where the game will be installed
    * @returns Promise<string>
    */
   public async generateRunner(gameConfig: GameConfiguration, destination: string): Promise<string> {

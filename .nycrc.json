@@ -6,7 +6,11 @@
     "src/**/*.ts"
   ],
   "exclude": [
-    "tests/**"
+    "tests/**",
+    "**/*Interface.ts",
+    "**/*Error.ts",
+    "index.ts",
+    "Container.ts"
   ],
   "branches": 85,
   "lines": 85,

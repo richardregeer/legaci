@@ -4,12 +4,12 @@ import sinon, { StubbedInstance, stubInterface } from 'ts-sinon';
 import { LoggerInterface } from '../../../../src/core/observability/LoggerInterface';
 import { FileHandlerInterface } from '../../../../src/core/file/FileHandlerInterface';
 import { TemplateInterface } from '../../../../src/core/file/TemplateInterface';
-import { ScummVMInstaller } from '../../../../src/infrastructure/installer/ScummVMInstaller';
 import { GameRunnerSetupInterface } from '../../../../src/core/installer/GameRunnerSetupInterface';
 import { GameConfiguration } from '../../../../src/core/entity/GameConfiguration';
 import { Runner } from '../../../../src/core/entity/Runner';
 import { ApplicationRunner } from '../../../../src/core/entity/ApplicationRunner';
 import { Game } from '../../../../src/core/entity/Game';
+import { GOGDosBoxInstaller } from '../../../../src/infrastructure/installer/GOGDosBoxInstaller';
 
 interface Context {
   sut: GameRunnerSetupInterface;
@@ -30,13 +30,13 @@ test.beforeEach((t: ExecutionContext<Context>) => {
   t.context.loggerStub = stubInterface<LoggerInterface>();
   t.context.gameConfigStub = stubInterface<GameConfiguration>();
 
-  const runner = new Runner(ApplicationRunner.SCUMMVM, '1', '/test/path/source', 'test/path/config', 'test/path/bin', 'game');
+  const runner = new Runner(ApplicationRunner.DOSBOX, '1', '/test/path/source', 'test/path/config', 'test/path/bin', 'game');
   t.context.gameConfigStub.findByApplicationRunner.returns(runner);
-  t.context.templateStub.load.returns('test_content');
-  t.context.templateStub.replaceVariable.returns('test_content');
   t.context.gameConfigStub.name = 'game';
+  t.context.gameConfigStub.id = 'id';
+  t.context.fileHandlerStub.findFilesSync.returns([]);
 
-  t.context.sut = new ScummVMInstaller(t.context.templateStub, t.context.fileHandlerStub, t.context.loggerStub);
+  t.context.sut = new GOGDosBoxInstaller(t.context.templateStub, t.context.fileHandlerStub, t.context.loggerStub);
 });
 
 test.afterEach((t: ExecutionContext<Context>) => {
@@ -44,36 +44,42 @@ test.afterEach((t: ExecutionContext<Context>) => {
 });
 
 test('Install should install the given game', async (t: ExecutionContext<Context>) => {
-  const { sut, gameConfigStub } = t.context;
+  const { sut, gameConfigStub, fileHandlerStub } = t.context;
   const expectedGame = new Game('game', 'destination', 'destination/legaci-run.sh', gameConfigStub);
 
   const result = await sut.install(gameConfigStub, 'destination');
 
+  assert.isTrue(fileHandlerStub.copyFilesSync.firstCall.calledWith('destination/app/*'));
+  assert.isTrue(fileHandlerStub.removeFilesSync.calledOnce);
+
   assert.deepEqual(result, expectedGame);
 });
 
-test('GenerateConfiguration should copy the ScummVM configuration to the installation destination', async (t: ExecutionContext<Context>) => {
+test.skip('GenerateConfiguration should copy the DosBox configuration to the installation destination', async (t: ExecutionContext<Context>) => {
   const { sut, gameConfigStub, loggerStub, fileHandlerStub } = t.context;
-  const expectedPath = 'destination/scummvm.legaci.ini';
+
+  const expectedPath = 'destination/dosbox.legaci.conf';
+  const expectedRunPath = 'destination/dosbox.legaci.run.conf';
 
   await sut.generateConfiguration(gameConfigStub, 'destination');
 
   assert.isTrue(loggerStub.warning.notCalled);
-  assert.isTrue(fileHandlerStub.copySync.calledOnceWith('test/path/config', expectedPath));
+  assert.isTrue(fileHandlerStub.copySync.firstCall.calledWith('test/path/config', expectedPath));
+  assert.isTrue(fileHandlerStub.copySync.secondCall.calledWith('/test/path/source', expectedRunPath));
 });
 
-test('GenerateConfiguration should warn when the default configuration is copied', async (t: ExecutionContext<Context>) => {
+test.skip('GenerateConfiguration should warn when the default configuration is copied', async (t: ExecutionContext<Context>) => {
   const { sut, gameConfigStub, loggerStub } = t.context;
 
-  const runner = new Runner(ApplicationRunner.SCUMMVM, '1', '/test/path/source', 'test/path/config.template.', 'test/path/bin', 'game');
+  const runner = new Runner(ApplicationRunner.DOSBOX, '1', '/test/path/source.template.', 'test/path/config.template.', 'test/path/bin', 'game');
   gameConfigStub.findByApplicationRunner.returns(runner);
 
   await sut.generateConfiguration(gameConfigStub, 'destination');
 
-  assert.isTrue(loggerStub.warning.calledOnce);
+  assert.isTrue(loggerStub.warning.calledTwice);
 });
 
-test('GenerateRunner should generate an executable file to launch the game', async (t: ExecutionContext<Context>) => {
+test.skip('GenerateRunner should generate an executable file to launch the game', async (t: ExecutionContext<Context>) => {
   const { sut, gameConfigStub, loggerStub, templateStub, fileHandlerStub } = t.context;
   const expectedDestination = 'destination/legaci-run.sh';
 
@@ -81,15 +87,14 @@ test('GenerateRunner should generate an executable file to launch the game', asy
 
   assert.strictEqual(result, expectedDestination);
   assert.isTrue(loggerStub.warning.notCalled);
-  assert.isTrue(templateStub.replaceVariable.calledOnceWith('SCUMMVM_GAME_ID', 'game', 'test_content'));
   assert.isTrue(templateStub.save.calledOnceWith(expectedDestination, 'test_content'));
   assert.isTrue(fileHandlerStub.makeFileExecutabeSync.calledOnceWith(expectedDestination));
 });
 
-test('GenerateRunner should warn when a default executable file to launch the game is used ', async (t: ExecutionContext<Context>) => {
+test.skip('GenerateRunner should warn when a default executable file to launch the game is used ', async (t: ExecutionContext<Context>) => {
   const { sut, gameConfigStub, loggerStub } = t.context;
 
-  const runner = new Runner(ApplicationRunner.SCUMMVM, '1', '/test/path/source', 'test/path/config', 'test/path/bin.template.', 'game');
+  const runner = new Runner(ApplicationRunner.DOSBOX, '1', '/test/path/source', 'test/path/config', 'test/path/bin.template.', 'game');
   gameConfigStub.findByApplicationRunner.returns(runner);
 
   await sut.generateRunner(gameConfigStub, 'destination');
