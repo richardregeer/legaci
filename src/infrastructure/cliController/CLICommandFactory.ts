@@ -11,8 +11,8 @@ export class CLICommandFactory {
   /**
    * Factory to create the install controller
    *
-   * @param installGameUseCase The use case that will be executed by the controller
-   * @param logger Logger
+   * @param installGameUseCase - The use case that will be executed by the controller
+   * @param logger - Logger
    */
   constructor(installGameUseCase: InstallGameUseCase, logger: LoggerInterface) {
     this._installGameUseCase = installGameUseCase;

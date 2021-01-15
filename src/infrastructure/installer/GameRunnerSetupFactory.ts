@@ -20,9 +20,9 @@ export class GameRunnerSetupFactory implements GameRunnerSetupFactoryInterface {
   /**
    * Factory to create a new GameRunnerSetup instance
    *
-   * @param template String template utility
-   * @param fileHandler File handler utility
-   * @param logger Logger
+   * @param template - String template utility
+   * @param fileHandler - File handler utility
+   * @param logger - Logger
    */
   constructor(template: TemplateInterface, fileHandler: FileHandlerInterface, logger: LoggerInterface) {
     this._template = template;
@@ -33,8 +33,8 @@ export class GameRunnerSetupFactory implements GameRunnerSetupFactoryInterface {
   /**
    * Create a new GameRunnerSetup instance based on the given game configuration and source type
    *
-   * @param gameConfig The legaci game installation configuration
-   * @param sourceType The type of the source game file to install
+   * @param gameConfig - The legaci game installation configuration
+   * @param sourceType - The type of the source game file to install
    * @returns GameRunnerSetupInterface
    */
   public create(gameConfig: GameConfiguration, sourceType: SourceType): GameRunnerSetupInterface {

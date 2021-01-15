@@ -11,7 +11,7 @@ export class LoggerFactory {
   /**
    * Create logger instances
    *
-   * @param chalk The console collor library
+   * @param chalk - The console collor library
    */
   constructor(chalk: Chalk) {
     this._chalk = chalk;

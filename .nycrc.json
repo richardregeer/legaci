@@ -9,8 +9,8 @@
     "tests/**",
     "**/*Interface.ts",
     "**/*Error.ts",
-    "index.ts",
-    "Container.ts"
+    "src/index.ts",
+    "src/Container.ts"
   ],
   "branches": 85,
   "lines": 85,

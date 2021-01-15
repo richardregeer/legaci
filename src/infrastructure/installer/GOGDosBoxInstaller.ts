@@ -7,8 +7,8 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
   /**
    * Replace the mount path command in the configuration
    *
-   * @param line The configuration line
-   * @param destination The destination where the game will be installed
+   * @param line - The configuration line
+   * @param destination - The destination where the game will be installed
    * @returns string
    */
   private replaceMountPath(line: string, destination: string): string | null {
@@ -22,7 +22,7 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
   /**
    * Remove the cloud save command from the configuration
    *
-   * @param line The configuration line
+   * @param line - The configuration line
    * @returns boolean
    */
   private removeCloudSaves(line: string): boolean {
@@ -36,8 +36,8 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
   /**
    * Replace the image mount path in the configuration
    *
-   * @param line The configuration line
-   * @param destination The destination where the game will be installed
+   * @param line - The configuration line
+   * @param destination - The destination where the game will be installed
    * @returns string
    */
   private replaceImageMountPath(line: string, destination: string): string | null {
@@ -52,7 +52,7 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
   /**
    * Remove the menu from the configuration
    *
-   * @param line The configuration line
+   * @param line - The configuration line
    * @returns boolean
    */
   private removeApplicationMenu(line: string): boolean {
@@ -66,8 +66,8 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
   /**
    * Correct the filename casing in the cnfiguration
    *
-   * @param line The configuration line
-   * @param destination The destination where the game will be installed
+   * @param line - The configuration line
+   * @param destination - The destination where the game will be installed
    * @returns string
    */
   private correctFilenameCase(line: string, destination: string): string {
@@ -95,7 +95,7 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
   /**
    * Cleanup unused GOG files
    *
-   * @param destination The destination where the game will be installed
+   * @param destination - The destination where the game will be installed
    * @returns void
    */
   private cleanup(destination: string): void {
@@ -115,8 +115,8 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
   /**
    * Install the GOG game for DosBox
    *
-   * @param gameConfig The legaci game installation configuration
-   * @param destination The destination where the game will be installed
+   * @param gameConfig - The legaci game installation configuration
+   * @param destination - The destination where the game will be installed
    * @returns Promise<Game>
    */
   public async install(gameConfig: GameConfiguration, destination: string): Promise<Game> {
@@ -137,8 +137,8 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
   /**
    * Copy and convet the GOG DosBox configuration that will be used to run the game. If not available generate the default.
    *
-   * @param gameConfig The legaci game installation configuration
-   * @param destination The destination where the game will be installed
+   * @param gameConfig - The legaci game installation configuration
+   * @param destination - The destination where the game will be installed
    * @returns Promise<void>
    */
   public async generateConfiguration(gameConfig: GameConfiguration, destination: string): Promise<void> {
@@ -173,8 +173,8 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
   /**
    * Convert the (Windows) Dos execute configuration
    *
-   * @param runConfiguration The configuration that contains the Dos game executable command
-   * @param destination The destination where the game will be installed
+   * @param runConfiguration - The configuration that contains the Dos game executable command
+   * @param destination - The destination where the game will be installed
    * @returns void
    */
   private convertRunConfiguration(runConfiguration: string, destination: string): void {

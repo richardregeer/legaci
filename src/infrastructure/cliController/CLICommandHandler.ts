@@ -8,9 +8,9 @@ export class CLICommandHandler {
   /**
    * Handler for CLI commands
    *
-   * @param installCommandHandler Handler to handle the install command
-   * @param cliCommandFactory Factory to create the controllers to handle the command
-   * @param logger Logger
+   * @param installCommandHandler - Handler to handle the install command
+   * @param cliCommandFactory - Factory to create the controllers to handle the command
+   * @param logger - Logger
    */
   constructor(cliCommandFactory: CLICommandFactory, logger: LoggerInterface) {
     this._logger = logger;
@@ -20,9 +20,9 @@ export class CLICommandHandler {
   /**
    * Handle the given CLI command
    *
-   * @param file The file to install
-   * @param destination The destination of the installed file
-   * @param gameId The optional legacy game identifier
+   * @param file - The file to install
+   * @param destination - The destination of the installed file
+   * @param gameId - The optional legacy game identifier
    * @returns Promise<void>
    */
   public async handleCLICommand(file: string, destination: string, gameId?: string): Promise<void> {

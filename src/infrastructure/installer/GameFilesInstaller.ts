@@ -12,8 +12,8 @@ export class GameFilesInstaller implements GameFilesInstallerInterface {
   /**
    * Create installer to copy all the legaci game files
    *
-   * @param fileHandler File handler utility
-   * @param logger Logger
+   * @param fileHandler - File handler utility
+   * @param logger - Logger
    */
   constructor(fileHandler: FileHandlerInterface, logger: LoggerInterface) {
     this._logger = logger;
@@ -23,8 +23,8 @@ export class GameFilesInstaller implements GameFilesInstallerInterface {
   /**
    * Install all the game files from the game configuration
    *
-   * @param gameConfig The legaci game installation configuration
-   * @param destination The destination where the game will be installed
+   * @param gameConfig - The legaci game installation configuration
+   * @param destination - The destination where the game will be installed
    * @returns Promise<Game>
    */
   public async install(gameConfig: GameConfiguration, destination: string): Promise<void> {

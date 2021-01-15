@@ -6,9 +6,9 @@ export class Store {
   /**
    * The store where you can buy the
    *
-   * @param name The name of the store
-   * @param id The game id of the game to install on the store
-   * @param url The url to the store page where you can buy the game
+   * @param name - The name of the store
+   * @param id - The game id of the game to install on the store
+   * @param url - The url to the store page where you can buy the game
    */
   constructor(name: string, id: string, url: string) {
     this._name = name;
@@ -18,6 +18,7 @@ export class Store {
 
   /**
    * Get the name of the store
+   *
    * @returns string
    */
   public get name(): string {
@@ -26,6 +27,7 @@ export class Store {
 
   /**
    * Get the game id of the game to install on the store
+   *
    * @returns string
    */
   public get id(): string {
@@ -34,6 +36,7 @@ export class Store {
 
   /**
    * Get the url to the store page where you can buy the game
+   *
    * @returns string
    */
   public get url(): string {

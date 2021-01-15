@@ -13,9 +13,9 @@ export class ZipExtractor implements ExtractorInterface {
   /**
    * Extractor that uses Unzip to extract the file
    *
-   * @param fileHandler Handler to manipulate files
-   * @param logger The logger
-   * @param shell The command shell
+   * @param fileHandler - Handler to manipulate files
+   * @param logger - The logger
+   * @param shell - The command shell
    */
   constructor(fileHandler: FileHandlerInterface, logger: LoggerInterface, shell: CommandInterface) {
     this._logger = logger;

@@ -6,13 +6,17 @@ export class GOGDosboxSourceTypeResolver implements SourceTypeResolverInterface 
   private readonly _fileHandler: FileHandlerInterface;
 
   /**
-   * @param fileHandler
+   * GOG Dosbox source type resolver
+   *
+   * @param fileHandler - File handler utility
    */
   constructor(fileHandler: FileHandlerInterface) {
     this._fileHandler = fileHandler;
   }
 
   /**
+   * Returns the type of the source
+   *
    * @returns SourceType
    */
   public getSourceType(): SourceType {
@@ -20,7 +24,9 @@ export class GOGDosboxSourceTypeResolver implements SourceTypeResolverInterface 
   }
 
   /**
-   * @param source
+   * Determine if the given source is a GOG Dosbox package
+   *
+   * @param source - The source path to detremine the source type for
    * @returns boolean
    */
   public isSourceType(source: string): boolean {

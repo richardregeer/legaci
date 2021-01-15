@@ -12,7 +12,7 @@ export class FileHandler implements FileHandlerInterface {
   /**
    * Utility class for file handling
    *
-   * @param shellConfig Shell configuration
+   * @param shellConfig - Shell configuration
    */
   constructor(shellConfig: ShellConfig) {
     this._shellConfig = shellConfig;
@@ -21,7 +21,8 @@ export class FileHandler implements FileHandlerInterface {
   /**
    * Remove files
    *
-   * @param glob[] Remove all given files
+   * @param glob[] - Remove all given files
+   * @param glob
    * @returns void
    */
   public removeFilesSync(...glob: string[]): void {
@@ -31,9 +32,9 @@ export class FileHandler implements FileHandlerInterface {
   /**
    * Find files in source folder
    *
-   * @param ignoreCase Ignore file casing
-   * @param source The source folder to find the files
-   * @param glob The glob pattern to search fore
+   * @param ignoreCase - Ignore file casing
+   * @param source - The source folder to find the files
+   * @param glob - The glob pattern to search fore
    * @returns string[]
    */
   public findFilesSync(ignoreCase: boolean, source: string, ...glob: string[]): string[] {
@@ -61,8 +62,8 @@ export class FileHandler implements FileHandlerInterface {
   /**
    * Move files to destination
    *
-   * @param glob The search pattern to move.
-   * @param destination The destinaton to move to files to
+   * @param glob - The search pattern to move.
+   * @param destination - The destinaton to move to files to
    * @returns void
    */
   public moveFilesSync(glob: string, destination: string): void {
@@ -73,7 +74,7 @@ export class FileHandler implements FileHandlerInterface {
   /**
    * Create a tempory folder
    *
-   * @param destination The path to cretea the folder in
+   * @param destination - The path to cretea the folder in
    * @returns string
    */
   public createTempFolderSync(destination: string): string {
@@ -88,8 +89,8 @@ export class FileHandler implements FileHandlerInterface {
   /**
    * Validate if the given file exists
    *
-   * @param source The file to validate if it exists
-   * @param ignoreCase Ignore the file casing. Default false
+   * @param source - The file to validate if it exists
+   * @param ignoreCase - Ignore the file casing. Default false
    * @returns boolean
    */
   public existsSync(source: string, ignoreCase = false): boolean {
@@ -118,7 +119,7 @@ export class FileHandler implements FileHandlerInterface {
   /**
    * Create the directory if it does not exists
    *
-   * @param source The directory name
+   * @param source - The directory name
    * @returns boolean
    */
   public createDirWhenNotExistsSync(source: string): boolean {
@@ -135,8 +136,9 @@ export class FileHandler implements FileHandlerInterface {
   /**
    * Write a string to a file
    *
-   *  @param destination The location where to write the string
-   * @param contentsThe contents to write
+   * @param destination - The location where to write the string
+   * @param contentsThe - contents to write
+   * @param contents
    * @returns void
    */
   public writeSync(destination: string, contents: string): void {
@@ -147,8 +149,8 @@ export class FileHandler implements FileHandlerInterface {
   /**
    * Copy a file to a given destination folder
    *
-   * @param source The file to copy
-   * @param destination The location to copy the file to
+   * @param source - The file to copy
+   * @param destination - The location to copy the file to
    * @throws FileDoesNotExistsError Will be thrown if the source file not exist
    * @returns void
    */
@@ -167,8 +169,8 @@ export class FileHandler implements FileHandlerInterface {
   /**
    * Copy all files that match the given pattern
    *
-   * @param glob The files to copy the matching pattern
-   * @param destination The destination
+   * @param glob - The files to copy the matching pattern
+   * @param destination - The destination
    * @returns boolean
    */
   public copyFilesSync(glob: string, destination: string): void {
@@ -179,7 +181,7 @@ export class FileHandler implements FileHandlerInterface {
   /**
    * Read a text file
    *
-   * @param source The file to read
+   * @param source - The file to read
    * @throws FileDoesNotExistsError Will be thrown when the given file does not exists
    * @returns string
    */
@@ -196,7 +198,7 @@ export class FileHandler implements FileHandlerInterface {
   /**
    * Resolve the file extension
    *
-   * @param source The file to resolve the extension of
+   * @param source - The file to resolve the extension of
    * @throws UnknownFileTypeError Will be thrown when the extension is unknown
    * @returns FileType
    */
@@ -218,7 +220,7 @@ export class FileHandler implements FileHandlerInterface {
   /**
    * Resolves the name of the file
    *
-   * @param source The file to resolve the name of
+   * @param source - The file to resolve the name of
    * @returns string
    */
   public resolveFileName(source: string): string {
@@ -230,7 +232,7 @@ export class FileHandler implements FileHandlerInterface {
   /**
    * Make the given file executable
    *
-   * @param source The file to make executable
+   * @param source - The file to make executable
    * @returns void
    * @throws FileDoesNotExistsError Will be thrown if the file does not exists
    */

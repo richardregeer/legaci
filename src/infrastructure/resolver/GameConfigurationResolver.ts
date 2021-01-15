@@ -144,25 +144,6 @@ export class GameConfigurationResolver implements GameConfigurationResolverInter
       gameConfiguration.gameFiles.push(new GameFile(i.name, path.join(dirName, i.location || '')));
     });
 
-    // configuration.sourcePorts.forEach((i: { name: string; version: string; }) => {
-    //     gameConfiguration.sourcePorts.push(new SourcePort(
-    //         i.name,
-    //         i.version
-    //     ));
-    // });
-
-    // configuration.stores.forEach(((i: { store: string; id: string; url: string; }) => {
-    //     gameConfiguration.stores.push(new Store(
-    //         i.store,
-    //         i.id,
-    //         i.url
-    //     ));
-    // }));
-
-    // gameConfiguration.references.push(configuration.references.map((i: string) => i));
-    // gameConfiguration.reviews.push(configuration.reviews.map((i: string) => i));
-    // gameConfiguration.downloadLocations.push(configuration.downloadLocations.map((i: string) => i));
-
     return gameConfiguration;
   }
 }

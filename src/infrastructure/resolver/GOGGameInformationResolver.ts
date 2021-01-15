@@ -4,14 +4,18 @@ export class GOGGameInformationResolver {
   protected readonly _fileHandler: FileHandlerInterface;
 
   /**
-   * @param fileHandler
+   * Resolve the game information file from a GOG package
+   *
+   * @param fileHandler - File handler utility
    */
   constructor(fileHandler: FileHandlerInterface) {
     this._fileHandler = fileHandler;
   }
 
   /**
-   * @param destination
+   * Get the game name from the GOG game information JSON file
+   *
+   * @param destination - The installation path of the game
    * @returns string
    */
   public getGameName(destination: string): string | undefined {

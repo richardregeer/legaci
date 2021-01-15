@@ -8,8 +8,8 @@ export class ShellCommand implements CommandInterface {
   /**
    * Shell command that will be executed in terminal
    *
-   * @param shellExecute The shell command to execute
-   * @param shellConfig The shell configuration
+   * @param shellExecute - The shell command to execute
+   * @param shellConfig - The shell configuration
    */
   constructor(shellExecute: ExecFunction, shellConfig: ShellConfig) {
     this._execute = shellExecute;
@@ -19,8 +19,8 @@ export class ShellCommand implements CommandInterface {
   /**
    * Execute the command
    *
-   * @param command The shell command to execute
-   * @param silent Output shell command or not
+   * @param command - The shell command to execute
+   * @param silent - Output shell command or not
    * @returns Promise
    */
   public async execute(command: string, silent: boolean): Promise<number> {

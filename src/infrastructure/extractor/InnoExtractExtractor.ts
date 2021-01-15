@@ -13,9 +13,9 @@ export class InnoExtractExtractor implements ExtractorInterface {
   /**
    * Extractor that uses Innoextract to extract windows executables
    *
-   * @param fileHandler Handler to manipulate files
-   * @param logger The logger
-   * @param shell The command shell
+   * @param fileHandler - Handler to manipulate files
+   * @param logger - The logger
+   * @param shell - The command shell
    */
   constructor(fileHandler: FileHandlerInterface, logger: LoggerInterface, shell: CommandInterface) {
     this._logger = logger;
