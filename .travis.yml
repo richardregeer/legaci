@@ -10,3 +10,5 @@ before_script:
 
 script:
   - make lint DOCKER=false
+  - make test_unit DOCKER=false
+  - make test_integration DOCKER=false

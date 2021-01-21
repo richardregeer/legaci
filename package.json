@@ -1,6 +1,6 @@
 {
   "name": "legaci",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "Legacy Games Commandline installer",
   "directories": {
     "doc": "docs",
@@ -9,7 +9,7 @@
   "engines": {
     "node": ">=10"
   },
-  "bin": "./bin/legaci.js",
+  "bin": "./bin/legaci",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/richardregeer/legaci.git"

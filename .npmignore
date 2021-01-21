@@ -1,0 +1,17 @@
+node_modules
+docker
+docs
+src
+tests
+config.dev.json
+.editorconfig
+.gitignore
+.travis.yml
+Makefile
+.vscode
+.eslintrc.js
+.npmrc.template
+.nycrc.json
+ava.config.integration.js
+ava.config.unit.js
+tsconfig.json

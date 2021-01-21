@@ -49,6 +49,15 @@ ifeq ($(ENV),development)
 	docker build -t legaci:development docker/development
 endif
 
+.PHONY: publish
+publish: ## Pubish to npm only available on ci environment.
+ifneq ($(ENV),ci)
+	$(error Required ENV='ci')
+endif
+	cp .npmrc.template ${HOME}/.npmrc
+	make compile
+	npm publish
+
 .PHONY: compile
 compile: ## Compile the Typescript code.
 	${START_COMMAND} ${NODE_MODULES}/tsc
