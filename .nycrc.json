@@ -1,0 +1,37 @@
+{
+  "extends": "@istanbuljs/nyc-config-typescript",
+  "all": true,
+  "check-coverage": true,
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "tests/**",
+    "**/*Interface.ts",
+    "**/*Error.ts",
+    "src/index.ts",
+    "src/Container.ts"
+  ],
+  "branches": 85,
+  "lines": 85,
+  "functions": 85,
+  "statements": 85,
+  "watermarks": {
+    "lines": [
+      70,
+      85
+    ],
+    "functions": [
+      70,
+      85
+    ],
+    "branches": [
+      70,
+      85
+    ],
+    "statements": [
+      70,
+      85
+    ]
+  }
+}

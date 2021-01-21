@@ -3,10 +3,12 @@ language: node_js
 node_js:
   - "10"
   - "12"
+  - "14"
 
 before_script:
   - make install ENV=ci
 
 script:
   - make lint DOCKER=false
-  - make test DOCKER=false
+  - make test_unit DOCKER=false
+  - make test_integration DOCKER=false

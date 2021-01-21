@@ -1,0 +1,52 @@
+{
+    "name": "Beneath a steel sky",
+    "aliases": [
+    ],
+    "id": "beneath-a-steel-sky",
+    "releaseStatus": "freeware",
+    "genre": "Adventure",
+    "released": "1994",
+    "platform": "DOS",
+    "installSource": "SingleFile",
+    "runners": [
+        {
+            "application": "ScummVM",
+            "version": "2.2.0",
+            "gameConfiguration": "scummvm.sky.ini",
+            "binFile": "",
+            "id": "sky"
+        }
+    ],
+    "sourcePorts": [
+    ],
+    "patches": [
+        
+    ],
+    "mods": [
+    ],
+    "gameFiles": [
+    ],
+    "references": [
+        "https://www.mobygames.com/game/beneath-a-steel-sky"
+    ],
+    "reviews": [
+        ""
+    ],
+    "stores": [
+        {
+            "store": "GOG.com",
+            "id": "beneath_a_steel_sky",
+            "url": "https://www.gog.com/game/beneath_a_steel_sky" 
+        },
+        {
+            "store": "Steam",
+            "id": "Beneath_a_Steel_Sky",
+            "url": "https://store.steampowered.com/app/1368340/Beneath_a_Steel_Sky/" 
+        }  
+    ],
+    "downloadLocations": [
+        "https://www.scummvm.org/games/#sky",
+        "https://www.dosgamesarchive.com/download/beneath-a-steel-sky/",
+        "https://www.abandonwaredos.com/abandonware-game.php?abandonware=Beneath+a+Steel+Sky&gid=1740" 
+    ]
+}

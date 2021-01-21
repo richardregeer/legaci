@@ -12,9 +12,9 @@ PROJECT_ROOT := $(shell pwd)
 NODE_MODULES := ./node_modules/.bin
 
 ifeq ($(DOCKER),true)
-	START_COMMAND := docker run --rm -it -v ${PROJECT_ROOT}:/development legaci:development 
-else 
-	START_COMMAND := 
+	START_COMMAND := docker run --rm -it --init -v ${PROJECT_ROOT}:/development legaci:development
+else
+	START_COMMAND :=
 endif
 
 .PHONY: help
@@ -39,6 +39,7 @@ endif
 ifeq ($(ENV),ci)
 	@echo -e '${CYAN}Install Legaci for the ci environment${DEFAULT}'
 	npm install
+	npm install -g codecov
 endif
 
 .PHONY: docker_build
@@ -47,27 +48,47 @@ ifeq ($(ENV),development)
 	@echo -e '${CYAN}Build Legaci development docker image: legaci:development${DEFAULT}'
 	docker build -t legaci:development docker/development
 endif
-	
+
+.PHONY: publish
+publish: ## Pubish to npm only available on ci environment.
+ifneq ($(ENV),ci)
+	$(error Required ENV='ci')
+endif
+	cp .npmrc.template ${HOME}/.npmrc
+	make compile
+	npm publish
+
+.PHONY: compile
+compile: ## Compile the Typescript code.
+	${START_COMMAND} ${NODE_MODULES}/tsc
+
+.PHONY: compile_watch
+compile_watch: ## Compile the Typescript code in watch mode.
+	${START_COMMAND} ${NODE_MODULES}/tsc -w
+
 .PHONY: lint
 lint: ## Check the codestyle of the complete project.
-	${START_COMMAND} ${NODE_MODULES}/eslint .
+	${START_COMMAND} ${NODE_MODULES}/eslint . --ext .ts
+
+.PHONY: lint_fix
+lint_fix: ## Check the codestyle of the complete project and auto fix errors.
+	${START_COMMAND} ${NODE_MODULES}/eslint . --ext .ts --fix
 
 .PHONY: test
 test: test_unit test_integration## Run all the tests of the complete project.
 
 .PHONY: test_unit
 test_unit: ## Run all the unit tests of the complete project.
-	${START_COMMAND} ${NODE_MODULES}/ava --verbose **/unit/**/*.js **/unit/**/**/*.js
+	${START_COMMAND} ${NODE_MODULES}/ava --config ava.config.unit.js
 
 .PHONY: test_coverage
 test_coverage: ## Calculate the unit test coverage of the complete project.
-	${START_COMMAND} ${NODE_MODULES}/nyc --reporter=text --reporter=text-summary --reporter=html \
-	${NODE_MODULES}/ava --verbose **/unit/**/*.js **/unit/**/**/*.js \
-	**/integration/**/*.js **/integration/**/**/*.js
+	${START_COMMAND} ${NODE_MODULES}/nyc -reporter=text-lcov --reporter=text --reporter=text-summary --reporter=html \
+	${NODE_MODULES}/ava --config ava.config.unit.js
 
 .PHONY: test_integration
 test_integration: ## Run all the integration tests of the complete project.
-	${START_COMMAND} ${NODE_MODULES}/ava --verbose **/integration/**/*.js **/integration/**/**/*.js
+	${START_COMMAND} ${NODE_MODULES}/ava --serial --config ava.config.integration.js
 
 .PHONY: test_acceptance
 test_acceptance: ## Run all the acceptance tests of the complete project.

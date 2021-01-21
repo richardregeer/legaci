@@ -1,6 +1,6 @@
 {
   "name": "legaci",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "Legacy Games Commandline installer",
   "directories": {
     "doc": "docs",
@@ -9,7 +9,7 @@
   "engines": {
     "node": ">=10"
   },
-  "bin": "./bin/legaci.js",
+  "bin": "./bin/legaci",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/richardregeer/legaci.git"
@@ -21,40 +21,33 @@
   },
   "homepage": "https://github.com/richardregeer/legaci#readme",
   "dependencies": {
-    "chalk": "^2.4.2",
-    "commander": "^2.20.0",
-    "shelljs": "^0.8.3",
-    "winston": "^3.2.1"
+    "chalk": "^4.1.0",
+    "commander": "^6.2.0",
+    "shelljs": "^0.8.4",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
-    "ava": "^2.4.0",
-    "eslint": "^6.1.0",
-    "eslint-config-airbnb-base": "^13.2.0",
-    "eslint-plugin-import": "^2.18.2",
-    "mock-fs": "^4.10.1",
-    "nyc": "^15.0.0",
-    "shx": "^0.3.2",
-    "sinon": "^7.4.1"
-  },
-  "nyc": {
-    "all": true,
-    "include": [
-      "src/**/*.js"
-    ],
-    "exclude": [
-      "tests/**",
-      "src/main.js"
-    ],
-    "check-coverage": true,
-    "branches": 85,
-    "lines": 85,
-    "functions": 85,
-    "statements": 85,
-    "watermarks": {
-      "lines": [70, 85],
-      "functions": [70, 85],
-      "branches": [70, 85],
-      "statements": [70, 85]
-    }
+    "@ava/typescript": "^1.1.1",
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@types/chai": "^4.2.14",
+    "@types/chalk": "^2.2.0",
+    "@types/node": "^14.14.8",
+    "@types/shelljs": "^0.8.8",
+    "@typescript-eslint/eslint-plugin": "^4.8.1",
+    "@typescript-eslint/parser": "^4.8.1",
+    "ava": "^3.13.0",
+    "chai": "^4.2.0",
+    "eslint": "^7.13.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsdoc": "^30.7.8",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-promise": "^4.2.1",
+    "mock-fs": "^4.13.0",
+    "nyc": "^15.1.0",
+    "prettier": "^2.1.2",
+    "ts-node": "^9.0.0",
+    "ts-sinon": "^2.0.1",
+    "typescript": "^4.1.2"
   }
 }
