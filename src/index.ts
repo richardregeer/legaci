@@ -1,13 +1,11 @@
 import { version } from '../package.json';
-import chalk from 'chalk';
-import * as shell from 'shelljs';
 import program, { Command } from 'commander';
 import { Container } from './Container';
 import { CLICommandHandler } from './infrastructure/cliController/CLICommandHandler';
 import { LoggerInterface } from './core/observability/LoggerInterface';
 
 // Show ascii logo
-console.log(chalk.green(shell.cat(shell.pwd() + '/assets/ascii-name.txt').toString()));
+//console.log(chalk.green(shell.cat('../assets/ascii-name.txt').toString()));
 
 // Run application
 const container = new Container();
