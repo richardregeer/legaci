@@ -1,5 +1,9 @@
 language: node_js
 
+env:
+  global:
+    - ENV=ci
+
 node_js:
   - "10"
   - "12"
@@ -12,3 +16,12 @@ script:
   - make lint DOCKER=false
   - make test_unit DOCKER=false
   - make test_integration DOCKER=false
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  cleanup: true
+  script: make publish ENV=ci
+  on:
+    tags: true
+    condition: ${TRAVIS_NODE_VERSION} = 12
