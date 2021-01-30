@@ -3,9 +3,15 @@ import program, { Command } from 'commander';
 import { Container } from './Container';
 import { CLICommandHandler } from './infrastructure/cliController/CLICommandHandler';
 import { LoggerInterface } from './core/observability/LoggerInterface';
+import CFonts from 'cfonts';
 
 // Show ascii logo
-//console.log(chalk.green(shell.cat('../assets/ascii-name.txt').toString()));
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+CFonts.say('Legaci', {
+  font: 'block',
+  gradient: ['green', 'yellow'],
+  transitionGradient: true, // define if this is a transition between colors directly
+});
 
 // Run application
 const container = new Container();
