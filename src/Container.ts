@@ -18,6 +18,11 @@ import { GOGScummVMGameConfigurationResolver } from './infrastructure/resolver/G
 import { GOGDosboxSourceTypeResolver } from './infrastructure/resolver/GOGDosboxSourceTypeResolver';
 import { GOGGameInformationResolver } from './infrastructure/resolver/GOGGameInformationResolver';
 import { GOGDosboxGameConfigurationResolver } from './infrastructure/resolver/GOGDosboxGameConfigurationResolver';
+import { InstallSteamGameUseCase } from './core/useCase/InstallSteamGameUseCase';
+import { SteamApplicationExtractor } from './infrastructure/extractor/SteamApplicationExtractor';
+import { ScummVMInstaller } from './infrastructure/installer/ScummVMInstaller';
+import { ScummVMSourceType } from './infrastructure/resolver/ScummVMSourceType';
+import { DosBoxSourceType } from './infrastructure/resolver/DosBoxSourceType';
 
 export class Container {
   private readonly _container: Map<string, unknown>;
