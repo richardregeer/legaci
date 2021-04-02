@@ -20,7 +20,6 @@ import { GOGGameInformationResolver } from './infrastructure/resolver/GOGGameInf
 import { GOGDosboxGameConfigurationResolver } from './infrastructure/resolver/GOGDosboxGameConfigurationResolver';
 import { InstallSteamGameUseCase } from './core/useCase/InstallSteamGameUseCase';
 import { SteamApplicationExtractor } from './infrastructure/extractor/SteamApplicationExtractor';
-import { ScummVMInstaller } from './infrastructure/installer/ScummVMInstaller';
 import { ScummVMSourceType } from './infrastructure/resolver/ScummVMSourceType';
 import { DosBoxSourceType } from './infrastructure/resolver/DosBoxSourceType';
 
@@ -62,6 +61,8 @@ export class Container {
     const sourceTypeServices = [
       new GOGDosboxSourceTypeResolver(fileHandler),
       new GOGScummVMSourceTypeResolver(fileHandler),
+      new ScummVMSourceType(fileHandler),
+      new DosBoxSourceType(fileHandler),
     ];
     const gameConfigurationResolvers = [
       new GameConfigurationResolver(fileHandler),
@@ -86,9 +87,19 @@ export class Container {
       gameResolverService
     );
     this._container.set(InstallGameUseCase.name, installGameUseCase);
+    const steamExtractor = new SteamApplicationExtractor(logger, shell, 'rich_2309', 'CgTAB#4HTR%aNxBU');
+    const installSteamGameUseCase = new InstallSteamGameUseCase(
+      gameSetupFactory,
+      logger,
+      steamExtractor,
+      gameFilesInstaller,
+      gameResolverService
+    );
+    this._container.set(InstallSteamGameUseCase.name, installSteamGameUseCase);
+    this._container.set(SteamApplicationExtractor.name, steamExtractor);
 
     // CLI command handler
-    const cliCommandFactory = new CLICommandFactory(installGameUseCase, logger);
+    const cliCommandFactory = new CLICommandFactory(installGameUseCase, installSteamGameUseCase, logger);
     this._container.set(CLICommandFactory.name, cliCommandFactory);
     const cliCommandHandler = new CLICommandHandler(cliCommandFactory, logger);
     this._container.set(CLICommandHandler.name, cliCommandHandler);
