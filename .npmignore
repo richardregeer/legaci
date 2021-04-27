@@ -1,8 +1,9 @@
 node_modules
 docker
 docs
-src
-tests
+src/**/*.ts
+tests/**/*.ts
+dist/tests
 coverage
 config.dev.json
 Makefile
