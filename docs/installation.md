@@ -20,19 +20,21 @@ sudo apt install innoextract
 ```
 
 ## Flatpak
-The following DOSbox flatpaks are supported:
+The following DOSbox and ScummVM flatpaks are supported:
  - [DOSBox](https://flathub.org/apps/details/com.dosbox.DOSBox)
  - [DOSBox-X](https://flathub.org/apps/details/com.dosbox_x.DOSBox-X)
  - [DOSBox Staging](https://flathub.org/apps/details/io.github.dosbox-staging)
+ - [ScummVM](https://flathub.org/apps/details/org.scummvm.ScummVM)
 
-When the `legaci-run.sh` script will be executed the DOSBox flatpak will start, make sure the flatpak has access to your home folder.
+When the `legaci-run.sh` script will be executed the flatpak will start, make sure the flatpak has access to your home folder.
 
 ## Snap
-The following DOSbox snaps are supported:
+The following DOSbox and ScummVM snaps are supported:
  - [DOSBox-X](https://snapcraft.io/dosbox-x)
  - [DOSBox Staging](https://snapcraft.io/dosbox-staging)
+ - [ScummVM](https://snapcraft.io/scummvm)
 
-When the `legaci-run.sh` script will be executed the DOSBox snap will start.
+When the `legaci-run.sh` script will be executed the snap will start.
 
 ## Npm installation
 ```bash

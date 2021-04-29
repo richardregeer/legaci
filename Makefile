@@ -51,10 +51,9 @@ endif
 
 .PHONY: publish
 publish: ## Pubish to npm only available on ci environment.
-ifneq ($(ENV),ci)
-	$(error Required ENV='ci')
-endif
+ifeq ($(ENV),ci)
 	cp .npmrc.template ${HOME}/.npmrc
+endif
 	make compile
 	npm publish
 
