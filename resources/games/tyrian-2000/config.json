@@ -13,9 +13,9 @@
         {
             "application": "DosBox",
             "version": "0.74",
-            "runConfiguration": "",
+            "runConfiguration": "dosbox.legaci.run.conf",
             "gameConfiguration": "dosbox-tyrian2000.conf",
-            "binFile": "tyrian.sh"
+            "binFile": ""
         }
     ],
     "sourcePorts": [
