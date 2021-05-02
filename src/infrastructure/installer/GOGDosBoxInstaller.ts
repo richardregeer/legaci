@@ -145,7 +145,7 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
    */
   public async generateConfiguration(gameConfig: GameConfiguration, destination: string): Promise<void> {
     // Try to find the GOG dosbox configuration files
-    const resultConfiguration = this._fileHandler.findFilesSync(false, destination, '/**/*.conf');
+    const resultConfiguration = this._fileHandler.findFilesSync(false, destination, '/**/dosbox*.conf');
 
     const config = resultConfiguration.find((value) => {
       return value.indexOf('single') < 0;
@@ -160,7 +160,6 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
       super.saveDosBoxConfiguration(gameConfig, destination);
     } else {
       this._fileHandler.copySync(config, `${destination}/dosbox.legaci.conf`);
-      // TODO Remove autoexec section
     }
 
     // If there is no GOG Dosbox configuration or a game config is available, continue with the default DosBox setup
