@@ -1,0 +1,43 @@
+{
+    "name": "Yogho Yogho Spel",
+    "aliases": [
+        "Yogho Yogho"
+    ],
+    "id": "yogho-yogho",
+    "releaseStatus": "freeware",
+    "genre": "Platform",
+    "released": "1995",
+    "platform": "DOS",
+    "installSource": "SingleFile",
+    "runners": [
+        {
+            "application": "DosBox",
+            "version": "0.74",
+            "runConfiguration": "dosbox.legaci.run.conf",
+            "gameConfiguration": "dosbox.legaci.conf",
+            "binFile": ""
+        }
+    ],
+    "sourcePorts": [
+    ],
+    "patches": [
+        
+    ],
+    "mods": [
+
+    ],
+    "gameFiles": [
+    
+    ],
+    "references": [
+        "https://www.mobygames.com/game/dos/yogho-yogho-spel"
+    ],
+    "reviews": [
+        ""
+    ],
+    "stores": [
+    ],
+    "downloadLocations": [
+        "https://www.myabandonware.com/game/yogho-yogho-spel-bul"
+    ]
+}

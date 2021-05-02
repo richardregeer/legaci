@@ -14,7 +14,7 @@
             "application": "DosBox",
             "version": "0.74",
             "runConfiguration": "dosbox.legaci.run.conf",
-            "gameConfiguration": "dosbox-tyrian2000.conf",
+            "gameConfiguration": "dosbox.legaci.conf",
             "binFile": ""
         }
     ],
