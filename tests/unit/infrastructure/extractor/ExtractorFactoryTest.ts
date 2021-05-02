@@ -1,3 +1,4 @@
+import { DirectoryExtractor } from './../../../../src/infrastructure/extractor/DirectoryExtractor';
 import anyTest, { ExecutionContext, TestInterface } from 'ava';
 import { assert } from 'chai';
 import sinon, { StubbedInstance, stubInterface } from 'ts-sinon';
@@ -53,6 +54,16 @@ test('should create a Zip extractor instance when the file type is a zip', async
   const result = sut.create('source');
 
   assert.instanceOf(result, ZipExtractor);
+});
+
+test('should create a Directory extractor instance when the file type is a directory', async (t: ExecutionContext<Context>) => {
+  const { sut, fileHandlerStub } = t.context;
+
+  fileHandlerStub.resolveFileTypeSync.returns(FileType.DIRECTORY);
+
+  const result = sut.create('source');
+
+  assert.instanceOf(result, DirectoryExtractor);
 });
 
 test('should create a Zip extractor instance when the file type is a GOG sh file', async (t: ExecutionContext<Context>) => {

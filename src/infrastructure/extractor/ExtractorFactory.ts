@@ -1,3 +1,4 @@
+import { DirectoryExtractor } from './DirectoryExtractor';
 import { CommandInterface } from '../../core/command/CommandInterface';
 import { UnknownFileTypeError } from '../../core/error/UnkownFileTypeError';
 import { ExtractorFactoryInterface } from '../../core/extractor/ExtractorFactoryInterface';
@@ -48,6 +49,10 @@ export class ExtractorFactory implements ExtractorFactoryInterface {
 
     if (fileType === FileType.ZIP) {
       return new ZipExtractor(this._fileHandler, this._logger, this._shell);
+    }
+
+    if (fileType === FileType.DIRECTORY) {
+      return new DirectoryExtractor(this._fileHandler, this._logger, this._shell);
     }
 
     throw new UnknownFileTypeError('Filetype is not supported for install');

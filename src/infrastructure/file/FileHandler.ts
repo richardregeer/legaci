@@ -218,10 +218,20 @@ export class FileHandler implements FileHandlerInterface {
    *
    * @param source - The file to resolve the extension of
    * @throws UnknownFileTypeError Will be thrown when the extension is unknown
+   * @throws FileDoesNotExistsError Will be thrown when the given file does not exists
    * @returns FileType
    */
   public resolveFileTypeSync(source: string): FileType {
+    const fileName = path.basename(source);
     const extName = path.extname(source);
+
+    if (!this.existsSync(source)) {
+      throw new FileDoesNotExistsError(`File ${fileName} does not exists`);
+    }
+
+    if (fs.lstatSync(source).isDirectory()) {
+      return FileType.DIRECTORY;
+    }
 
     switch (extName.toLowerCase()) {
       case '.zip':
