@@ -27,6 +27,7 @@ test.beforeEach((t: ExecutionContext<Context>) => {
 
   t.context.fileHandlerStub.resolveFileName.returns('testName');
   t.context.fileHandlerStub.existsSync.returns(true);
+  t.context.fileHandlerStub.existsSync.onThirdCall().returns(false);
 
   t.context.sut = new ZipExtractor(t.context.fileHandlerStub, t.context.loggerStub, t.context.commandStub);
 });
@@ -52,6 +53,18 @@ test('Should copy source folder name to destination root if found', async (t: Ex
   await sut.extract('source', 'destination');
 
   assert.isTrue(fileHandlerStub.copyFilesSync.calledOnce);
+});
+
+test('Should copy data folder and cleanup noarch folder if found', async (t: ExecutionContext<Context>) => {
+  const { sut, fileHandlerStub } = t.context;
+
+  fileHandlerStub.existsSync.onSecondCall().returns(false);
+  t.context.fileHandlerStub.existsSync.onThirdCall().returns(true);
+
+  await sut.extract('source', 'destination');
+
+  assert.isTrue(fileHandlerStub.copyFilesSync.calledOnce);
+  assert.strictEqual(fileHandlerStub.removeFilesSync.callCount, 3);
 });
 
 test('Should re-throw the error when extracting the file failed', async (t: ExecutionContext<Context>) => {

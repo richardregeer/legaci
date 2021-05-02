@@ -106,6 +106,8 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
       `${destination}/__support`,
       `${destination}/commonappdata`,
       `${destination}/DOSBOX`,
+      `${destination}/dosbox`,
+      `${destination}/support`,
       `${destination}/webcache.zip`
     );
 
@@ -158,6 +160,7 @@ export class GOGDosBoxInstaller extends DosBoxInstaller {
       super.saveDosBoxConfiguration(gameConfig, destination);
     } else {
       this._fileHandler.copySync(config, `${destination}/dosbox.legaci.conf`);
+      // TODO Remove autoexec section
     }
 
     // If there is no GOG Dosbox configuration or a game config is available, continue with the default DosBox setup

@@ -49,6 +49,14 @@ export class ZipExtractor implements ExtractorInterface {
         this._fileHandler.copyFilesSync(`${destination}/${fileName}/*`, destination);
       }
 
+      // If the extracted data is in a noarch folder, move all files from that folder to the root of the destination.
+      if (this._fileHandler.existsSync(`${destination}/data/noarch/`, true)) {
+        this._fileHandler.copyFilesSync(`${destination}/data/noarch/*`, `${destination}`);
+        this._fileHandler.removeFilesSync(`${destination}/data/noarch/`);
+        this._fileHandler.removeFilesSync(`${destination}/scripts`);
+        this._fileHandler.removeFilesSync(`${destination}/meta`);
+      }
+
       this._logger.info(`Finished extracting game file to path ${chalk.underline.white(destination)}`);
     } catch (error) {
       this._logger.error(`Unable to extract game file${chalk.underline.white(source)},`, error);

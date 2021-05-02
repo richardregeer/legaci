@@ -4,7 +4,7 @@ import { FileHandlerInterface } from '../../core/file/FileHandlerInterface';
 import { FileDoesNotExistsError } from '../../core/error/FileDoesNotExistsError';
 import { FileType } from '../../core/file/FileType';
 import { UnknownFileTypeError } from '../../core/error/UnkownFileTypeError';
-import { cp, find, mv, rm, ShellConfig } from 'shelljs';
+import { cp, find, mv, rm, ShellConfig, head } from 'shelljs';
 
 export class FileHandler implements FileHandlerInterface {
   private readonly _shellConfig: ShellConfig;
@@ -193,6 +193,24 @@ export class FileHandler implements FileHandlerInterface {
     }
 
     return fs.readFileSync(source).toString();
+  }
+
+  /**
+   * Read the header of a file
+   *
+   * @param source - The file to read
+   * @param lines - The amount of lines of the header
+   * @throws FileDoesNotExistsError Will be thrown when the given file does not exists
+   * @returns string
+   */
+  public readFileHeaderSync(source: string, lines: number): string {
+    const fileName = path.basename(source);
+
+    if (!this.existsSync(source)) {
+      throw new FileDoesNotExistsError(`File ${fileName} does not exists`);
+    }
+
+    return head({ '-n': lines }, source);
   }
 
   /**

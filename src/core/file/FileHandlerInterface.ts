@@ -51,6 +51,12 @@ export interface FileHandlerInterface {
 
   /**
    * @param  {string} source
+   * @returns string
+   */
+  readFileHeaderSync(source: string, lines: number): string;
+
+  /**
+   * @param  {string} source
    * @param  {boolean} ignoreCase
    * @returns boolean
    */

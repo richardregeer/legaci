@@ -40,10 +40,22 @@ export class ExtractorFactory implements ExtractorFactoryInterface {
       return new InnoExtractExtractor(this._fileHandler, this._logger, this._shell);
     }
 
+    if (fileType === FileType.SH) {
+      if (this.isGOGInstaller(source)) {
+        return new ZipExtractor(this._fileHandler, this._logger, this._shell);
+      }
+    }
+
     if (fileType === FileType.ZIP) {
       return new ZipExtractor(this._fileHandler, this._logger, this._shell);
     }
 
     throw new UnknownFileTypeError('Filetype is not supported for install');
+  }
+
+  private isGOGInstaller(source: string): boolean {
+    const result = this._fileHandler.readFileHeaderSync(source, 30);
+
+    return result.indexOf('GOG.com') >= 0;
   }
 }

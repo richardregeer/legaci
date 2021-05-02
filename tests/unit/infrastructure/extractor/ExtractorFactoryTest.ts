@@ -55,10 +55,35 @@ test('should create a Zip extractor instance when the file type is a zip', async
   assert.instanceOf(result, ZipExtractor);
 });
 
+test('should create a Zip extractor instance when the file type is a GOG sh file', async (t: ExecutionContext<Context>) => {
+  const { sut, fileHandlerStub } = t.context;
+
+  fileHandlerStub.resolveFileTypeSync.returns(FileType.SH);
+  fileHandlerStub.readFileHeaderSync.returns(`
+  #!/bin/sh
+  # 
+  # This is an executable installer
+  # and it has to be run like any other executable file:
+  # 
+  # Add executable permissions with:
+  # chmod +x installer-file.sh
+  # 
+  # Then run it like this:
+  # ./installer-file.sh
+  # 
+  # This script was generated using Makeself 2.2.0
+  # with modifications for mojosetup and GOG.com installer.`);
+
+  const result = sut.create('source');
+
+  assert.instanceOf(result, ZipExtractor);
+});
+
 test('Should throw an UnknownFileTypeError when the given filetype is not supported', async (t: ExecutionContext<Context>) => {
   const { sut, fileHandlerStub } = t.context;
 
   fileHandlerStub.resolveFileTypeSync.returns(FileType.SH);
+  fileHandlerStub.readFileHeaderSync.returns('A shell script file');
 
   await t.throwsAsync(async () => sut.create('source'), {
     instanceOf: UnknownFileTypeError,
