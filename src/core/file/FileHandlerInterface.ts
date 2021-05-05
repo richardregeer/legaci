@@ -16,11 +16,12 @@ export interface FileHandlerInterface {
   removeFilesSync(...glob: string[]): void;
 
   /**
-   * @param  {string} glob
+   * @param  {string} source
    * @param  {string} destination
+   * @param  {boolean} recursive
    * @returns void
    */
-  moveFilesSync(glob: string, destination: string): void;
+  moveDirectorySync(source: string, destination: string, recursive: boolean): void;
 
   /**
    * @param  {string} destination
@@ -48,6 +49,12 @@ export interface FileHandlerInterface {
    * @returns string
    */
   readSync(source: string): string;
+
+  /**
+   * @param  {string} source
+   * @returns string[]
+   */
+  readDirSync(source: string): string[];
 
   /**
    * @param  {string} source

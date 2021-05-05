@@ -4,6 +4,7 @@ import { FileHandlerInterface } from '../../core/file/FileHandlerInterface';
 import { LoggerInterface } from '../../core/observability/LoggerInterface';
 import { CommandInterface } from '../../core/command/CommandInterface';
 import chalk from 'chalk';
+import { FileType } from '../../core/file/FileType';
 
 export class ZipExtractor implements ExtractorInterface {
   private readonly _logger: LoggerInterface;
@@ -43,10 +44,14 @@ export class ZipExtractor implements ExtractorInterface {
       this._logger.info('Extracting game file using unzip');
       await this._shell.execute(command, false);
 
-      // If the name of the zip file is a folder in the archive, move all files from that folder to the root of the destination.
-      const fileName = this._fileHandler.resolveFileName(source);
-      if (this._fileHandler.existsSync(`${destination}/${fileName}`, true)) {
-        this._fileHandler.copyFilesSync(`${destination}/${fileName}/*`, destination);
+      // If zip file root only contains one directory, move all files from that folder to the root of the destination.
+      const files = this._fileHandler.readDirSync(destination);
+      if (
+        files.length === 1 &&
+        this._fileHandler.resolveFileTypeSync(`${destination}/${files[0]}`) === FileType.DIRECTORY
+      ) {
+        this._fileHandler.moveDirectorySync(`${destination}/${files[0]}`, destination, true);
+        this._fileHandler.removeFilesSync(`${destination}/${files[0]}`);
       }
 
       // If the extracted data is in a noarch folder, move all files from that folder to the root of the destination.

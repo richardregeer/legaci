@@ -1,3 +1,4 @@
+import { FileType } from './../../../../src/core/file/FileType';
 import anyTest, { ExecutionContext, TestInterface } from 'ava';
 import { assert } from 'chai';
 import sinon, { StubbedInstance, stubInterface } from 'ts-sinon';
@@ -25,6 +26,7 @@ test.beforeEach((t: ExecutionContext<Context>) => {
   t.context.commandStub = stubInterface<CommandInterface>();
   t.context.loggerStub = stubInterface<LoggerInterface>();
 
+  t.context.fileHandlerStub.readDirSync.returns([]);
   t.context.fileHandlerStub.resolveFileName.returns('testName');
   t.context.fileHandlerStub.existsSync.returns(true);
   t.context.fileHandlerStub.existsSync.onThirdCall().returns(false);
@@ -47,24 +49,26 @@ test('Should use ZipExtractor to extract the given source file', async (t: Execu
   assert.isTrue(fileHandlerStub.copyFilesSync.notCalled);
 });
 
-test('Should copy source folder name to destination root if found', async (t: ExecutionContext<Context>) => {
+test('Should move sub directory files from source to root when source only contain one directory', async (t: ExecutionContext<Context>) => {
   const { sut, fileHandlerStub } = t.context;
+
+  t.context.fileHandlerStub.readDirSync.returns(['testDirectory']);
+  t.context.fileHandlerStub.resolveFileTypeSync.returns(FileType.DIRECTORY);
 
   await sut.extract('source', 'destination');
 
-  assert.isTrue(fileHandlerStub.copyFilesSync.calledOnce);
+  assert.isTrue(fileHandlerStub.moveDirectorySync.calledOnce);
 });
 
 test('Should copy data folder and cleanup noarch folder if found', async (t: ExecutionContext<Context>) => {
   const { sut, fileHandlerStub } = t.context;
 
-  fileHandlerStub.existsSync.onSecondCall().returns(false);
-  t.context.fileHandlerStub.existsSync.onThirdCall().returns(true);
+  fileHandlerStub.existsSync.onSecondCall().returns(true);
 
   await sut.extract('source', 'destination');
 
-  assert.isTrue(fileHandlerStub.copyFilesSync.calledOnce);
-  assert.strictEqual(fileHandlerStub.removeFilesSync.callCount, 3);
+  assert.isTrue(fileHandlerStub.copyFilesSync.called);
+  assert.isTrue(fileHandlerStub.removeFilesSync.called);
 });
 
 test('Should re-throw the error when extracting the file failed', async (t: ExecutionContext<Context>) => {

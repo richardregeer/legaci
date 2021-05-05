@@ -4,7 +4,7 @@ import { FileHandlerInterface } from '../../core/file/FileHandlerInterface';
 import { FileDoesNotExistsError } from '../../core/error/FileDoesNotExistsError';
 import { FileType } from '../../core/file/FileType';
 import { UnknownFileTypeError } from '../../core/error/UnkownFileTypeError';
-import { cp, find, mv, rm, ShellConfig, head } from 'shelljs';
+import { cp, find, mv, rm, ShellConfig, head, ls } from 'shelljs';
 
 export class FileHandler implements FileHandlerInterface {
   private readonly _shellConfig: ShellConfig;
@@ -60,15 +60,25 @@ export class FileHandler implements FileHandlerInterface {
   }
 
   /**
-   * Move files to destination
+   * Move files from a directory to destination
    *
-   * @param glob - The search pattern to move.
+   * @param source - The source of the files to move
    * @param destination - The destinaton to move to files to
+   * @param recursive - Recursively move subdirectories
    * @returns void
    */
-  public moveFilesSync(glob: string, destination: string): void {
+  public moveDirectorySync(source: string, destination: string, recursive: boolean): void {
     this._shellConfig.silent = true;
-    mv(glob, destination);
+
+    const files = this.readDirSync(source);
+
+    files.forEach((file) => {
+      if (recursive && fs.lstatSync(`${source}/${file}`).isDirectory()) {
+        this.moveDirectorySync(`${source}/${file}`, `${destination}/${file}`, recursive);
+      }
+
+      mv(`${source}/${file}`, `${destination}/${file}`);
+    });
   }
 
   /**
@@ -193,6 +203,23 @@ export class FileHandler implements FileHandlerInterface {
     }
 
     return fs.readFileSync(source).toString();
+  }
+
+  /**
+   * Read all the files from a directory
+   *
+   * @param source - The directory to read
+   * @throws FileDoesNotExistsError Will be thrown when the given directory does not exists
+   * @returns string[]
+   */
+  public readDirSync(source: string): string[] {
+    const fileName = path.basename(source);
+
+    if (!this.existsSync(source)) {
+      throw new FileDoesNotExistsError(`Directory ${fileName} does not exists`);
+    }
+
+    return ls(source);
   }
 
   /**
