@@ -56,10 +56,8 @@ export class ZipExtractor implements ExtractorInterface {
 
       // If the extracted data is in a noarch folder, move all files from that folder to the root of the destination.
       if (this._fileHandler.existsSync(`${destination}/data/noarch/`, true)) {
-        // TODO for the startup script to work need to copy the data to the right place. It's duplicate. Need to solve that in a good way.
-        // Create symlink maybe?
-        this._fileHandler.copyFilesSync(`${destination}/data/noarch/data/*`, `${destination}`);
-        this._fileHandler.copyFilesSync(`${destination}/data/noarch/*`, `${destination}`);
+        this._fileHandler.moveDirectorySync(`${destination}/data/noarch/data`, `${destination}/data`, true);
+        this._fileHandler.moveDirectorySync(`${destination}/data/noarch`, `${destination}`, true);
         this._fileHandler.removeFilesSync(`${destination}/data/noarch/`);
         this._fileHandler.removeFilesSync(`${destination}/scripts`);
         this._fileHandler.removeFilesSync(`${destination}/meta`);

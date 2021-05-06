@@ -52,6 +52,8 @@ test('Should use ZipExtractor to extract the given source file', async (t: Execu
 test('Should move sub directory files from source to root when source only contain one directory', async (t: ExecutionContext<Context>) => {
   const { sut, fileHandlerStub } = t.context;
 
+  fileHandlerStub.existsSync.onSecondCall().returns(false);
+
   t.context.fileHandlerStub.readDirSync.returns(['testDirectory']);
   t.context.fileHandlerStub.resolveFileTypeSync.returns(FileType.DIRECTORY);
 
@@ -60,14 +62,14 @@ test('Should move sub directory files from source to root when source only conta
   assert.isTrue(fileHandlerStub.moveDirectorySync.calledOnce);
 });
 
-test('Should copy data folder and cleanup noarch folder if found', async (t: ExecutionContext<Context>) => {
+test('Should move data directory and cleanup noarch folder if found', async (t: ExecutionContext<Context>) => {
   const { sut, fileHandlerStub } = t.context;
 
   fileHandlerStub.existsSync.onSecondCall().returns(true);
 
   await sut.extract('source', 'destination');
 
-  assert.isTrue(fileHandlerStub.copyFilesSync.called);
+  assert.isTrue(fileHandlerStub.moveDirectorySync.called);
   assert.isTrue(fileHandlerStub.removeFilesSync.called);
 });
 
